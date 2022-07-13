@@ -16,10 +16,10 @@ class HomePageView extends StatelessWidget {
           ),
           const Divider(
             color: Colors.grey,
-            height: 22,
+            height: 20,
             thickness: 1,
-            indent: 20,
-            endIndent: 0,
+            indent: 10,
+            endIndent: 10,
           ),
           Container(
             margin: const EdgeInsets.all(4.0),
@@ -29,10 +29,7 @@ class HomePageView extends StatelessWidget {
               child: InkWell(
                 onTap: () => ("price: ₹12, 797"),
                 child: Row(
-
-
                   children: <Widget>[
-
                     ClipRRect(
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(4.0),
@@ -44,7 +41,7 @@ class HomePageView extends StatelessWidget {
                         height: 127.93,
                       ),
                     ),
-                    SizedBox(width: 32),
+                    const SizedBox(width: 32),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
@@ -63,8 +60,8 @@ class HomePageView extends StatelessWidget {
             color: Colors.grey,
             height: 20,
             thickness: 1,
-            indent: 20,
-            endIndent: 0,
+            indent: 10,
+            endIndent: 10,
           ),
           Container(
             margin: const EdgeInsets.all(4.0),
@@ -74,7 +71,6 @@ class HomePageView extends StatelessWidget {
               child: InkWell(
                 onTap: () => ("price: ₹12, 797"),
                 child: Row(
-
                   children: <Widget>[
                     ClipRRect(
                       borderRadius: const BorderRadius.only(
@@ -87,7 +83,7 @@ class HomePageView extends StatelessWidget {
                         height: 127.93,
                       ),
                     ),
-                    SizedBox(width: 32),
+                    const SizedBox(width: 32),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
@@ -107,8 +103,8 @@ class HomePageView extends StatelessWidget {
             color: Colors.grey,
             height: 20,
             thickness: 1,
-            indent: 20,
-            endIndent: 0,
+            indent: 10,
+            endIndent: 10,
           ),
           Container(
             margin: const EdgeInsets.all(4.0),
@@ -130,7 +126,7 @@ class HomePageView extends StatelessWidget {
                         height: 127.93,
                       ),
                     ),
-                    SizedBox(width: 32),
+                    const SizedBox(width: 32),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
@@ -150,8 +146,8 @@ class HomePageView extends StatelessWidget {
             color: Colors.grey,
             height: 20,
             thickness: 1,
-            indent: 20,
-            endIndent: 0,
+            indent: 10,
+            endIndent: 10,
           ),
           Container(
             margin: const EdgeInsets.all(4.0),
@@ -173,7 +169,7 @@ class HomePageView extends StatelessWidget {
                         height: 127.93,
                       ),
                     ),
-                    SizedBox(width: 32),
+                    const SizedBox(width: 32),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
@@ -190,8 +186,8 @@ class HomePageView extends StatelessWidget {
             color: Colors.grey,
             height: 20,
             thickness: 1,
-            indent: 20,
-            endIndent: 0,
+            indent: 10,
+            endIndent: 10,
           ),
           Container(
             margin: const EdgeInsets.all(4.0),
@@ -213,12 +209,52 @@ class HomePageView extends StatelessWidget {
                         height: 127.93,
                       ),
                     ),
-                    SizedBox(width: 32),
+                    const SizedBox(width: 32),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text('Alpha Savage'),
                         Text('₹8, 895'),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const Divider(
+            color: Colors.grey,
+            height: 20,
+            thickness: 1,
+            indent: 10,
+            endIndent: 10,
+          ),
+          Container(
+            margin: const EdgeInsets.all(4.0),
+            child: Card(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(4.0))),
+              child: InkWell(
+                onTap: () => ("price: ₹12, 797"),
+                child: Row(
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
+                      child: Image.asset(
+                        'assets/Green 1.png',
+                        width: 127.93,
+                        height: 127.93,
+                      ),
+                    ),
+                    const SizedBox(width: 32),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text('Air Presto by You'),
+                        Text('₹10, 895'),
                       ],
                     ),
                   ],

@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ));
                 },
-                child: Text('Cart')),
+                child: const Text('Cart')),
             Container(
               height: 60,
               decoration: BoxDecoration(
