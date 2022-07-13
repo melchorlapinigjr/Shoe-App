@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/views/cart/cart_view.dart';
 import 'package:flutter_shoe_app/views/shop/shop_view.dart';
 
+import 'assets/cards/card_view.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -30,13 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +64,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
+                      return const CardView();
+                    },
+                  ));
+                },
+                child: const Text('Cards')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
                       return const CartView();
                     },
                   ));
                 },
-                child: Text('Cart')),
+                child: const Text('Cart')),
             Container(
               height: 60,
               decoration: BoxDecoration(
