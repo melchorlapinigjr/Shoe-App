@@ -48,6 +48,7 @@ class HomePageView extends StatelessWidget {
                         Text(
                           'Undercover React Presto',
                         ),
+                        SizedBox(height: 10),
                         Text('₹12, 797'),
                       ],
                     ),
@@ -91,6 +92,7 @@ class HomePageView extends StatelessWidget {
                           'Air Zoom Pegasus 37',
                           style: TextStyle(fontFamily: 'RobotoMono'),
                         ),
+                        SizedBox(height: 10),
                         Text('₹9, 995'),
                       ],
                     ),
@@ -134,6 +136,7 @@ class HomePageView extends StatelessWidget {
                           'Air Max 97',
                           style: TextStyle(fontFamily: 'RobotoMono'),
                         ),
+                        SizedBox(height: 10),
                         Text('₹11, 897'),
                       ],
                     ),
