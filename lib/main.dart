@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/views/cart/cart_view.dart';
+import 'package:flutter_shoe_app/views/homepage/homepage_view.dart';
 import 'package:flutter_shoe_app/views/shop/shop_view.dart';
 
 import 'assets/cards/card_view.dart';
@@ -32,8 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +50,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const HomePageView();
+                  }));
+                },
+                child: const Text('Homepage')),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
@@ -87,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-      ),  // This trailing comma makes auto-formatting nicer for build methods.
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
