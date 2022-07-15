@@ -49,11 +49,14 @@ class _CardViewState extends State<CardView> {
     //item.image;
     PaletteGenerator generator = await PaletteGenerator.fromImageProvider(
       AssetImage(imagePath),
-      size: const Size(200, 100),
+      size: const Size(256, 170),
     );
 
-    return generator.lightVibrantColor ?? PaletteColor(Colors.blue, 100);
+   return generator.darkVibrantColor ?? PaletteColor(Colors.blue, 100);
+//       return generator.dominantColor ?? PaletteColor(Colors.blue, 100);
+
   }
+    
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +96,7 @@ class _CardViewState extends State<CardView> {
   }) {
     return FutureBuilder<PaletteColor>(
         future: getColorFromImage(item.image),
-        initialData: PaletteColor(Colors.white, 1),
+        initialData: PaletteColor(Colors.blue, 1),
         builder: (context, snap) {
           return Stack(
             children: [
@@ -107,7 +110,7 @@ class _CardViewState extends State<CardView> {
                 width: 256,
                 padding: const EdgeInsets.fromLTRB(24, 0, 0, 0),
                 decoration: BoxDecoration(
-                    color: snap.data?.color.withOpacity(0.50),
+                    color: snap.data?.color,
                     borderRadius: BorderRadius.circular(16)),
                 child: Stack(children: [
                   Positioned(
@@ -120,7 +123,7 @@ class _CardViewState extends State<CardView> {
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             //color: snap.data?.color,
-                            color: item.titleColor,
+                            color: snap.data?.titleTextColor.withOpacity(1.0),
                           ),
                         ),
                       ],
@@ -135,7 +138,7 @@ class _CardViewState extends State<CardView> {
                           style: TextStyle(
                               fontSize: 18,
                               //color: snap.data?.color.withOpacity(0.7)),
-                              color: item.titleColor.withOpacity(0.7)),
+                              color: snap.data?.titleTextColor.withOpacity(0.6)),
                         ),
                       ],
                     ),
