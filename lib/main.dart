@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(
                   color: Colors.pink, borderRadius: BorderRadius.circular(32)),
               width: MediaQuery.of(context).size.width,
-              child: Center(child: Text('Cart')),
+              child: const Center(child: Text('Cart')),
             ),
           ],
         ),
