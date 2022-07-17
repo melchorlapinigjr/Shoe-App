@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/views/cart/cart_view.dart';
 import 'package:flutter_shoe_app/views/homepage/homepage_view.dart';
+import 'package:flutter_shoe_app/views/shoeheader/shoeheader_view.dart';
 import 'package:flutter_shoe_app/views/shop/shop_view.dart';
 
 void main() {
@@ -43,11 +44,19 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.black,
         shadowColor: Colors.blue,
       ),
+
       body: Align(
         alignment: AlignmentDirectional.center,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const ShoeHeaderView();
+                  }));
+                },
+                child: const Text('Shoe Header')),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -78,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(
                   color: Colors.pink, borderRadius: BorderRadius.circular(32)),
               width: MediaQuery.of(context).size.width,
-              child: Center(child: Text('Cart')),
+              child: const Center(child: Text('Cart')),
             ),
           ],
         ),

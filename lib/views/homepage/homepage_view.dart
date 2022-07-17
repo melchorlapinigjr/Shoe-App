@@ -11,6 +11,7 @@ class HomePageView extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
+          //const ShoeHeaderView(),
           const Text(
             '      243 OPTIONS',
           ),
