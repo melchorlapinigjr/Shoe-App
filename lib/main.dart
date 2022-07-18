@@ -44,6 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         backgroundColor: Colors.black,
         shadowColor: Colors.blue,
+
       ),
       body: Align(
         alignment: AlignmentDirectional.center,
@@ -74,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ));
                 },
-                child: const Text('Cards')),
+                child: const Text('Shoe Home UI')),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(

@@ -36,7 +36,7 @@ class HomePageView extends StatelessWidget {
                         topRight: Radius.circular(4.0),
                       ),
                       child: Image.asset(
-                        'assets/Shoe1.png',
+                        'assets/undercover_react_prest0.png',
                         width: 127.93,
                         height: 127.93,
                       ),

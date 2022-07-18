@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/models/homepage_model.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'dart:math' as math;
 
@@ -24,22 +25,34 @@ class _CardViewState extends State<CardView> {
   //values for each shoe card
   List<CardItem> items = [
     const CardItem(
-      image: 'assets/images/red_shoe.png',
+      image: 'assets/images/alpha_savage.png',
       title: 'Alpha Savage',
       price: '₹8,895',
       backgroundColor: Colors.red,
       titleColor: Colors.white,
     ),
     const CardItem(
-        image: 'assets/images/yellow_shoe.png',
-        title: 'Alpha Savage',
-        price: '₹8,895',
+        image: 'assets/images/air_max_97.png',
+        title: 'Air Max 97',
+        price: '₹11,897',
         backgroundColor: Colors.yellow,
         titleColor: Color(0xff1F2732)),
     const CardItem(
-        image: 'assets/images/blue_shoe.png',
-        title: 'Alpha Savage',
-        price: '₹8,895',
+        image: 'assets/images/kd_13_ep.png',
+        title: 'KD 13 EP',
+        price: '₹12,995',
+        backgroundColor: Colors.blue,
+        titleColor: Colors.white),
+    const CardItem(
+        image: 'assets/images/undercover_react_prest0.png',
+        title: 'Undercover React Presto',
+        price: '₹12,797',
+        backgroundColor: Colors.blue,
+        titleColor: Colors.white),
+    const CardItem(
+        image: 'assets/images/toppng.png',
+        title: 'Air Zoom Pegasus 37',
+        price: '₹9,995',
         backgroundColor: Colors.blue,
         titleColor: Colors.white),
   ];
@@ -52,11 +65,9 @@ class _CardViewState extends State<CardView> {
       size: const Size(256, 170),
     );
 
-   return generator.darkVibrantColor ?? PaletteColor(Colors.blue, 100);
+    return generator.darkVibrantColor ?? PaletteColor(Colors.blue, 100);
 //       return generator.dominantColor ?? PaletteColor(Colors.blue, 100);
-
   }
-    
 
   @override
   Widget build(BuildContext context) {
@@ -75,19 +86,98 @@ class _CardViewState extends State<CardView> {
         ],
         backgroundColor: Colors.white,
       ),
-      body: Container(
-        height: 304,
-        child: ListView.separated(
-          padding: const EdgeInsets.all(16),
-          scrollDirection: Axis.horizontal,
-          itemCount: 3,
-          separatorBuilder: (context, _) => const SizedBox(width: 16),
-          itemBuilder: (context, index) => buildCard(
-            item: items[index],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          Flexible(
+            child: SizedBox(
+              height: 304,
+              child: ListView.separated(
+                padding: const EdgeInsets.all(16),
+                scrollDirection: Axis.horizontal,
+                itemCount: items.length,
+                separatorBuilder: (context, _) => const SizedBox(width: 16),
+                itemBuilder: (context, index) => buildCard(
+                  item: items[index],
+                ),
+              ),
+            ),
           ),
-        ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '${items.length.toString()} OPTIONS',
+                  ),
+                ),
+              ),
+              const Divider(
+                color: Colors.grey,
+                //height: 20,
+                thickness: 1,
+                indent: 10,
+                endIndent: 10,
+              ),
+            ],
+          ),
+          ListView.separated(
+            primary: false,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: items.length,
+            separatorBuilder: (context, _) => const Divider(
+              color: Color(0xffF4F4F4),
+              height: 1,
+              thickness: 1,
+              indent: 10,
+              endIndent: 10,
+            ),
+            itemBuilder: (context, index) => buildShoeList(
+              item: items[index],
+            ),
+          ),
+        ]),
       ),
       backgroundColor: Colors.white,
+    );
+  }
+
+
+
+  Widget buildShoeList({required CardItem item}) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16,0,16,0),
+      child: Row(
+        children: <Widget>[
+          Image.asset(
+            item.image,
+            width: 127.93,
+            height: 127.93,
+          ),
+          const SizedBox(
+            width: 32,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                item.title,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(item.price,
+              style: TextStyle(color: const Color(0xff1F2732).withOpacity(0.5),),),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -138,7 +228,8 @@ class _CardViewState extends State<CardView> {
                           style: TextStyle(
                               fontSize: 18,
                               //color: snap.data?.color.withOpacity(0.7)),
-                              color: snap.data?.titleTextColor.withOpacity(0.6)),
+                              color:
+                                  snap.data?.titleTextColor.withOpacity(0.6)),
                         ),
                       ],
                     ),
@@ -168,21 +259,4 @@ class _CardViewState extends State<CardView> {
           );
         });
   }
-}
-
-//model class for per card values
-class CardItem {
-  final String image;
-  final String title;
-  final String price;
-  final Color backgroundColor;
-  final Color titleColor;
-
-  const CardItem({
-    required this.image,
-    required this.title,
-    required this.price,
-    required this.backgroundColor,
-    required this.titleColor,
-  });
 }
