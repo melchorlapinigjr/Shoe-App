@@ -202,7 +202,11 @@ class _HomepageViewState extends State<HomepageView> {
   }
 
   Widget buildShoeList({required CardItem item}) {
-    return Container(
+    return InkWell(
+      onTap: (){
+        print('tapped');
+      },
+      child: Container(
       margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
       child: Row(
         children: <Widget>[
@@ -235,6 +239,7 @@ class _HomepageViewState extends State<HomepageView> {
           ),
         ],
       ),
+    ),
     );
   }
 
@@ -253,64 +258,74 @@ class _HomepageViewState extends State<HomepageView> {
                     //color: Colors.grey,
                     ),
               ),
-              Container(
-                width: 256,
-                padding: const EdgeInsets.fromLTRB(24, 0, 0, 0),
-                decoration: BoxDecoration(
-                    color: snap.data?.color,
-                    borderRadius: BorderRadius.circular(16)),
-                child: Stack(children: [
-                  Positioned(
-                    top: 32,
-                    child: Column(
-                      children: [
-                        Text(
-                          item.title,
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            //color: snap.data?.color,
-                            color: snap.data?.titleTextColor.withOpacity(1.0),
+              InkWell(
+                onTap: (){
+                  print('tapped');
+                },
+                child: Container(
+                  width: 256,
+                  padding: const EdgeInsets.fromLTRB(24, 0, 0, 0),
+                  decoration: BoxDecoration(
+                      color: snap.data?.color.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(16)),
+                  child: Stack(children: [
+                    Positioned(
+                      top: 32,
+                      child: Column(
+                        children: [
+                          Text(
+                            item.title,
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              //color: snap.data?.color,
+                              color: snap.data?.titleTextColor.withOpacity(1.0),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Positioned(
-                    top: 63,
-                    child: Column(
-                      children: [
-                        Text(
-                          item.price,
-                          style: TextStyle(
-                              fontSize: 18,
-                              //color: snap.data?.color.withOpacity(0.7)),
-                              color:
-                                  snap.data?.titleTextColor.withOpacity(0.6)),
-                        ),
-                      ],
+                    Positioned(
+                      top: 63,
+                      child: Column(
+                        children: [
+                          Text(
+                            item.price,
+                            style: TextStyle(
+                                fontSize: 18,
+                                //color: snap.data?.color.withOpacity(0.7)),
+                                color:
+                                    snap.data?.titleTextColor.withOpacity(0.6)),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  VerticalDivider(
-                    color: Colors.white.withOpacity(0.3),
-                    thickness: 3,
-                    indent: 88,
-                    endIndent: 48,
-                    width: 20,
-                  ),
-                ]),
+                    VerticalDivider(
+                      color: Colors.white.withOpacity(0.3),
+                      thickness: 3,
+                      indent: 88,
+                      endIndent: 48,
+                      width: 20,
+                    ),
+                  ]),
+                ),
               ),
               Positioned(
                 top: 45,
                 left: 7,
                 bottom: 9.87,
-                child: Transform.rotate(
+                child: InkWell(
+                  onTap:(){
+                    print('tapped');
+                  },
+                  child: Transform.rotate(
                   angle: math.pi / 180 * (-30),
                   child: Image.asset(
                     item.image,
                     width: 252,
                   ),
                 ),
+              ),
               ),
             ],
           );
