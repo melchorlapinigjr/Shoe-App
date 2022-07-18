@@ -15,5 +15,5 @@ class CardItem {
     required this.backgroundColor,
     required this.titleColor,
   });
-
 }
+

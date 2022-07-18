@@ -4,7 +4,7 @@ import 'package:flutter_shoe_app/views/homepage/homepage_view.dart';
 import 'package:flutter_shoe_app/views/shoeheader/shoeheader_view.dart';
 import 'package:flutter_shoe_app/views/shop/shop_view.dart';
 
-import 'assets/cards/card_view.dart';
+import 'views/homepage/homepage_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const HomePageView();
+                    return const HomepageView();
                   }));
                 },
                 child: const Text('Homepage')),
@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return const CardView();
+                      return const HomepageView();
                     },
                   ));
                 },

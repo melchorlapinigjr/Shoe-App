@@ -21,7 +21,7 @@ class ShoeHeaderView extends StatelessWidget {
       body: ListView(
         children: const <Widget>[
           Text(
-            ' Shoes',
+            'Shoes',
             style: TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 26,
