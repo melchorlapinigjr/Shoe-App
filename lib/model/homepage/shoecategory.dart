@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../screen/constants.dart';
+import '../../screen/constants.dart';
 
 class ShoeCategory extends StatefulWidget {
   const ShoeCategory({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shoe_app/model/shoecategory.dart';
+import 'package:flutter_shoe_app/model/homepage/shoecategory.dart';
 
 class ShoeHeaderView extends StatelessWidget {
   const ShoeHeaderView({Key? key}) : super(key: key);

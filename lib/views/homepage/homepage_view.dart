@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shoe_app/model/homepage_model.dart';
+import 'package:flutter_shoe_app/model/homepage/homepage_model.dart';
 import 'package:flutter_shoe_app/screen/constants.dart';
 import 'package:flutter_shoe_app/views/homepage/shoe_header_view.dart';
+import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'dart:math' as math;
 
@@ -204,7 +205,10 @@ class _HomepageViewState extends State<HomepageView> {
   Widget buildShoeList({required CardItem item}) {
     return InkWell(
       onTap: (){
-        print('tapped');
+        //print('tapped');
+        Navigator.push(context, MaterialPageRoute(builder: (context){
+          return const ShoeDetailsView();
+        },));
       },
       child: Container(
       margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
