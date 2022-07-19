@@ -52,9 +52,9 @@ class _HomepageViewState extends State<HomepageView> {
                   child: ListView(
                     primary: false,
                     shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    children:  <Widget>[
-                      const Padding(
+                    physics: const BouncingScrollPhysics(),
+                    children: const <Widget>[
+                      Padding(
                         padding: EdgeInsets.fromLTRB(kDefaultPaddin, 0, 0, 0),
                         child: Text(
                           'Shoes',
@@ -156,24 +156,27 @@ class ShoeVerticalItem extends StatelessWidget {
             const SizedBox(
               width: 32,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item.title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    item.title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      overflow: TextOverflow.clip,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  item.price,
-                  style: TextStyle(
-                    color: const Color(0xff1F2732).withOpacity(0.5),
+                  const SizedBox(height: 4),
+                  Text(
+                    item.price,
+                    style: TextStyle(
+                      color: const Color(0xff1F2732).withOpacity(0.5),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
