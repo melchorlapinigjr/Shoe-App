@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 //model class for per card values
 class CardItem {
   final String image;
@@ -16,4 +15,3 @@ class CardItem {
     required this.titleColor,
   });
 }
-
