@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/utils/constants.dart';
-import 'package:flutter_shoe_app/views/home/card_item_object.dart';
 import 'package:flutter_shoe_app/views/home/home_view_model.dart';
-import 'package:flutter_shoe_app/views/home/shoe_header_view.dart';
-import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
-import 'package:palette_generator/palette_generator.dart';
-import 'dart:math' as math;
+import 'package:flutter_shoe_app/views/home/shoe_category_view.dart';
+import 'package:flutter_shoe_app/views/home/shoe_horizontal_item.dart';
+import 'package:flutter_shoe_app/views/home/shoe_vertical_item.dart';
 
 import 'package:stacked/stacked.dart';
 
@@ -64,7 +62,7 @@ class _HomepageViewState extends State<HomepageView> {
                           ),
                         ),
                       ),
-                      ShoeCategory(),
+                      ShoeCategoryView(),
                     ],
                   ),
                 ),
@@ -128,153 +126,5 @@ class _HomepageViewState extends State<HomepageView> {
   }
 }
 
-class ShoeVerticalItem extends StatelessWidget {
-  final CardItem item;
 
-  const ShoeVerticalItem({super.key, required this.item});
 
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        //print('tapped');
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return const ShoeDetailsView();
-          },
-        ));
-      },
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-        child: Row(
-          children: <Widget>[
-            Image.asset(
-              item.image,
-              width: 127.93,
-              height: 127.93,
-            ),
-            const SizedBox(
-              width: 32,
-            ),
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      overflow: TextOverflow.clip,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    item.price,
-                    style: TextStyle(
-                      color: const Color(0xff1F2732).withOpacity(0.5),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ShoeHorizontalItem extends ViewModelWidget<HomeViewModel> {
-  final CardItem item;
-
-  const ShoeHorizontalItem(this.item, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, HomeViewModel viewModel) {
-    return FutureBuilder<PaletteColor>(
-        future: viewModel.getColorFromImage(item.image),
-        initialData: PaletteColor(Colors.blue, 1),
-        builder: (context, snap) {
-          return Stack(
-            children: [
-              Container(
-                width: 276,
-                decoration: const BoxDecoration(
-                    //color: Colors.grey,
-                    ),
-              ),
-              InkWell(
-                onTap: () {
-                  print('tapped');
-                },
-                child: Container(
-                  width: 256,
-                  padding: const EdgeInsets.fromLTRB(24, 0, 0, 0),
-                  decoration: BoxDecoration(
-                      color: snap.data?.color.withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(16)),
-                  child: Stack(children: [
-                    Positioned(
-                      top: 32,
-                      child: Column(
-                        children: [
-                          Text(
-                            item.title,
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              //color: snap.data?.color,
-                              color: snap.data?.titleTextColor.withOpacity(1.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      top: 63,
-                      child: Column(
-                        children: [
-                          Text(
-                            item.price,
-                            style: TextStyle(
-                                fontSize: 18,
-                                //color: snap.data?.color.withOpacity(0.7)),
-                                color:
-                                    snap.data?.titleTextColor.withOpacity(0.6)),
-                          ),
-                        ],
-                      ),
-                    ),
-                    VerticalDivider(
-                      color: Colors.white.withOpacity(0.3),
-                      thickness: 3,
-                      indent: 88,
-                      endIndent: 48,
-                      width: 20,
-                    ),
-                  ]),
-                ),
-              ),
-              Positioned(
-                top: 45,
-                left: 7,
-                bottom: 9.87,
-                child: InkWell(
-                  onTap: () {
-                    print('tapped');
-                  },
-                  child: Transform.rotate(
-                    angle: math.pi / 180 * (-30),
-                    child: Image.asset(
-                      item.image,
-                      width: 252,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          );
-        });
-  }
-}

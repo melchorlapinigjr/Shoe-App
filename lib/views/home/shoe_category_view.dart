@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/utils/constants.dart';
 import 'package:flutter_shoe_app/views/home/home_view_model.dart';
 import 'package:stacked/stacked.dart';
 
-class ShoeCategory extends ViewModelWidget<HomeViewModel> {
-  const ShoeCategory({Key? key}) : super(key: key);
+class ShoeCategoryView extends ViewModelWidget<HomeViewModel> {
+  const ShoeCategoryView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {

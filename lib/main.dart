@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/views/cart/cart_view.dart';
 import 'package:flutter_shoe_app/views/home/home_view.dart';
-import 'package:flutter_shoe_app/views/home/shoe_header_view.dart';
+import 'package:flutter_shoe_app/views/home/shoe_category_view.dart';
 import 'package:flutter_shoe_app/views/shop/shop_view.dart';
 
 import 'views/home/home_view.dart';
@@ -15,12 +15,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Shoe App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Shoe App'),
+      // theme: ThemeData(
+      //   primarySwatch: Colors.blue,
+      // ),
+      home: MyHomePage(title: 'Shoe App'),
     );
   }
 }
@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ShoeCategory();
+                    return ShoeCategoryView();
                   }));
                 },
                 child: const Text('Shoe Header')),
