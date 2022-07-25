@@ -1,22 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
-import 'package:palette_generator/palette_generator.dart';
 
-class HomeViewModel extends ChangeNotifier {
-
-  List<String> categories = [
-    "All",
-    "Air Max",
-    "Presto",
-    "Huarache",
-    "Mercurial"
-  ];
-  int selectedIndex = 0;
-
-  //initialize for color storing
-  List<PaletteColor> colors = [];
-
-  //values for each shoe card
+class SearchModel extends ChangeNotifier {
   List<Shoe> items = [
     Shoe(
       image: 'lib/resources/assets/images/alpha_savage.png',
@@ -51,10 +36,27 @@ class HomeViewModel extends ChangeNotifier {
         titleColor: Colors.white),
   ];
 
-  String selectedCategory = "All";
+  //
+  List<Shoe> foundShoes = [];
 
-  void onCategorySelected(String category) {
-    selectedCategory = category;
+  bool hideResultCount = true;
+
+  bool hasInput = false;
+
+  void initialize() {
+    foundShoes = items;
     notifyListeners();
   }
+
+  void onTextChanged(String input) {
+    foundShoes = items
+        .where((shoe) => shoe.title.toLowerCase().contains(input.toLowerCase()))
+        .toList();
+    hideResultCount = false;
+    hideResultCount = input.isEmpty ? true : false;
+    hasInput = input.isEmpty ? false : true;
+    notifyListeners();
+  }
+
+  final searchField = TextEditingController();
 }
