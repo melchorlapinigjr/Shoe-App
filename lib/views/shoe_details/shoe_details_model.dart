@@ -25,7 +25,7 @@ class ShoeDetailsModel extends ChangeNotifier{
         title: 'Air Max 97',
         price: '₹11,897',
         backgroundColor: Colors.yellow,
-        titleColor: Color(0xff1F2732)),
+        titleColor: const Color(0xff1F2732)),
     Shoe(
         image: 'lib/resources/assets/images/kd_13_ep.png',
         title: 'KD 13 EP',
