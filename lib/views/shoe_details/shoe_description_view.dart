@@ -79,23 +79,16 @@ class ShoeDescriptionWidget extends ViewModelWidget<ShoeDetailsModel> {
                 overflow: TextOverflow.clip,
                 maxLines: viewModel.onState() ? null : 3,
               ))),
-      viewModel.onState()
-          ? InkWell(
+        InkWell(
         onTap: () => viewModel.onTextState(),
-            child: const Text(
-                  'Read Less',
-                  style: TextStyle(color: Color(0xFF1F2732),
+            child: Text( viewModel.onState() ?
+                  'Read Less' : 'Read More',
+                  style: const TextStyle(color: Color(0xFF1F2732),
                   height: 2,
                   fontWeight: FontWeight.bold),
                 ),
-          )
-          : InkWell(
-        onTap: ()=> viewModel.onTextState(),
-            child: const Text('Read More',
-                    style: TextStyle(color: Color(0xFF1F2732),
-                        height: 2,
-                    fontWeight: FontWeight.bold )),
           ),
+          
     ]);
   }
 }

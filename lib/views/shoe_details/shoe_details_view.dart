@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
-import 'package:flutter_shoe_app/views/home/home_view.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_banner_view.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_description_view.dart';
@@ -35,16 +34,7 @@ class ShoeDetailsView extends StatelessWidget {
                     backgroundColor: Colors.transparent,
                     actions: [
                       IconButton(
-                          onPressed: () {
-                            Navigator.pop(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration:
-                                      const Duration(seconds: 2),
-                                  pageBuilder: (_, __, ___) =>
-                                      const HomepageView(),
-                                ));
-                          },
+                          onPressed: () {},
                           icon: SvgPicture.asset(SvgIcons.heartIcon))
                     ],
                   ),
@@ -87,15 +77,14 @@ class ShoeDetailsView extends StatelessWidget {
                               ),
                             ),
                             Wrap(
-                                  spacing: 8,
-                                  runSpacing: 8,
-                                  alignment: WrapAlignment.spaceEvenly,
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: [
-                                    for (String item in viewModel.sizes)
-                                      ShoeSizesView(item),
-                                  ]),
-
+                                spacing: 8,
+                                runSpacing: 8,
+                                alignment: WrapAlignment.spaceEvenly,
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  for (String item in viewModel.sizes)
+                                    ShoeSizesView(item),
+                                ]),
                           ],
                         ),
                       ],
