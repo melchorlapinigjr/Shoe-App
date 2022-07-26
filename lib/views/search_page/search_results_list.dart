@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
-import 'package:flutter_shoe_app/views/search_page/search_model.dart';
+import 'package:flutter_shoe_app/views/search_page/search_page_view_model.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
 import 'package:stacked/stacked.dart';
 
-class SearchResultsList extends ViewModelWidget<SearchModel> {
+class SearchResultsList extends ViewModelWidget<SearchPageViewModel> {
   final Shoe shoe;
 
   const SearchResultsList(this.shoe, {Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, SearchModel viewModel) {
+  Widget build(BuildContext context, SearchPageViewModel viewModel) {
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
