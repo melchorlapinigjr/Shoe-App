@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 
-class SearchModel extends ChangeNotifier {
+class SearchPageViewModel extends ChangeNotifier {
   List<Shoe> items = [
     Shoe(
       image: 'lib/resources/assets/images/alpha_savage.png',

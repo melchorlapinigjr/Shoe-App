@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shoe_app/views/search_page/search_model.dart';
+import 'package:flutter_shoe_app/views/search_page/search_page_view_model.dart';
 import 'package:flutter_shoe_app/views/search_page/search_results_list.dart';
 import 'package:stacked/stacked.dart';
 
-class SearchPage extends StatelessWidget {
-  const SearchPage({Key? key}) : super(key: key);
+class SearchPageView extends StatelessWidget {
+  const SearchPageView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<SearchModel>.reactive(
-        viewModelBuilder: () => SearchModel(),
+    return ViewModelBuilder<SearchPageViewModel>.reactive(
+        viewModelBuilder: () => SearchPageViewModel(),
         onModelReady: (model) => model.initialize(),
         builder: (context, viewModel, child) {
           return SafeArea(
