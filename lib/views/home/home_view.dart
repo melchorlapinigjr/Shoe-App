@@ -4,7 +4,7 @@ import 'package:flutter_shoe_app/views/home/home_view_model.dart';
 import 'package:flutter_shoe_app/views/home/shoe_category_view.dart';
 import 'package:flutter_shoe_app/views/home/shoe_horizontal_item.dart';
 import 'package:flutter_shoe_app/views/home/shoe_vertical_item.dart';
-import 'package:flutter_shoe_app/views/search_page/search_page.dart';
+import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
 
 import 'package:stacked/stacked.dart';
 
@@ -40,7 +40,7 @@ class _HomepageViewState extends State<HomepageView> {
                     color: Colors.black,
                   ),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> const SearchPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> const SearchPageView()));
                   },
                 )
               ],
