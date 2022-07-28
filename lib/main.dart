@@ -47,69 +47,73 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.black,
         shadowColor: Colors.blue,
       ),
-
-      body: Align(
-        alignment: AlignmentDirectional.center,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const LoginView();
-                  }));
-                },
-                child: const Text('Login')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const ShoeCategoryView();
-                  }));
-                },
-                child: const Text('Shoe Header')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const HomepageView();
-                  }));
-                },
-                child: const Text('Homepage')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const ShopView();
+      body: ListView(
+        children:[
+          Align(
+            alignment: AlignmentDirectional.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return const LoginView();
+                      }));
                     },
-                  ));
-                },
-                child: const Text('Shop')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const HomepageView();
+                    child: const Text('Login')),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return const ShoeCategoryView();
+                      }));
                     },
-                  ));
-                },
-                child: const Text('Shoe Home UI')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const CartView();
+                    child: const Text('Shoe Header')),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return const HomepageView();
+                      }));
                     },
-                  ));
-                },
-                child: const Text('Cart')),
-            Container(
-              height: 60,
-              decoration: BoxDecoration(
-                  color: Colors.pink, borderRadius: BorderRadius.circular(32)),
-              width: MediaQuery.of(context).size.width,
-              child: const Center(child: Text('Cart')),
+                    child: const Text('Homepage')),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return const ShopView();
+                        },
+                      ));
+                    },
+                    child: const Text('Shop')),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return const HomepageView();
+                        },
+                      ));
+                    },
+                    child: const Text('Shoe Home UI')),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return const CartView();
+                        },
+                      ));
+                    },
+                    child: const Text('Cart')),
+                Container(
+                  height: 60,
+                  decoration: BoxDecoration(
+                      color: Colors.pink, borderRadius: BorderRadius.circular(32)),
+                  width: MediaQuery.of(context).size.width,
+                  child: const Center(child: Text('Cart')),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+
+        ]
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
