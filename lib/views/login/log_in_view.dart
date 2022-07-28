@@ -72,6 +72,7 @@ class LoginView extends StatelessWidget {
                           width: 320,
                           height: 38,
                           child: TextFormField(
+                            obscureText: true,
                             decoration: const InputDecoration(
                               contentPadding: EdgeInsets.only(top: 4, left: 4),
                               hintText: "Password:",
