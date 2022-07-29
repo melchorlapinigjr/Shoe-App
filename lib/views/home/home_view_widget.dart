@@ -22,7 +22,7 @@ class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
             physics: const BouncingScrollPhysics(),
             children: const <Widget>[
               Padding(
-                padding: EdgeInsets.fromLTRB(kDefaultPaddin, 0, 0, 0),
+                padding: EdgeInsets.fromLTRB(kDefaultPaddin, 0, 0, 16),
                 child: Text(
                   'Shoes',
                   style: TextStyle(
@@ -37,8 +37,9 @@ class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
         ),
         Flexible(
           child: SizedBox(
-            height: 304,
+            height: 348,
             child: ListView.separated(
+              shrinkWrap: true,
               padding: const EdgeInsets.all(16),
               scrollDirection: Axis.horizontal,
               itemCount: viewModel.items.length,

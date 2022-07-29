@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/extensions/double_extension.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
@@ -19,7 +20,7 @@ class ShoeHorizontalItem extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
+            Navigator.push(context, MaterialPageRoute(builder: (_) {
               return ShoeDetailsView(
                 shoe,
                 applicationViewModel:
@@ -29,6 +30,7 @@ class ShoeHorizontalItem extends StatelessWidget {
           },
           child: Container(
             width: 256,
+            height: 304,
             padding: const EdgeInsets.fromLTRB(24, 0, 0, 0),
             decoration: BoxDecoration(
                 color: shoe.paletteColor?.color.withOpacity(0.7),
@@ -43,7 +45,6 @@ class ShoeHorizontalItem extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        //color: snap.data?.color,
                         color:
                             shoe.paletteColor?.titleTextColor.withOpacity(1.0),
                       ),
@@ -56,7 +57,7 @@ class ShoeHorizontalItem extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Php ${shoe.price}',
+                      shoe.price.toCurrencyFormat(),
                       style: TextStyle(
                           fontSize: 18,
                           //color: snap.data?.color.withOpacity(0.7)),

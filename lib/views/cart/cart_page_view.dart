@@ -11,9 +11,10 @@ class CartPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     final applicationViewModel = Provider.of<ApplicationViewModel>(context);
     return ViewModelBuilder<ApplicationViewModel>.reactive(
+        disposeViewModel: false,
         viewModelBuilder: () => applicationViewModel,
         builder: (context, viewModel, child) {
-          return Container(
+          return viewModel.cart.isNotEmpty ? Container(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
@@ -40,6 +41,7 @@ class CartPageView extends StatelessWidget {
                   ),
                   SizedBox(
                     width: double.infinity,
+                    height: 48,
                     child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
@@ -61,6 +63,8 @@ class CartPageView extends StatelessWidget {
                 ],
               ),
             ),
+          ) : const Center(
+            child: Text('You have no items in cart'),
           );
         });
   }

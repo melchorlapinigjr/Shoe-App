@@ -1,5 +1,4 @@
 class SvgIcons {
-
   SvgIcons._();
 
   static const String _rootPath = 'lib/resources/assets/icons/';
@@ -8,4 +7,5 @@ class SvgIcons {
   static const String homeIcon = '${_rootPath}home.svg';
   static const String cartIcon = '${_rootPath}cart.svg';
   static const String profileIcon = '${_rootPath}profile.svg';
+  static const String arrowLeft = '${_rootPath}arrow_left.svg';
 }

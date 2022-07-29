@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/extensions/double_extension.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 
 class ApplicationViewModel extends ChangeNotifier {
@@ -25,7 +26,6 @@ class ApplicationViewModel extends ChangeNotifier {
 
   String getTotalPrice(Shoe shoe) {
     final quantity = cart[shoe] ?? 1;
-    final price = 100;
-    return '\$${quantity * price}';
+    return (quantity * shoe.price).toCurrencyFormat();
   }
 }

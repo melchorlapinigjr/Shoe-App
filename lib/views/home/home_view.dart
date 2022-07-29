@@ -28,24 +28,46 @@ class HomepageView extends StatelessWidget {
                 )
               : Scaffold(
                   appBar: AppBar(
-                    automaticallyImplyLeading: false,
-                    title: const Text('Shoe Cards'),
+                    //toolbarHeight: 48,
+                    leading: viewModel.stackIndex == 1
+                        ? IconButton(
+                            icon: SvgPicture.asset(SvgIcons.arrowLeft),
+                            onPressed: () {
+                              viewModel.changeIndex(0);
+                            },
+                          )
+                        : null,
+                    title: Text(
+                      viewModel.stackIndex == 0
+                          ? ''
+                          : viewModel.stackIndex == 1
+                              ? 'Cart'
+                              : '',
+                      style: const TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff1F2732),
+                      ),
+                    ),
+                    automaticallyImplyLeading:
+                        viewModel.stackIndex == 0 ? false : true,
                     elevation: 0,
-                    actions: <Widget>[
-                      IconButton(
-                        icon: const Icon(
-                          Icons.search,
-                          color: Colors.black,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SearchPageView()));
-                        },
-                      )
-                    ],
+                    actions: viewModel.stackIndex == 0
+                        ? <Widget>[
+                            IconButton(
+                              icon: SvgPicture.asset(
+                                SvgIcons.searchIcon,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SearchPageView()));
+                              },
+                            )
+                          ]
+                        : null,
                     backgroundColor: Colors.white,
                   ),
                   body: IndexedStack(
@@ -167,35 +189,34 @@ class HomepageView extends StatelessWidget {
                                 ),
                                 Positioned(
                                     right: 0,
-                                    child: Container(
-                                        height: 20,
-                                        width: 20,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: const Color(0xffE24C4D),
-                                          border: Border.all(
-                                            width: 2,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: ViewModelBuilder<
-                                                  ApplicationViewModel>.reactive(
-                                              viewModelBuilder: () => Provider
-                                                  .of<ApplicationViewModel>(
-                                                      context),
-                                              builder: (context, model, child) {
-                                                return Text(
-                                                  '${model.cart.length}',
-                                                  textAlign: TextAlign.center,
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.white,
-                                                  ),
-                                                );
-                                              }),
-                                        ))),
+                                    child: ViewModelBuilder<
+                                            ApplicationViewModel>.reactive(
+                                        viewModelBuilder: () =>
+                                            Provider.of<ApplicationViewModel>(
+                                                context),
+                                        builder: (context, model, child) {
+                                          return model.cart.isNotEmpty ? Container(
+                                              height: 20,
+                                              width: 20,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: const Color(0xffE24C4D),
+                                                border: Border.all(
+                                                  width: 2,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              child: Center(
+                                                  child: Text(
+                                                '${model.cart.length}',
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white,
+                                                ),
+                                              ))) : Container();
+                                        })),
                               ]),
                             ),
                             Text(

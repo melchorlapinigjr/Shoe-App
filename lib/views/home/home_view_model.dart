@@ -114,10 +114,15 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   //IndexedStack
-  int stackIndex= 0;
+  int stackIndex = 0;
 
-  void changeIndex(int index){
+  void changeIndex(int index) {
     stackIndex = index;
+    if (stackIndex == 0) {
+      isHomeTrue();
+    } else if (stackIndex == 1) {
+      isCartTrue();
+    }
     notifyListeners();
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shoe_app/extensions/double_extension.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
@@ -127,8 +126,7 @@ class CartItemView extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          (shoe.price * quantity).toCurrencyFormat(),
-                          //viewModel.getTotalPrice(shoe),
+                          viewModel.getTotalPrice(shoe),
                           style: TextStyle(
                             color: const Color(0xff1F2732).withOpacity(0.5),
                           ),

@@ -15,18 +15,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Shoe App',
       // theme: ThemeData(
       //   primarySwatch: Colors.blue,
       // ),
-      home: ViewModelBuilder<ApplicationViewModel>.reactive(
-        builder: (context, model, child) {
-          //return const HomepageView();
-          return const MyHomePage();
-        },
-        viewModelBuilder: () => ApplicationViewModel(),
-      ),
+      home: MyHomePage(),
+      // ViewModelBuilder<ApplicationViewModel>.reactive(
+      //   builder: (context, model, child) {
+      //     //return const HomepageView();
+      //     return const MyHomePage();
+      //   },
+      //   viewModelBuilder: () => ApplicationViewModel(),
+      //   disposeViewModel: false,
+      // ),
     );
   }
 }
@@ -63,18 +65,17 @@ class MyHomePage extends StatelessWidget {
                 child: const Text('Shop')),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          pageBuilder: (_, __, ___) {
-                          return  ViewModelBuilder<ApplicationViewModel>.reactive(
-                              builder: (context, model, child) {
-                                //return const HomepageView();
-                                return const HomepageView();
-                              },
-                              viewModelBuilder: () => ApplicationViewModel(),
-                            );
-                          }));
+                  Navigator.push(context,
+                      PageRouteBuilder(pageBuilder: (_, __, ___) {
+                    return ViewModelBuilder<ApplicationViewModel>.reactive(
+                      disposeViewModel: false,
+                      builder: (context, model, child) {
+                        //return const HomepageView();
+                        return const HomepageView();
+                      },
+                      viewModelBuilder: () => ApplicationViewModel(),
+                    );
+                  }));
                 },
                 child: const Text('Shoe Home UI')),
             Container(
