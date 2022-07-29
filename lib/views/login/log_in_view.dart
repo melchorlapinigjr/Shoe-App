@@ -118,13 +118,15 @@ class LoginView extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: Colors.black,
                                   borderRadius: BorderRadius.circular(12)),
-                              padding: const EdgeInsets.fromLTRB(50, 30, 50, 16),
+                              padding: const EdgeInsets.fromLTRB(50, 20, 50, 16),
                               width: MediaQuery.of(context).size.width,
                               child: const Center(
                                   child: Text(
                                 'LOG IN',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                    color: Colors.white),
                               )),
                             ),
                             const SizedBox(
@@ -151,6 +153,7 @@ class LoginView extends StatelessWidget {
                                         'GOOGLE',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
+                                          color: Colors.white,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
                                         ),
