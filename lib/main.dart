@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/home_view.dart';
+import 'package:flutter_shoe_app/views/home/shoe_category_view.dart';
+import 'package:flutter_shoe_app/views/login/log_in_view.dart';
 import 'package:flutter_shoe_app/views/shop/shop_view.dart';
 import 'package:stacked/stacked.dart';
 
@@ -54,6 +56,27 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const LoginView();
+                  }));
+                },
+                child: const Text('Login')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const ShoeCategoryView();
+                  }));
+                },
+                child: const Text('Shoe Header')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const HomepageView();
+                  }));
+                },
+                child: const Text('Homepage')),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
