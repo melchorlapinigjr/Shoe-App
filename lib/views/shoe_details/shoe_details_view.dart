@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
+import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_banner_view.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_description_view.dart';
@@ -10,8 +11,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
 class ShoeDetailsView extends StatelessWidget {
-  const ShoeDetailsView(this.shoe, {Key? key}) : super(key: key);
-
+  const ShoeDetailsView(
+    this.shoe, {
+    Key? key,
+    required this.applicationViewModel,
+  }) : super(key: key);
+  final ApplicationViewModel applicationViewModel;
   final Shoe shoe;
 
   @override
@@ -76,15 +81,17 @@ class ShoeDetailsView extends StatelessWidget {
                                     )),
                               ),
                             ),
-                            Wrap(
-                                spacing: 8,
-                                runSpacing: 8,
-                                alignment: WrapAlignment.spaceEvenly,
-                                crossAxisAlignment: WrapCrossAlignment.center,
-                                children: [
-                                  for (String item in viewModel.sizes)
-                                    ShoeSizesView(item),
-                                ]),
+                            Center(
+                              child: Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  alignment: WrapAlignment.start,
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  children: [
+                                    for (String item in viewModel.sizes)
+                                      ShoeSizesView(item),
+                                  ]),
+                            ),
                           ],
                         ),
                       ],
@@ -103,7 +110,9 @@ class ShoeDetailsView extends StatelessWidget {
                                 RoundedRectangleBorder>(RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0),
                             ))),
-                        onPressed: () {},
+                        onPressed: () {
+                          applicationViewModel.addToCart(shoe);
+                        },
                         child: const Text('Add to Bag',
                             style: TextStyle(
                               fontSize: 16,

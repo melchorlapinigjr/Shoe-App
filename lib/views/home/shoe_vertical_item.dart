@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
+import 'package:provider/provider.dart';
 
 class ShoeVerticalItem extends StatelessWidget {
   final Shoe item;
@@ -11,11 +13,15 @@ class ShoeVerticalItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return  ShoeDetailsView(item,);
-          },
-        ));
+        Navigator.push(
+            context,
+            PageRouteBuilder(
+                transitionDuration: const Duration(seconds: 2),
+                pageBuilder: (_, __, ___) => ShoeDetailsView(
+                  item,
+                  applicationViewModel:
+                  Provider.of<ApplicationViewModel>(context),
+                )));
       },
       child: Container(
         margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -43,7 +49,7 @@ class ShoeVerticalItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    item.price,
+                    'Php ${item.price}',
                     style: TextStyle(
                       color: const Color(0xff1F2732).withOpacity(0.5),
                     ),

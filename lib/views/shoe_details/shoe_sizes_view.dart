@@ -16,7 +16,7 @@ class ShoeSizesView extends ViewModelWidget<ShoeDetailsModel> {
         viewModel.onSizeSelected(viewModel.sizes.indexOf(sizes));
       },
       child: Container(
-        width: 66,
+        // width: 66,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/extensions/double_extension.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_model.dart';
 import 'package:stacked/stacked.dart';
@@ -15,36 +16,41 @@ class ShoeDescriptionView extends ViewModelWidget<ShoeDetailsModel> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Padding(
-          padding: const EdgeInsets.all(16),
-          child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        shoe.title,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: -1,
-                          color: shoe.paletteColor?.color,
-                        ),
-                      ),
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(
+                    shoe.title,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: -1,
+                      color: shoe.paletteColor?.color,
                     ),
-                    Text(
-                      shoe.price,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1,
-                        color: shoe.paletteColor?.color,
-                      ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: Text(
+                    shoe.price.toCurrencyFormat(),
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 1,
+                      color: shoe.paletteColor?.color,
                     ),
-                  ],
-                )
-              ),
+                  ),
+                ),
+              ],
+            )),
         Flexible(
           child: Container(
             padding: const EdgeInsets.only(left: 16, right: 16),
@@ -53,7 +59,7 @@ class ShoeDescriptionView extends ViewModelWidget<ShoeDetailsModel> {
         ),
       ],
     );
-}
+  }
 }
 
 class ShoeDescriptionWidget extends ViewModelWidget<ShoeDetailsModel> {
@@ -79,16 +85,14 @@ class ShoeDescriptionWidget extends ViewModelWidget<ShoeDetailsModel> {
                 overflow: TextOverflow.clip,
                 maxLines: viewModel.onState() ? null : 3,
               ))),
-        InkWell(
+      InkWell(
         onTap: () => viewModel.onTextState(),
-            child: Text( viewModel.onState() ?
-                  'Read Less' : 'Read More',
-                  style: const TextStyle(color: Color(0xFF1F2732),
-                  height: 2,
-                  fontWeight: FontWeight.bold),
-                ),
-          ),
-          
+        child: Text(
+          viewModel.onState() ? 'Read Less' : 'Read More',
+          style: const TextStyle(
+              color: Color(0xFF1F2732), height: 2, fontWeight: FontWeight.bold),
+        ),
+      ),
     ]);
   }
 }
