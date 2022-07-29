@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shoe_app/views/cart/cart_view.dart';
+import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/home_view.dart';
 import 'package:flutter_shoe_app/views/home/shoe_category_view.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view.dart';
 import 'package:flutter_shoe_app/views/shop/shop_view.dart';
+import 'package:stacked/stacked.dart';
 
 import 'views/home/home_view.dart';
 
@@ -21,28 +22,30 @@ class MyApp extends StatelessWidget {
       // theme: ThemeData(
       //   primarySwatch: Colors.blue,
       // ),
-      home: MyHomePage(title: 'Shoe App'),
+      home: MyHomePage(),
+      // ViewModelBuilder<ApplicationViewModel>.reactive(
+      //   builder: (context, model, child) {
+      //     //return const HomepageView();
+      //     return const MyHomePage();
+      //   },
+      //   viewModelBuilder: () => ApplicationViewModel(),
+      //   disposeViewModel: false,
+      // ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({Key? key}) : super(key: key);
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(Icons.home),
-        title: Text(
-          widget.title,
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 24),
+        title: const Text(
+          'Shoes App',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24),
         ),
         backgroundColor: Colors.black,
         shadowColor: Colors.blue,
@@ -85,22 +88,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: const Text('Shop')),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const HomepageView();
-                    },
-                  ));
+                  Navigator.push(context,
+                      PageRouteBuilder(pageBuilder: (_, __, ___) {
+                    return ViewModelBuilder<ApplicationViewModel>.reactive(
+                      disposeViewModel: false,
+                      builder: (context, model, child) {
+                        //return const HomepageView();
+                        return const HomepageView();
+                      },
+                      viewModelBuilder: () => ApplicationViewModel(),
+                    );
+                  }));
                 },
                 child: const Text('Shoe Home UI')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) {
-                      return const CartView();
-                    },
-                  ));
-                },
-                child: const Text('Cart')),
             Container(
               height: 60,
               decoration: BoxDecoration(

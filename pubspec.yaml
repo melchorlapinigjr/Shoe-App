@@ -48,9 +48,10 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-
-  flutter_svg: ^1.1.1+1
-  palette_generator: ^0.3.3+1
+  intl: any #Currency formatting
+  flutter_svg: ^1.1.1+1 #load svg format images
+  palette_generator: ^0.3.3+1 #generate color palette from loaded images
+  equatable: ^2.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
