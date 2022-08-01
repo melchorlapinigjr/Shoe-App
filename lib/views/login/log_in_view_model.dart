@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class LoginViewModel extends ChangeNotifier{
+class LoginViewModel extends ChangeNotifier {
   bool isObscure = false;
 
-  void changeObscure(){
+  void changeObscure() {
     isObscure = isObscure == false ? true : false;
     notifyListeners();
   }
