@@ -8,18 +8,15 @@ class ShoeCategoryView extends ViewModelWidget<HomeViewModel> {
 
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: SizedBox(
-        height: 25,
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
-          itemCount: viewModel.categories.length,
-          itemBuilder: (context, index) => CategoryItem(
-            category: viewModel.categories[index],
-          ),
+    return SizedBox(
+      height: 36,
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        itemCount: viewModel.categories.length,
+        itemBuilder: (context, index) => CategoryItem(
+          category: viewModel.categories[index],
         ),
       ),
     );
@@ -36,7 +33,7 @@ class CategoryItem extends ViewModelWidget<HomeViewModel> {
     bool isSelected = viewModel.selectedCategory == category;
 
     return InkWell(
-      onTap: ()=>viewModel.onCategorySelected(category),
+      onTap: () => viewModel.onCategorySelected(category),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
         child: Container(
@@ -47,16 +44,22 @@ class CategoryItem extends ViewModelWidget<HomeViewModel> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                margin: const EdgeInsets.only(left: 8.0, right: 8.0),
-                alignment: Alignment.center,
-                child: Text(
-                  category,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 16,
-                    color: isSelected ? kTextColor : kTextLightColor,
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
+                    child: Text(
+                      category,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontStyle: FontStyle.normal,
+                        fontSize: 16,
+                        color: isSelected ? kTextColor : kTextLightColor,
+                      ),
+                    ),
                   ),
                 ),
               ),

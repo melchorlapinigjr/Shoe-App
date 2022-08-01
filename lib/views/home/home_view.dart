@@ -1,133 +1,272 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shoe_app/utils/constants.dart';
+import 'package:flutter_shoe_app/views/application/application_view_model.dart';
+import 'package:flutter_shoe_app/views/cart/cart_page_view.dart';
 import 'package:flutter_shoe_app/views/home/home_view_model.dart';
-import 'package:flutter_shoe_app/views/home/shoe_category_view.dart';
-import 'package:flutter_shoe_app/views/home/shoe_horizontal_item.dart';
-import 'package:flutter_shoe_app/views/home/shoe_vertical_item.dart';
+import 'package:flutter_shoe_app/views/home/home_view_widget.dart';
 import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
-
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
-class HomepageView extends StatefulWidget {
+class HomepageView extends StatelessWidget {
   const HomepageView({Key? key}) : super(key: key);
-
-  @override
-  State<HomepageView> createState() => _HomepageViewState();
-}
-
-class _HomepageViewState extends State<HomepageView> {
-  @override
-  void initState() {
-    super.initState();
-    //colors = [];
-    //_currentIndex =0;
-    //_updatePalettes();
-  }
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
         viewModelBuilder: () => HomeViewModel(),
+        onModelReady: (model) => model.initialize(),
         builder: (context, viewModel, child) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Shoe Cards'),
-              elevation: 0,
-              actions: <Widget>[
-                IconButton(
-                  icon: const Icon(
-                    Icons.search,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> const SearchPageView()));
-                  },
+          return viewModel.isBusy
+              ? const Scaffold(
+                  backgroundColor: Colors.white,
+                  body: Center(
+                      child: CircularProgressIndicator(
+                    color: Color(0xff1F2732),
+                  )),
                 )
-              ],
-              backgroundColor: Colors.white,
-            ),
-            body: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(mainAxisSize: MainAxisSize.min, children: [
-                Flexible(
-                  child: ListView(
-                    primary: false,
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    children: const <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(kDefaultPaddin, 0, 0, 0),
-                        child: Text(
-                          'Shoes',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 26,
-                          ),
-                        ),
+              : Scaffold(
+                  appBar: AppBar(
+                    //toolbarHeight: 48,
+                    leading: viewModel.stackIndex == 1
+                        ? IconButton(
+                            icon: SvgPicture.asset(SvgIcons.arrowLeft),
+                            onPressed: () {
+                              viewModel.changeIndex(0);
+                            },
+                          )
+                        : null,
+                    title: Text(
+                      viewModel.stackIndex == 0
+                          ? ''
+                          : viewModel.stackIndex == 1
+                              ? 'Cart'
+                              : '',
+                      style: const TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff1F2732),
                       ),
-                      ShoeCategoryView(),
+                    ),
+                    automaticallyImplyLeading:
+                        viewModel.stackIndex == 0 ? false : true,
+                    elevation: 0,
+                    actions: viewModel.stackIndex == 0
+                        ? <Widget>[
+                            IconButton(
+                              icon: SvgPicture.asset(
+                                SvgIcons.searchIcon,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SearchPageView()));
+                              },
+                            )
+                          ]
+                        : null,
+                    backgroundColor: Colors.white,
+                  ),
+                  body: IndexedStack(
+                    index: viewModel.stackIndex,
+                    children: const [
+                      HomeViewWidget(),
+                      CartPageView(),
                     ],
                   ),
-                ),
-                Flexible(
-                  child: SizedBox(
-                    height: 304,
-                    child: ListView.separated(
-                      padding: const EdgeInsets.all(16),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: viewModel.items.length,
-                      separatorBuilder: (context, _) =>
-                          const SizedBox(width: 16),
-                      itemBuilder: (context, index) => ShoeHorizontalItem(
-                        viewModel.items[index],
-                      ),
+                  backgroundColor: Colors.white,
+                  bottomNavigationBar: Container(
+                    height: 92,
+                    color: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
                     ),
-                  ),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          '${viewModel.items.length.toString()} OPTIONS',
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: viewModel.isHome
+                                    ? const Color(0xff1F2732)
+                                    : Colors.white,
+                                border: Border.all(
+                                  color: Colors.black.withOpacity(0.3),
+                                ),
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  viewModel.isHomeTrue();
+                                  viewModel.changeIndex(0);
+                                },
+                                icon: SvgPicture.asset(
+                                  SvgIcons.homeIcon,
+                                  color: viewModel.isHome
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              'Home',
+                              style: TextStyle(
+                                fontWeight: viewModel.isHome
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: viewModel.isWishlist
+                                    ? const Color(0xff1F2732)
+                                    : Colors.white,
+                                border: Border.all(
+                                    color: Colors.black.withOpacity(0.3)),
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  viewModel.isWishlistTrue();
+                                },
+                                icon: SvgPicture.asset(SvgIcons.heartIcon,
+                                    color: viewModel.isWishlist
+                                        ? Colors.white
+                                        : Colors.black),
+                              ),
+                            ),
+                            Text(
+                              'Wishlist',
+                              style: TextStyle(
+                                fontWeight: viewModel.isWishlist
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: viewModel.isCart
+                                    ? Colors.black
+                                    : Colors.white,
+                                border: Border.all(
+                                    color: Colors.black.withOpacity(0.3)),
+                              ),
+                              child: Stack(children: [
+                                IconButton(
+                                  onPressed: () {
+                                    viewModel.isCartTrue();
+                                    viewModel.changeIndex(1);
+                                  },
+                                  icon: SvgPicture.asset(SvgIcons.cartIcon,
+                                      color: viewModel.isCart
+                                          ? Colors.white
+                                          : Colors.black),
+                                ),
+                                Positioned(
+                                    right: 0,
+                                    child: ViewModelBuilder<
+                                            ApplicationViewModel>.reactive(
+                                        viewModelBuilder: () =>
+                                            Provider.of<ApplicationViewModel>(
+                                                context),
+                                        builder: (context, model, child) {
+                                          return model.cart.isNotEmpty ? Container(
+                                              height: 20,
+                                              width: 20,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: const Color(0xffE24C4D),
+                                                border: Border.all(
+                                                  width: 2,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              child: Center(
+                                                  child: Text(
+                                                '${model.cart.length}',
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white,
+                                                ),
+                                              ))) : Container();
+                                        })),
+                              ]),
+                            ),
+                            Text(
+                              'Cart',
+                              style: TextStyle(
+                                fontWeight: viewModel.isCart
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              height: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: viewModel.isProfile
+                                    ? Colors.black
+                                    : Colors.white,
+                                border: Border.all(
+                                    color: Colors.black.withOpacity(0.3)),
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  viewModel.isProfileTrue();
+                                },
+                                icon: SvgPicture.asset(SvgIcons.profileIcon,
+                                    color: viewModel.isProfile
+                                        ? Colors.white
+                                        : Colors.black),
+                              ),
+                            ),
+                            Text(
+                              'Profile',
+                              style: TextStyle(
+                                fontWeight: viewModel.isProfile
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    const Divider(
-                      color: Colors.grey,
-                      //height: 20,
-                      thickness: 1,
-                      indent: 10,
-                      endIndent: 10,
-                    ),
-                  ],
-                ),
-                ListView.separated(
-                  primary: false,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: viewModel.items.length,
-                  separatorBuilder: (context, _) => const Divider(
-                    color: Color(0xffF4F4F4),
-                    height: 1,
-                    thickness: 1,
-                    indent: 10,
-                    endIndent: 10,
                   ),
-                  itemBuilder: (context, index) => ShoeVerticalItem(
-                    item: viewModel.items[index],
-                  ),
-                ),
-              ]),
-            ),
-            backgroundColor: Colors.white,
-          );
+                );
         });
   }
 }
-
-
-
