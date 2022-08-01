@@ -56,6 +56,8 @@ class CategoryItem extends ViewModelWidget<HomeViewModel> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontStyle: FontStyle.normal,
+                        fontWeight: isSelected ? FontWeight.bold : FontWeight.w400,
+                        fontFamily: 'Avenir',
                         fontSize: 16,
                         color: isSelected ? kTextColor : kTextLightColor,
                       ),

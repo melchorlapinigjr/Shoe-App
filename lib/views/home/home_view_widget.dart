@@ -27,6 +27,7 @@ class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
                   'Shoes',
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
+                    fontFamily: 'Avalon',
                     fontSize: 26,
                   ),
                 ),
@@ -59,6 +60,11 @@ class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '${viewModel.items.length.toString()} OPTIONS',
+                  style: TextStyle(
+                    fontFamily: 'Avalon',
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xff1F2732).withOpacity(0.7),
+                  ),
                 ),
               ),
             ),

@@ -26,6 +26,7 @@ class ShoeDescriptionView extends ViewModelWidget<ShoeDetailsModel> {
                     shoe.title,
                     textAlign: TextAlign.left,
                     style: TextStyle(
+                      fontFamily: 'Avenir',
                       fontSize: 26,
                       fontWeight: FontWeight.w900,
                       letterSpacing: -1,
@@ -42,6 +43,7 @@ class ShoeDescriptionView extends ViewModelWidget<ShoeDetailsModel> {
                     shoe.price.toCurrencyFormat(),
                     textAlign: TextAlign.left,
                     style: TextStyle(
+                      fontFamily: 'Avalon',
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1,
@@ -77,6 +79,7 @@ class ShoeDescriptionWidget extends ViewModelWidget<ShoeDetailsModel> {
               child: Text(
                 description,
                 style: const TextStyle(
+                    fontFamily: 'Avenir',
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     color: Color(0xff7B8A9E),
@@ -90,6 +93,7 @@ class ShoeDescriptionWidget extends ViewModelWidget<ShoeDetailsModel> {
         child: Text(
           viewModel.onState() ? 'Read Less' : 'Read More',
           style: const TextStyle(
+            fontFamily: 'Avenir',
               color: Color(0xFF1F2732), height: 2, fontWeight: FontWeight.bold),
         ),
       ),
