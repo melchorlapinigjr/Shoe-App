@@ -6,6 +6,8 @@ import 'package:flutter_shoe_app/views/login/log_in_view_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
+import '../home/home_view.dart';
+
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
 
@@ -113,21 +115,26 @@ class LoginView extends StatelessWidget {
                                     ),
                                   ),
                                 )),
-                            Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(12)),
-                              padding: const EdgeInsets.fromLTRB(50, 20, 50, 16),
-                              width: MediaQuery.of(context).size.width,
-                              child: const Center(
-                                  child: Text(
-                                'LOG IN',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              )),
+                            InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder:(_)=>const HomepageView()));
+                              },
+                              child: Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(12)),
+                                padding: const EdgeInsets.fromLTRB(50, 20, 50, 16),
+                                width: MediaQuery.of(context).size.width,
+                                child: const Center(
+                                    child: Text(
+                                  'LOG IN',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                )),
+                              ),
                             ),
                             const SizedBox(
                               height: 30,

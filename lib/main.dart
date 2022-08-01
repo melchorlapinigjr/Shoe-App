@@ -17,20 +17,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Shoe App',
       // theme: ThemeData(
       //   primarySwatch: Colors.blue,
       // ),
-      home: MyHomePage(),
-      // ViewModelBuilder<ApplicationViewModel>.reactive(
-      //   builder: (context, model, child) {
-      //     //return const HomepageView();
-      //     return const MyHomePage();
-      //   },
-      //   viewModelBuilder: () => ApplicationViewModel(),
-      //   disposeViewModel: false,
-      // ),
+      home:
+      ViewModelBuilder<ApplicationViewModel>.reactive(
+        builder: (context, model, child) {
+          //return const HomepageView();
+          return const LoginView();
+        },
+        viewModelBuilder: () => ApplicationViewModel(),
+        disposeViewModel: false,
+      ),
     );
   }
 }
