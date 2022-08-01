@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/cart/cart_page_view.dart';
 import 'package:flutter_shoe_app/views/home/home_view_model.dart';
 import 'package:flutter_shoe_app/views/home/home_view_widget.dart';
 import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
@@ -44,6 +44,7 @@ class HomepageView extends StatelessWidget {
                               ? 'Cart'
                               : '',
                       style: const TextStyle(
+                        fontFamily: 'Avalon',
                         fontSize: 26,
                         fontWeight: FontWeight.w700,
                         color: Color(0xff1F2732),
@@ -59,11 +60,18 @@ class HomepageView extends StatelessWidget {
                                 SvgIcons.searchIcon,
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SearchPageView()));
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (_) {
+                                  return ViewModelBuilder<
+                                          ApplicationViewModel>.reactive(
+                                      disposeViewModel: false,
+                                      viewModelBuilder: () =>
+                                          Provider.of<ApplicationViewModel>(
+                                              context),
+                                      builder: (context, viewModel, child) {
+                                        return const SearchPageView();
+                                      });
+                                }));
                               },
                             )
                           ]
@@ -124,6 +132,7 @@ class HomepageView extends StatelessWidget {
                                 fontWeight: viewModel.isHome
                                     ? FontWeight.bold
                                     : FontWeight.normal,
+                                fontFamily: 'Avenir',
                               ),
                             ),
                           ],
@@ -195,27 +204,31 @@ class HomepageView extends StatelessWidget {
                                             Provider.of<ApplicationViewModel>(
                                                 context),
                                         builder: (context, model, child) {
-                                          return model.cart.isNotEmpty ? Container(
-                                              height: 20,
-                                              width: 20,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: const Color(0xffE24C4D),
-                                                border: Border.all(
-                                                  width: 2,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              child: Center(
-                                                  child: Text(
-                                                '${model.cart.length}',
-                                                textAlign: TextAlign.center,
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                              ))) : Container();
+                                          return model.cart.isNotEmpty
+                                              ? Container(
+                                                  height: 20,
+                                                  width: 20,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color:
+                                                        const Color(0xffE24C4D),
+                                                    border: Border.all(
+                                                      width: 2,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                  child: Center(
+                                                      child: Text(
+                                                    '${model.cart.length}',
+                                                    textAlign: TextAlign.center,
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.white,
+                                                    ),
+                                                  )))
+                                              : Container();
                                         })),
                               ]),
                             ),

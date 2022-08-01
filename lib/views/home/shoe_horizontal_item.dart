@@ -1,10 +1,11 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
 import 'package:provider/provider.dart';
-import 'dart:math' as math;
 
 class ShoeHorizontalItem extends StatelessWidget {
   final Shoe shoe;
@@ -45,8 +46,10 @@ class ShoeHorizontalItem extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
+                        fontFamily: 'GothamBold',
                         color:
                             shoe.paletteColor?.titleTextColor.withOpacity(1.0),
+                        overflow: TextOverflow.clip,
                       ),
                     ),
                   ],
@@ -60,6 +63,7 @@ class ShoeHorizontalItem extends StatelessWidget {
                       shoe.price.toCurrencyFormat(),
                       style: TextStyle(
                           fontSize: 18,
+                          fontFamily: 'Avalon',
                           //color: snap.data?.color.withOpacity(0.7)),
                           color: shoe.paletteColor?.titleTextColor
                               .withOpacity(0.6)),

@@ -75,6 +75,7 @@ class ShoeDetailsView extends StatelessWidget {
                                 alignment: Alignment.centerLeft,
                                 child: Text('Select Sizes',
                                     style: TextStyle(
+                                      fontFamily: 'Avenir',
                                       color: Color(0xff1F2732),
                                       fontSize: 18,
                                       fontWeight: FontWeight.w900,
@@ -115,6 +116,7 @@ class ShoeDetailsView extends StatelessWidget {
                         },
                         child: const Text('Add to Bag',
                             style: TextStyle(
+                              fontFamily: 'Avenir',
                               fontSize: 16,
                               fontWeight: FontWeight.w800,
                             ),

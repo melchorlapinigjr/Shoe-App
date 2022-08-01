@@ -16,8 +16,9 @@ class ShoeSizesView extends ViewModelWidget<ShoeDetailsModel> {
         viewModel.onSizeSelected(viewModel.sizes.indexOf(sizes));
       },
       child: Container(
-        // width: 66,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        width: 66,
+        height: 40,
+        padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
@@ -28,6 +29,7 @@ class ShoeSizesView extends ViewModelWidget<ShoeDetailsModel> {
         child: Text(sizes,
             textAlign: TextAlign.center,
             style:  TextStyle(
+              fontFamily: 'Avenir',
               fontWeight: FontWeight.w400,
               fontSize: 14,
               color: isNotAvailable ? const Color(0xff1F2732).withOpacity(0.3) : const Color(0xff1F2732),

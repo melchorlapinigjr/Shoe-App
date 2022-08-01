@@ -45,6 +45,7 @@ class ShoeVerticalItem extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
+                      fontFamily: 'GothamBold',
                       overflow: TextOverflow.clip,
                     ),
                   ),
@@ -52,6 +53,7 @@ class ShoeVerticalItem extends StatelessWidget {
                   Text(
                    item.price.toCurrencyFormat(),
                     style: TextStyle(
+                      fontFamily: 'Avalon',
                       color: const Color(0xff1F2732).withOpacity(0.5),
                     ),
                   ),
