@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
+import 'package:flutter_shoe_app/views/add_shoe/add_shoe_view.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/cart/cart_page_view.dart';
 import 'package:flutter_shoe_app/views/home/home_view_model.dart';
@@ -83,6 +84,7 @@ class HomepageView extends StatelessWidget {
                     children: const [
                       HomeViewWidget(),
                       CartPageView(),
+
                     ],
                   ),
                   backgroundColor: Colors.white,
@@ -200,6 +202,7 @@ class HomepageView extends StatelessWidget {
                                     right: 0,
                                     child: ViewModelBuilder<
                                             ApplicationViewModel>.reactive(
+                                      disposeViewModel: false,
                                         viewModelBuilder: () =>
                                             Provider.of<ApplicationViewModel>(
                                                 context),
@@ -259,6 +262,10 @@ class HomepageView extends StatelessWidget {
                               child: IconButton(
                                 onPressed: () {
                                   viewModel.isProfileTrue();
+                                  Navigator.push(context, MaterialPageRoute(builder: (_){
+                                    return AddShoeView();
+                                  }));
+
                                 },
                                 icon: SvgPicture.asset(SvgIcons.profileIcon,
                                     color: viewModel.isProfile

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/utils/palette_utils.dart';
+import 'package:flutter_shoe_app/views/widgets/show_sizes_view.dart';
 
 import '../home/shoe_object.dart';
 
-class ShoeDetailsModel extends ChangeNotifier{
-   Shoe shoe;
+class ShoeDetailsModel extends ChangeNotifier {
+  Shoe shoe;
 
-   ShoeDetailsModel(this.shoe);
-   bool isBusy = false;
+  ShoeDetailsModel(this.shoe);
 
-  String description ='Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.';
+  bool isBusy = false;
+
+  String description =
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.';
 
   /*shoe items*/
    List<Shoe> items = [
@@ -46,20 +49,8 @@ class ShoeDetailsModel extends ChangeNotifier{
          titleColor: Colors.white),
    ];
 
-  //shoe sizes
-  List<String> sizes = [
-    'UK 6',
-    'UK 7',
-    'UK 8',
-    'UK 9',
-    'UK 10',
-    'UK 11',
-    'UK 12',
-    'UK 13',
-   ];
-
   //color palette adaptive to image
-  Future<void> initialize() async{
+  Future<void> initialize() async {
     await getPaletteColor();
   }
 
@@ -74,28 +65,50 @@ class ShoeDetailsModel extends ChangeNotifier{
   //shoe description expansion
   bool isExpanded = false;
 
-    void onTextState(){
-     if(!isExpanded){ isExpanded = true; } else {isExpanded = false;}
-     notifyListeners();
-   }
+  void onTextState() {
+    if (!isExpanded) {
+      isExpanded = true;
+    } else {
+      isExpanded = false;
+    }
+    notifyListeners();
+  }
 
-  bool onState(){
+  bool onState() {
     return isExpanded;
   }
 
   //shoe variant selection
   int selected = 0;
 
-  void onVariantSelected(int clicked){
-      selected = clicked;
-      notifyListeners();
+  void onVariantSelected(int clicked) {
+    selected = clicked;
+    notifyListeners();
   }
 
   //shoe size selection
-  int selectedSize =0;
+  String? selectedSize;
 
-  void onSizeSelected(int sizeSelected){
-    selectedSize = sizeSelected;
-    notifyListeners();
+  List<String> getSelectedSize() {
+    if (selectedSize == null) return [];
+    return [selectedSize!];
+  }
+
+  List<String> getAvailableShoeSizes() {
+    // TODO: show.availableSizes <string>[]
+    return [
+      ALL_SHOE_SIZES[0],
+      ALL_SHOE_SIZES[3],
+      ALL_SHOE_SIZES[4],
+      ALL_SHOE_SIZES[6]
+    ];
+  }
+
+  void onSizeSelectedCallback(List<String> values) {
+    // always 1 or 0 item
+    if (values.isNotEmpty) {
+      selectedSize = values.first;
+      notifyListeners();
+    }
   }
 }
