@@ -114,7 +114,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   //IndexedStack
-  int stackIndex = 0;
+  int stackIndex = 0; //page index
 
   void changeIndex(int index) {
     stackIndex = index;
@@ -122,6 +122,8 @@ class HomeViewModel extends ChangeNotifier {
       isHomeTrue();
     } else if (stackIndex == 1) {
       isCartTrue();
+    } else if (stackIndex == 2) {
+      isWishlistTrue();
     }
     notifyListeners();
   }
