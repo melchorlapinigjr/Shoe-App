@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
+import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+
+typedef LikePressed = void Function(Shoe shoe);
 
 class ShoeVerticalItem extends StatelessWidget {
   final Shoe item;
 
-  const ShoeVerticalItem({super.key, required this.item});
+  const ShoeVerticalItem(
+      {super.key, required this.item, required this.onLikePressed});
+
+  final LikePressed onLikePressed;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()  {
+      onTap: () {
         Navigator.push(
             context,
             PageRouteBuilder(
                 transitionDuration: const Duration(seconds: 2),
-                pageBuilder: (_, __, ___) => ShoeDetailsView(
-                  item,
-                  applicationViewModel:
-                  Provider.of<ApplicationViewModel>(context),
-                )));
+                pageBuilder: (_, __, ___) =>
+                    ShoeDetailsView(
+                      item,
+                      applicationViewModel:
+                      Provider.of<ApplicationViewModel>(context),
+                    )));
       },
       child: Container(
         margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -38,6 +46,7 @@ class ShoeVerticalItem extends StatelessWidget {
             ),
             Flexible(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -49,13 +58,35 @@ class ShoeVerticalItem extends StatelessWidget {
                       overflow: TextOverflow.clip,
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                   item.price.toCurrencyFormat(),
-                    style: TextStyle(
-                      fontFamily: 'Avalon',
-                      color: const Color(0xff1F2732).withOpacity(0.5),
-                    ),
+                   const SizedBox(height: 4),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        item.price.toCurrencyFormat(),
+                        style: TextStyle(
+                          fontFamily: 'Avalon',
+                          color: const Color(0xff1F2732).withOpacity(0.5),
+                        ),
+                      ),
+                      Align(
+                          alignment: Alignment.centerRight,
+                          child: item.isLiked
+                              ? IconButton(
+                            icon: SvgPicture.asset(
+                              item.isLiked
+                                  ? SvgIcons.heartFilled
+                                  : SvgIcons.heartBordered,
+                              width: 19,
+                              height: 17,
+                            ),
+                            onPressed: () {
+                              onLikePressed.call(item);
+                            },
+                          )
+                              : Container()
+                      )
+                    ],
                   ),
                 ],
               ),

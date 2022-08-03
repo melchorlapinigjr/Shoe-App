@@ -9,4 +9,6 @@ class SvgIcons {
   static const String profileIcon = '${_rootPath}profile.svg';
   static const String arrowLeft = '${_rootPath}arrow_left.svg';
   static const String googleIcon = '${_rootPath}google_icon.svg';
+  static const String heartFilled = '${_rootPath}heart_filled.svg';
+  static const String heartBordered ='${_rootPath}heart_border.svg';
 }
