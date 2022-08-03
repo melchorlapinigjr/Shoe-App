@@ -9,7 +9,7 @@ class AddShoeViewModel extends ChangeNotifier {
 
   Future getImages() async {
     List<XFile>? selectedImages = await imagePicker.pickMultiImage();
-    if (selectedImages!.isNotEmpty) {
+    if (selectedImages != null && selectedImages.isNotEmpty == true) {
       images!.addAll(selectedImages);
     }
     // else {

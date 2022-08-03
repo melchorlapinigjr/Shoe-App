@@ -5,6 +5,7 @@ import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/cart/cart_page_view.dart';
 import 'package:flutter_shoe_app/views/home/home_view_model.dart';
 import 'package:flutter_shoe_app/views/home/home_view_widget.dart';
+import 'package:flutter_shoe_app/views/profile_page/profile_page_view.dart';
 import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -37,22 +38,33 @@ class HomepageView extends StatelessWidget {
                               viewModel.changeIndex(0);
                             },
                           )
-                        : null,
+                        : viewModel.stackIndex == 2
+                            ? IconButton(
+                                icon: SvgPicture.asset(SvgIcons.arrowLeft),
+                                onPressed: () {
+                                  viewModel.changeIndex(0);
+                                },
+                              )
+                            : null,
+
                     title: Text(
                       viewModel.stackIndex == 0
                           ? ''
                           : viewModel.stackIndex == 1
                               ? 'Cart'
-                              : '',
+                              : viewModel.stackIndex == 2
+                                  ? 'Profile'
+                                  : '',
                       style: const TextStyle(
                         fontFamily: 'Avalon',
-                        fontSize: 26,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                         color: Color(0xff1F2732),
                       ),
                     ),
                     automaticallyImplyLeading:
                         viewModel.stackIndex == 0 ? false : true,
+
                     elevation: 0,
                     actions: viewModel.stackIndex == 0
                         ? <Widget>[
@@ -76,7 +88,30 @@ class HomepageView extends StatelessWidget {
                               },
                             )
                           ]
-                        : null,
+                        : viewModel.stackIndex == 2
+                            ? <Widget>[
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.add_circle_outline,
+                                    color: Colors.black,
+                                  ),
+                                  onPressed: () {
+                                    viewModel.isProfileTrue();
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (_) {
+                                      return const AddShoeView();
+                                    }));
+                                  },
+                                ),
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.notifications,
+                                    color: Colors.black,
+                                  ),
+                                  onPressed: () {},
+                                )
+                              ]
+                            : null,
                     backgroundColor: Colors.white,
                   ),
                   body: IndexedStack(
@@ -84,7 +119,9 @@ class HomepageView extends StatelessWidget {
                     children: const [
                       HomeViewWidget(),
                       CartPageView(),
-
+                      //wishlist
+                      //profile
+                      ProfilePageView(),
                     ],
                   ),
                   backgroundColor: Colors.white,
@@ -202,7 +239,7 @@ class HomepageView extends StatelessWidget {
                                     right: 0,
                                     child: ViewModelBuilder<
                                             ApplicationViewModel>.reactive(
-                                      disposeViewModel: false,
+                                        disposeViewModel: false,
                                         viewModelBuilder: () =>
                                             Provider.of<ApplicationViewModel>(
                                                 context),
@@ -262,10 +299,7 @@ class HomepageView extends StatelessWidget {
                               child: IconButton(
                                 onPressed: () {
                                   viewModel.isProfileTrue();
-                                  Navigator.push(context, MaterialPageRoute(builder: (_){
-                                    return AddShoeView();
-                                  }));
-
+                                  viewModel.changeIndex(2);
                                 },
                                 icon: SvgPicture.asset(SvgIcons.profileIcon,
                                     color: viewModel.isProfile

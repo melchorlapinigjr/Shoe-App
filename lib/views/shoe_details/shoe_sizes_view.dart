@@ -21,7 +21,7 @@ class ShoeSizesViewItem extends StatelessWidget {
       child: Container(
         width: 66,
         height: 40,
-        padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
