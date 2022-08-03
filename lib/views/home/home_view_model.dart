@@ -122,6 +122,8 @@ class HomeViewModel extends ChangeNotifier {
       isHomeTrue();
     } else if (stackIndex == 1) {
       isCartTrue();
+    } else if (stackIndex == 2) {
+      isProfileTrue();
     }
     notifyListeners();
   }
