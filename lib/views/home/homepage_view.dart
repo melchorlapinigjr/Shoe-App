@@ -36,10 +36,10 @@ class HomepageView extends StatelessWidget {
                           //toolbarHeight: 48,
                           automaticallyImplyLeading: viewModel.stackIndex == 0
                               ? false
-                              : viewModel.stackIndex == 1
+                              : viewModel.stackIndex == 1 || viewModel.stackIndex == 3
                                   ? true
                                   : false,
-                          leading: viewModel.stackIndex == 1
+                          leading: viewModel.stackIndex == 1 || viewModel.stackIndex == 3
                               ? IconButton(
                                   icon: SvgPicture.asset(SvgIcons.arrowLeft),
                                   onPressed: () {
