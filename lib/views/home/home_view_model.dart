@@ -93,6 +93,8 @@ class HomeViewModel extends ChangeNotifier {
       isCartTrue();
     } else if (stackIndex == 2) {
       isWishlistTrue();
+    } else if (stackIndex == 3) {
+      isProfileTrue();
     }
     notifyListeners();
   }

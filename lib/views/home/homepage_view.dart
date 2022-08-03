@@ -5,6 +5,7 @@ import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/cart/cart_page_view.dart';
 import 'package:flutter_shoe_app/views/home/home_view_model.dart';
 import 'package:flutter_shoe_app/views/home/home_view_widget.dart';
+import 'package:flutter_shoe_app/views/profile_page/profile_page_view.dart';
 import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
 import 'package:flutter_shoe_app/views/wishlist/wishlist_view.dart';
 import 'package:flutter_svg/svg.dart';
@@ -53,7 +54,9 @@ class HomepageView extends StatelessWidget {
                                     ? 'Cart'
                                     : viewModel.stackIndex == 2
                                         ? 'My Likes'
-                                        : '',
+                                        : viewModel.stackIndex == 3
+                                            ? 'Profile'
+                                            : '',
                             style: const TextStyle(
                               fontFamily: 'Avalon',
                               fontSize: 26,
@@ -86,15 +89,39 @@ class HomepageView extends StatelessWidget {
                                     },
                                   )
                                 ]
-                              : null,
+                              : viewModel.stackIndex == 3
+                                  ? <Widget>[
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.add_circle_outline,
+                                          color: Colors.black,
+                                        ),
+                                        onPressed: () {
+                                          viewModel.isProfileTrue();
+                                          Navigator.push(context,
+                                              MaterialPageRoute(builder: (_) {
+                                            return const AddShoeView();
+                                          }));
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.notifications,
+                                          color: Colors.black,
+                                        ),
+                                        onPressed: () {},
+                                      )
+                                    ]
+                                  : null,
                           backgroundColor: Colors.white,
                         ),
                   body: IndexedStack(
                     index: viewModel.stackIndex,
-                    children: [
+                    children: const [
                       HomeViewWidget(),
                       CartPageView(),
                       WishlistView(),
+                      ProfilePageView(),
                     ],
                   ),
                   backgroundColor: Colors.white,
@@ -270,10 +297,7 @@ class HomepageView extends StatelessWidget {
                               child: IconButton(
                                 onPressed: () {
                                   viewModel.isProfileTrue();
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (_) {
-                                    return AddShoeView();
-                                  }));
+                                  viewModel.changeIndex(3);
                                 },
                                 icon: SvgPicture.asset(SvgIcons.profileIcon,
                                     color: viewModel.isProfile
