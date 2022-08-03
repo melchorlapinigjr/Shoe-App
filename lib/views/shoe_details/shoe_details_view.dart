@@ -11,7 +11,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
 class ShoeDetailsView extends StatelessWidget {
-  const ShoeDetailsView(this.shoe, {Key? key, required this.applicationViewModel}) : super(key: key);
+  const ShoeDetailsView(this.shoe,
+      {Key? key, required this.applicationViewModel})
+      : super(key: key);
 
   final Shoe shoe;
   final ApplicationViewModel applicationViewModel;
@@ -19,7 +21,7 @@ class ShoeDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ShoeDetailsModel>.reactive(
-        viewModelBuilder: () => ShoeDetailsModel(shoe),
+        viewModelBuilder: () => ShoeDetailsModel(shoe, shoe.isLiked),
         onModelReady: (model) => model.initialize(),
         builder: (context, viewModel, child) {
           return viewModel.isBusy
@@ -36,8 +38,19 @@ class ShoeDetailsView extends StatelessWidget {
                     backgroundColor: Colors.transparent,
                     actions: [
                       IconButton(
-                          onPressed: () {},
-                          icon: SvgPicture.asset(SvgIcons.heartIcon))
+                        icon: viewModel.liked
+                            ? SvgPicture.asset(SvgIcons.heartFilled)
+                            : SvgPicture.asset(
+                                SvgIcons.heartIcon,
+                              ),
+                        onPressed: () {
+                          viewModel.liked
+                              ? applicationViewModel.removeFromLikes(shoe)
+                              : applicationViewModel.addToMyLikes(shoe);
+                          viewModel.isLikeClicked(shoe);
+
+                        },
+                      )
                     ],
                   ),
                   body: SingleChildScrollView(

@@ -33,12 +33,11 @@ class HomepageView extends StatelessWidget {
                       ? null
                       : AppBar(
                           //toolbarHeight: 48,
-                          automaticallyImplyLeading:
-                              viewModel.stackIndex == 0
-                                  ? false
-                                  : viewModel.stackIndex == 1
-                                      ? true
-                                      : false,
+                          automaticallyImplyLeading: viewModel.stackIndex == 0
+                              ? false
+                              : viewModel.stackIndex == 1
+                                  ? true
+                                  : false,
                           leading: viewModel.stackIndex == 1
                               ? IconButton(
                                   icon: SvgPicture.asset(SvgIcons.arrowLeft),
@@ -95,7 +94,7 @@ class HomepageView extends StatelessWidget {
                     children: [
                       HomeViewWidget(),
                       CartPageView(),
-                      WishlistView(homeViewModel: Provider.of<HomeViewModel>(context)),
+                      WishlistView(),
                     ],
                   ),
                   backgroundColor: Colors.white,
@@ -271,10 +270,10 @@ class HomepageView extends StatelessWidget {
                               child: IconButton(
                                 onPressed: () {
                                   viewModel.isProfileTrue();
-                                  Navigator.push(context, MaterialPageRoute(builder: (_){
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) {
                                     return AddShoeView();
                                   }));
-
                                 },
                                 icon: SvgPicture.asset(SvgIcons.profileIcon,
                                     color: viewModel.isProfile

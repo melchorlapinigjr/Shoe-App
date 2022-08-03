@@ -8,9 +8,9 @@ import 'package:flutter_shoe_app/views/home/shoe_category_view.dart';
 import 'package:flutter_shoe_app/views/home/shoe_horizontal_item.dart';
 import 'package:flutter_shoe_app/views/home/shoe_vertical_item.dart';
 import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
-import 'package:stacked/stacked.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:stacked/stacked.dart';
 
 class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
   const HomeViewWidget({Key? key}) : super(key: key);
@@ -28,18 +28,15 @@ class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
               SvgIcons.searchIcon,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) {
-                    return ViewModelBuilder<
-                        ApplicationViewModel>.reactive(
-                        disposeViewModel: false,
-                        viewModelBuilder: () =>
-                            Provider.of<ApplicationViewModel>(
-                                context),
-                        builder: (context, viewModel, child) {
-                          return const SearchPageView();
-                        });
-                  }));
+              Navigator.push(context, MaterialPageRoute(builder: (_) {
+                return ViewModelBuilder<ApplicationViewModel>.reactive(
+                    disposeViewModel: false,
+                    viewModelBuilder: () =>
+                        Provider.of<ApplicationViewModel>(context),
+                    builder: (context, viewModel, child) {
+                      return const SearchPageView();
+                    });
+              }));
             },
           )
         ],
@@ -109,22 +106,29 @@ class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
               ),
             ],
           ),
-          ListView.separated(
-            primary: false,
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: viewModel.items.length,
-            separatorBuilder: (context, _) => const Divider(
-              color: Color(0xffF4F4F4),
-              height: 1,
-              thickness: 1,
-              indent: 10,
-              endIndent: 10,
-            ),
-            itemBuilder: (context, index) => ShoeVerticalItem(
-              item: viewModel.items[index],
-            ),
-          ),
+          ViewModelBuilder<ApplicationViewModel>.nonReactive(
+            disposeViewModel: false,
+              viewModelBuilder: () =>
+                  Provider.of<ApplicationViewModel>(context),
+              builder: (context, applicationViewModel, child) {
+                return ListView.separated(
+                  primary: false,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: viewModel.items.length,
+                  separatorBuilder: (context, _) => const Divider(
+                    color: Color(0xffF4F4F4),
+                    height: 1,
+                    thickness: 1,
+                    indent: 10,
+                    endIndent: 10,
+                  ),
+                  itemBuilder: (context, index) => ShoeVerticalItem(
+                    item: viewModel.items[index],
+                    onLikePressed: applicationViewModel.onShoeLikePressed,
+                  ),
+                );
+              }),
         ]),
       ),
     );
