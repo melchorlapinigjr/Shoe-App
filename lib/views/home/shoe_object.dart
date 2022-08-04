@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 //model class for per card values
@@ -10,6 +10,8 @@ class Shoe extends Equatable {
   final Color backgroundColor;
   final Color titleColor;
   PaletteColor? paletteColor;
+  final List<String> availableSizes;
+  bool isLiked;
 
   static String shoeDescription =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
@@ -21,6 +23,8 @@ class Shoe extends Equatable {
     required this.price,
     required this.backgroundColor,
     required this.titleColor,
+    this.availableSizes = const [],
+    this.isLiked = false,
   });
 
   @override
@@ -31,5 +35,6 @@ class Shoe extends Equatable {
         price,
         backgroundColor,
         titleColor,
+        isLiked,
       ];
 }

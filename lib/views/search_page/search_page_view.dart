@@ -4,7 +4,11 @@ import 'package:flutter_shoe_app/views/search_page/search_results_list.dart';
 import 'package:stacked/stacked.dart';
 
 class SearchPageView extends StatelessWidget {
-  const SearchPageView({Key? key}) : super(key: key);
+  const SearchPageView({
+    Key? key,
+  }) : super(key: key);
+
+  //final ApplicationViewModel applicationViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +50,14 @@ class SearchPageView extends StatelessWidget {
                       ),
                       hintStyle: TextStyle(
                         fontSize: 14,
+                        fontFamily: 'Avalon',
                         color: Colors.grey.shade500,
                       ),
                       hintText: 'Search Shoes',
                     ),
                     style: const TextStyle(
                       fontSize: 26,
+                      fontFamily: 'Avalon',
                       fontWeight: FontWeight.w700,
                       color: Color(0xff1F2732),
                     ),

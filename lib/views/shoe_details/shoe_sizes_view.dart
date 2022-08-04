@@ -1,36 +1,45 @@
-import 'package:flutter_shoe_app/views/shoe_details/shoe_details_model.dart';
-import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
 
-class ShoeSizesView extends ViewModelWidget<ShoeDetailsModel> {
-  const ShoeSizesView(this.sizes, {Key? key}) : super(key: key);
+class ShoeSizesViewItem extends StatelessWidget {
+  const ShoeSizesViewItem(
+    this.size, {
+    Key? key,
+    required this.onItemSelected,
+    required this.isSelected,
+    required this.isNotAvailable,
+  }) : super(key: key);
 
-  final String sizes;
+  final String size;
+  final bool isSelected;
+  final bool isNotAvailable;
+  final Function(String value) onItemSelected;
 
   @override
-  Widget build(BuildContext context, viewModel) {
-    bool isSelectedSize = viewModel.selectedSize == viewModel.sizes.indexOf(sizes);
-    bool isNotAvailable = sizes == 'UK 11' || sizes == 'UK 13';
-    return  InkWell(
-      onTap: isNotAvailable? null:(){
-        viewModel.onSizeSelected(viewModel.sizes.indexOf(sizes));
-      },
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: isNotAvailable ? null : () => onItemSelected.call(size),
       child: Container(
-        // width: 66,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        width: 66,
+        height: 40,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            width: 2,
-            color: isSelectedSize ? const Color(0xff1F2732) : const Color(0xffDEE3EB),
+            //width: 2,
+            color:
+                isSelected ? const Color(0xff1F2732) : const Color(0xffDEE3EB),
           ),
         ),
-        child: Text(sizes,
+        child: Text(size,
             textAlign: TextAlign.center,
-            style:  TextStyle(
+            maxLines: 1,
+            style: TextStyle(
+              fontFamily: 'Avenir',
               fontWeight: FontWeight.w400,
               fontSize: 14,
-              color: isNotAvailable ? const Color(0xff1F2732).withOpacity(0.3) : const Color(0xff1F2732),
+              color: isNotAvailable
+                  ? const Color(0xff1F2732).withOpacity(0.3)
+                  : const Color(0xff1F2732),
             )),
       ),
     );
