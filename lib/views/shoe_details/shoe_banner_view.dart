@@ -29,9 +29,9 @@ class ShoeBannerView extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: Hero(
-                    tag: shoe.image,
-                    child: Image(
-                        image: AssetImage(shoe.image),
+                    tag: shoe.images![0],
+                    child: Image.network(
+                        shoe.images![0],
                         width: 256.21,
                         height: 141.67),
                   ),

@@ -42,7 +42,7 @@ class ShoeHorizontalItem extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      shoe.title,
+                      shoe.name?? "",
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -60,7 +60,7 @@ class ShoeHorizontalItem extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      shoe.price.toCurrencyFormat(),
+                      shoe.price!.toCurrencyFormat(),
                       style: TextStyle(
                           fontSize: 18,
                           fontFamily: 'Avalon',
@@ -100,9 +100,8 @@ class ShoeHorizontalItem extends StatelessWidget {
             child: Transform.rotate(
               angle: math.pi / 180 * (-30),
               child: Hero(
-                tag: shoe.image,
-                child: Image(
-                  image: AssetImage(shoe.image),
+                tag: shoe.images![0],
+                child: Image.network(shoe.images![0],
                   width: 252,
                 ),
               ),

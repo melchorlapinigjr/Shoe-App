@@ -28,7 +28,7 @@ class SearchResultsList extends ViewModelWidget<SearchPageViewModel> {
         child: Row(
           children: <Widget>[
             Image.asset(
-              shoe.image,
+              shoe.images![0],
               width: 127.93,
               height: 127.93,
             ),
@@ -40,7 +40,7 @@ class SearchResultsList extends ViewModelWidget<SearchPageViewModel> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    shoe.title,
+                    shoe.name?? "",
                     style: const TextStyle(
                       fontFamily: 'GothamBold',
                       fontSize: 16,
@@ -50,7 +50,7 @@ class SearchResultsList extends ViewModelWidget<SearchPageViewModel> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    shoe.price.toCurrencyFormat(),
+                    shoe.price!.toCurrencyFormat(),
                     style: TextStyle(
                       fontFamily: 'Avalon',
                       color: const Color(0xff1F2732).withOpacity(0.5),
