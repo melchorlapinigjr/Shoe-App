@@ -69,10 +69,10 @@ class ShoeDetailsView extends StatelessWidget {
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) =>
-                                  ShoeVariantView(viewModel.items[index]),
+                                  ShoeVariantView(viewModel.shoeVariants[index]),
                               separatorBuilder: (context, _) =>
                                   const SizedBox(width: 8),
-                              itemCount: viewModel.items.length),
+                              itemCount: viewModel.shoeVariants.length),
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),

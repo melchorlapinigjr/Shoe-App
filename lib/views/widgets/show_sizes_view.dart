@@ -3,16 +3,7 @@ import 'package:flutter_shoe_app/views/shoe_details/shoe_sizes_view.dart';
 
 typedef OnSizeSelectedCallback = void Function(List<String> values);
 
-const List<String> ALL_SHOE_SIZES = [
-  'UK 6',
-  'UK 7',
-  'UK 8',
-  'UK 9',
-  'UK 10',
-  'UK 11',
-  'UK 12',
-  'UK 13',
-];
+List<String> ALL_SHOE_SIZES = [];
 
 class ShowSizesView extends StatelessWidget {
   const ShowSizesView({

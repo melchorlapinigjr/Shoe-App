@@ -23,7 +23,7 @@ class ShoeDescriptionView extends ViewModelWidget<ShoeDetailsModel> {
               children: [
                 Expanded(
                   child: Text(
-                    shoe.title,
+                    shoe.name?? "",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontFamily: 'Avenir',
@@ -40,7 +40,7 @@ class ShoeDescriptionView extends ViewModelWidget<ShoeDetailsModel> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
                   child: Text(
-                    shoe.price.toCurrencyFormat(),
+                    shoe.price!.toCurrencyFormat(),
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontFamily: 'Avalon',
