@@ -33,8 +33,8 @@ class CartItemView extends StatelessWidget {
                   Column(
                     children: [
                       ClipRect(
-                        child: Image.asset(
-                          shoe.image,
+                        child: Image.network(
+                          shoe.images![0],
                           width: 127.93,
                           fit: BoxFit.fitWidth,
                         ),
@@ -117,7 +117,7 @@ class CartItemView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          shoe.title,
+                          shoe.name??  "",
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,

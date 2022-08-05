@@ -7,7 +7,7 @@ class PaletteUtils {
   static Future<PaletteColor> getColorFromImage(String imagePath) async {
     //item.image;
     PaletteGenerator generator = await PaletteGenerator.fromImageProvider(
-      AssetImage(imagePath),
+      NetworkImage(imagePath),
       size: const Size(256, 170),
     );
 
