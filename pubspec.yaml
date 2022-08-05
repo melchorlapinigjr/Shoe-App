@@ -31,7 +31,14 @@ dependencies:
     sdk: flutter
   stacked: ^2.3.12
   get: ^4.6.5
-
+  get_it: ^7.2.0
+  flutter_lints: ^2.0.0
+  intl: any #Currency formatting
+  flutter_svg: ^1.1.1+1 #load svg format images
+  palette_generator: ^0.3.3+1 #generate color palette from loaded images
+  equatable: ^2.0.3
+  dio: ^4.0.6
+  injectable: ^1.5.3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,11 +56,9 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
-  intl: any #Currency formatting
-  flutter_svg: ^1.1.1+1 #load svg format images
-  palette_generator: ^0.3.3+1 #generate color palette from loaded images
-  equatable: ^2.0.3
+
+  build_runner: ^2.1.10
+  stacked_generator: ^0.5.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

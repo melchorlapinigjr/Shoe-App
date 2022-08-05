@@ -16,7 +16,8 @@ class ShoeCategoryView extends ViewModelWidget<HomeViewModel> {
         physics: const BouncingScrollPhysics(),
         itemCount: viewModel.categories.length,
         itemBuilder: (context, index) => CategoryItem(
-          category: viewModel.categories[index],
+          category: viewModel.categories[index]
+              .toString(),
         ),
       ),
     );
@@ -33,7 +34,10 @@ class CategoryItem extends ViewModelWidget<HomeViewModel> {
     bool isSelected = viewModel.selectedCategory == category;
 
     return InkWell(
-      onTap: () => viewModel.onCategorySelected(category),
+      onTap: () {
+        viewModel.onCategorySelected(category);
+        viewModel.getShoesByCategory(category);
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin),
         child: Container(
@@ -49,14 +53,15 @@ class CategoryItem extends ViewModelWidget<HomeViewModel> {
                   margin: const EdgeInsets.only(left: 8.0, right: 8.0),
                   alignment: Alignment.center,
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 8),
                     child: Text(
                       category,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontStyle: FontStyle.normal,
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.w400,
+                        fontWeight:
+                            isSelected ? FontWeight.bold : FontWeight.w400,
                         fontFamily: 'Avenir',
                         fontSize: 16,
                         color: isSelected ? kTextColor : kTextLightColor,
