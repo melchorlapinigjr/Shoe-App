@@ -5,4 +5,5 @@ abstract class ApiService{
   Future <List<Shoe>> getShoes();
   Future <List<CategoryObject>> getShoesCategory();
   Future <List<Shoe>> getShoesByCategory(String category);
+
 }
