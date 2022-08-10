@@ -30,91 +30,84 @@ class HomepageView extends StatelessWidget {
                   )),
                 )
               : Scaffold(
-                  appBar: viewModel.stackIndex == 0
-                      ? null
-                      : AppBar(
-                          //toolbarHeight: 48,
-                          automaticallyImplyLeading: viewModel.stackIndex == 0
-                              ? false
-                              : viewModel.stackIndex == 1 || viewModel.stackIndex == 3
-                                  ? true
-                                  : false,
-                          leading: viewModel.stackIndex == 1 || viewModel.stackIndex == 3
-                              ? IconButton(
-                                  icon: SvgPicture.asset(SvgIcons.arrowLeft),
+                  appBar: AppBar(
+                    //toolbarHeight: 48,
+                    automaticallyImplyLeading: viewModel.stackIndex == 0
+                        ? false
+                        : viewModel.stackIndex == 1 || viewModel.stackIndex == 3
+                            ? true
+                            : false,
+                    leading:
+                        viewModel.stackIndex == 1 || viewModel.stackIndex == 3
+                            ? IconButton(
+                                icon: SvgPicture.asset(SvgIcons.arrowLeft),
+                                onPressed: () {
+                                  viewModel.changeIndex(0);
+                                },
+                              )
+                            : null,
+                    title: Text(
+                      viewModel.stackIndex == 0
+                          ? ''
+                          : viewModel.stackIndex == 1
+                              ? 'Cart'
+                              : viewModel.stackIndex == 2
+                                  ? 'My Likes'
+                                  : viewModel.stackIndex == 3
+                                      ? 'Profile'
+                                      : '',
+                      style: const TextStyle(
+                        fontFamily: 'Avalon',
+                        fontSize: 26,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff1F2732),
+                      ),
+                    ),
+
+                    elevation: 0,
+                    actions:
+                        viewModel.stackIndex == 0 || viewModel.stackIndex == 2
+                            ? <Widget>[
+                                IconButton(
+                                  icon: SvgPicture.asset(
+                                    SvgIcons.searchIcon,
+                                  ),
                                   onPressed: () {
-                                    viewModel.changeIndex(0);
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (_) {
+                                      return SearchPageView(
+                                        homeViewModel: viewModel,
+                                      );
+                                    }));
                                   },
                                 )
-                              : null,
-                          title: Text(
-                            viewModel.stackIndex == 0
-                                ? ''
-                                : viewModel.stackIndex == 1
-                                    ? 'Cart'
-                                    : viewModel.stackIndex == 2
-                                        ? 'My Likes'
-                                        : viewModel.stackIndex == 3
-                                            ? 'Profile'
-                                            : '',
-                            style: const TextStyle(
-                              fontFamily: 'Avalon',
-                              fontSize: 26,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xff1F2732),
-                            ),
-                          ),
-
-                          elevation: 0,
-                          actions: viewModel.stackIndex == 0 ||
-                                  viewModel.stackIndex == 2
-                              ? <Widget>[
-                                  IconButton(
-                                    icon: SvgPicture.asset(
-                                      SvgIcons.searchIcon,
-                                    ),
-                                    onPressed: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (_) {
-                                        return ViewModelBuilder<
-                                                ApplicationViewModel>.reactive(
-                                            disposeViewModel: false,
-                                            viewModelBuilder: () => Provider.of<
-                                                ApplicationViewModel>(context),
-                                            builder:
-                                                (context, viewModel, child) {
-                                              return const SearchPageView();
-                                            });
-                                      }));
-                                    },
-                                  )
-                                ]
-                              : viewModel.stackIndex == 3
-                                  ? <Widget>[
-                                      IconButton(
-                                        icon: const Icon(
-                                          Icons.add_circle_outline,
-                                          color: Colors.black,
-                                        ),
-                                        onPressed: () {
-                                          viewModel.isProfileTrue();
-                                          Navigator.push(context,
-                                              MaterialPageRoute(builder: (_) {
-                                            return const AddShoeView();
-                                          }));
-                                        },
+                              ]
+                            : viewModel.stackIndex == 3
+                                ? <Widget>[
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.add_circle_outline,
+                                        color: Colors.black,
                                       ),
-                                      IconButton(
-                                        icon: const Icon(
-                                          Icons.notifications,
-                                          color: Colors.black,
-                                        ),
-                                        onPressed: () {},
-                                      )
-                                    ]
-                                  : null,
-                          backgroundColor: Colors.white,
-                        ),
+                                      onPressed: () {
+                                        viewModel.isProfileTrue();
+                                        Navigator.push(context,
+                                            MaterialPageRoute(builder: (_) {
+                                          return const AddShoeView();
+                                        }));
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.notifications,
+                                        color: Colors.black,
+                                      ),
+                                      onPressed: () {},
+                                    )
+                                  ]
+                                : null,
+                    backgroundColor: Colors.white,
+                  ),
                   body: IndexedStack(
                     index: viewModel.stackIndex,
                     children: const [

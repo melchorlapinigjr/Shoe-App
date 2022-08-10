@@ -27,7 +27,7 @@ class SearchResultsList extends ViewModelWidget<SearchPageViewModel> {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Row(
           children: <Widget>[
-            Image.asset(
+            Image.network(
               shoe.images![0],
               width: 127.93,
               height: 127.93,
