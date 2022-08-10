@@ -65,6 +65,7 @@ class LoginView extends StatelessWidget {
                                   height: 38,
                                   child: TextFormField(
                                     decoration: const InputDecoration(
+                                      prefixIcon: Icon(Icons.mail),
                                       contentPadding:
                                           EdgeInsets.only(top: 4, left: 4),
                                       hintStyle: TextStyle(),
@@ -89,6 +90,7 @@ class LoginView extends StatelessWidget {
                                     obscureText:
                                         viewModel.isObscure ? true : false,
                                     decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.lock),
                                       suffixIcon: IconButton(
                                         icon: const Padding(
                                           padding: EdgeInsets.only(
@@ -170,8 +172,8 @@ class LoginView extends StatelessWidget {
                                       }));
 
                                 },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top:0,right:20),
+                                child: const Padding(
+                                  padding: EdgeInsets.only(top:0,right:20),
                                   child: Align(
                                     alignment: Alignment.topRight,
                                     child: Text(
