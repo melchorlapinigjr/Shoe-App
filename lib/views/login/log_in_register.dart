@@ -151,13 +151,14 @@ class _LoginRegisterState extends State<LoginRegister> {
                                             Icons.remove_red_eye,
                                             color: Colors.black,
                                           ),
-                                        ),
+                                        ),  
                                         onPressed: () {
                                           viewModel.changeObscure();
                                         },
                                       ),
                                       contentPadding: const EdgeInsets.only(
                                           top: 4, left: 4),
+                                      // ignore: prefer_const_constructors
                                       prefixIcon: Icon(Icons.lock),
                                       hintText: "Password:",
                                       border: const OutlineInputBorder(),
