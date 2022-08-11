@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/views/application/application_view_model.dart';
+import 'package:flutter_shoe_app/views/login/log_in_view.dart';
 import 'package:flutter_shoe_app/views/profile_page/profile_page_view_model.dart';
 import 'package:flutter_shoe_app/views/widgets/circular_%20progress.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfilePageView extends StatelessWidget {
@@ -162,7 +165,103 @@ class ProfilePageView extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                viewModel.logOut();
+                                showDialog(
+                                    context: context,
+                                    builder: (_) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                          'Sign Out',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 24,
+                                          ),
+                                        ),
+                                        content:
+                                            const Text('Confirm Sign Out?'),
+                                        actions: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              SizedBox(
+                                                height: 40,
+                                                child: ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(
+                                                    const Color(0xff14FC24),
+                                                  )),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Center(
+                                                      child: Text(
+                                                    'No',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 16,
+                                                    ),
+                                                  )),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 16,
+                                              ),
+                                              SizedBox(
+                                                height: 40,
+                                                child: ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(
+                                                    const Color(0xffE30405),
+                                                  )),
+                                                  onPressed: () {
+                                                    viewModel.sharedPreference
+                                                        .logOut();
+                                                    Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                        settings:
+                                                            const RouteSettings(
+                                                                name: "/login"),
+                                                        builder: (_) {
+                                                          return ViewModelBuilder<
+                                                                  ApplicationViewModel>.reactive(
+                                                              viewModelBuilder:
+                                                                  () => Provider
+                                                                      .of<ApplicationViewModel>(
+                                                                          context),
+                                                              builder: (context,
+                                                                  appModel,
+                                                                  child) {
+                                                                return const LoginView();
+                                                              });
+                                                        },
+                                                      ),
+                                                    );
+                                                    Navigator.of(context)
+                                                        .popUntil(
+                                                            ModalRoute.withName(
+                                                                "/login"));
+                                                  },
+                                                  child: const Center(
+                                                      child: Text(
+                                                    'Yes',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 18,
+                                                    ),
+                                                  )),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      );
+                                    });
                               },
                               child: Stack(
                                 alignment: Alignment.centerLeft,

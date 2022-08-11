@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
@@ -22,9 +23,5 @@ class ProfilePageViewModel extends ChangeNotifier {
     } catch (e, stackTrace) {
       print((stackTrace));
     }
-  }
-
-  Future<void> logOut() async {
-    await sharedPreference.logOut();
   }
 }
