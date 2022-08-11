@@ -170,6 +170,9 @@ class LoginView extends StatelessWidget {
                                       //       .pushNamed("HomepageView");
                                       // }
                                     },
+                                    onTapCancel: () {
+                                      Navigator.pop(context);
+                                    },
                                     child: Container(
                                       height: 60,
                                       decoration: BoxDecoration(

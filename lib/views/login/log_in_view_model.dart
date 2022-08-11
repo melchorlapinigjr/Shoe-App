@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
@@ -28,8 +30,7 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
     try {
       await apiService.googleSignIn();
-      // toHomepage();
-      // ignore: use_build_context_synchronously
+      isLogged = true;
       Navigator.push(context, MaterialPageRoute(builder: (_) {
         return ViewModelBuilder<ApplicationViewModel>.reactive(
             disposeViewModel: false,
@@ -39,11 +40,10 @@ class LoginViewModel extends ChangeNotifier {
             });
       }));
     } catch (e) {
-      print(e);
+      // ScaffoldMessenger.of(Get.context!)
+      //     .showSnackBar(SnackBar(content: Text(e.toString())));
+      throw 'Logged Canceled by User';
     }
-    print("islogged: ${isLogged}");
-    isLogged = true;
-    notifyListeners();
   }
 
   //route to homepage

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
@@ -38,8 +39,7 @@ class ApiServiceImpl extends ApiService {
             .toList();
       }
       return [];
-    } catch (e, stackTrace) {
-      print((stackTrace));
+    } catch (e) {
       rethrow;
     }
   }
@@ -54,8 +54,7 @@ class ApiServiceImpl extends ApiService {
             .toList();
       }
       return [];
-    } catch (e, stackTrace) {
-      print((stackTrace));
+    } catch (e) {
       rethrow;
     }
   }
@@ -70,8 +69,7 @@ class ApiServiceImpl extends ApiService {
             .toList();
       }
       return [];
-    } catch (e, stackTrace) {
-      print((stackTrace));
+    } catch (e) {
       rethrow;
     }
   }
@@ -96,10 +94,16 @@ class ApiServiceImpl extends ApiService {
           userdata = User.fromJson(response.data);
           sharedPreference.setUser(userdata);
         }
+      } else {
+        //do something
+        throw 'User canceled';
       }
-    } catch (e, stackTrace) {
-      print((stackTrace));
-      rethrow;
+    } catch (e) {
+      if (e is PlatformException) {
+        throw e.message!;
+      } else {
+        throw 'Logged Canceled';
+      }
     }
   }
 }
