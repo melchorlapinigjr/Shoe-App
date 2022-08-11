@@ -161,7 +161,9 @@ class ProfilePageView extends StatelessWidget {
                               color: Colors.black26,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                viewModel.logOut();
+                              },
                               child: Stack(
                                 alignment: Alignment.centerLeft,
                                 children: [

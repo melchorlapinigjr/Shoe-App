@@ -23,4 +23,8 @@ class ProfilePageViewModel extends ChangeNotifier {
       print((stackTrace));
     }
   }
+
+  Future<void> logOut() async {
+    await sharedPreference.logOut();
+  }
 }
