@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/models/category_object.dart';
 import 'package:flutter_shoe_app/utils/constants.dart';
@@ -59,6 +60,36 @@ class ApiServiceImpl extends ApiService {
     } catch (e, stackTrace) {
       print((stackTrace));
       rethrow;
+    }
+  }
+
+  @override
+  Future<void> facebookLogin() async {
+    try {
+      // Create an instance of FacebookLogin
+      final fb = FacebookLogin();
+
+      // Log in
+      final result = await fb.expressLogin();
+
+      if (result.status == FacebookLoginStatus.success) {
+        final FacebookAccessToken? accessToken = result.accessToken;
+        print(true);
+        print('Access token: ${accessToken?.token}');
+
+        final body = {
+          'provider': 'facebook',
+          'access_token': accessToken?.token,
+        };
+        final response = await dio.post('/social/login', data: body);
+
+        if (response.statusCode == 200 && response.data != null) {
+          print(true);
+          print('Access token: ${accessToken?.token}');
+        }
+      }
+    } catch (error) {
+      print(error);
     }
   }
 }

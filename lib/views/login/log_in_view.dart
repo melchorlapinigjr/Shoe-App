@@ -192,32 +192,35 @@ class LoginView extends StatelessWidget {
                               const SizedBox(
                                 height: 12,
                               ),
-                              Container(
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.circular(12)),
-                                width: MediaQuery.of(context).size.width,
-                                child: Stack(children: const [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 4, left: 20),
-                                      child: Icon(Icons.facebook_rounded),
+                              InkWell(
+                                onTap: () => viewModel.loginFacebook(),
+                                child: Container(
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Stack(children: const [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.only(top: 4, left: 20),
+                                        child: Icon(Icons.facebook_rounded),
+                                      ),
                                     ),
-                                  ),
-                                  Center(
-                                      child: Text(
-                                    'FACEBOOK',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                  ))
-                                ]),
+                                    Center(
+                                        child: Text(
+                                      'FACEBOOK',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ))
+                                  ]),
+                                ),
                               ),
                             ],
                           )),
