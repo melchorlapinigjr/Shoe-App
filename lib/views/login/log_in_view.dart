@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/homepage_view.dart';
+import 'package:flutter_shoe_app/views/login/log_in_register.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view_model.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -111,7 +113,7 @@ class LoginView extends StatelessWidget {
                                   alignment: Alignment.topRight,
                                   child: Padding(
                                     padding:
-                                    EdgeInsets.only(right: 20, bottom: 10),
+                                        EdgeInsets.only(right: 20, bottom: 10),
                                     child: Text(
                                       'forgot password',
                                       style: TextStyle(
@@ -120,7 +122,6 @@ class LoginView extends StatelessWidget {
                                       ),
                                     ),
                                   )),
-
 
                               InkWell(
                                 onTap: () {
@@ -163,12 +164,11 @@ class LoginView extends StatelessWidget {
                                 onTap: () {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (_) {
-                                        return const LoginRegister();
-                                      }));
-
+                                    return const LoginRegister();
+                                  }));
                                 },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top:0,right:20),
+                                child: const Padding(
+                                  padding: EdgeInsets.only(top: 0, right: 20),
                                   child: Align(
                                     alignment: Alignment.topRight,
                                     child: Text(
@@ -182,11 +182,12 @@ class LoginView extends StatelessWidget {
                                 ),
                               ),
 
-                        //
+                              //
 
                               const SizedBox(
                                 height: 20,
-                              ),InkWell(
+                              ),
+                              InkWell(
                                 onTap: () {
                                   viewModel.signInGoogle(context);
                                   //viewModel.toHomepage();
@@ -201,8 +202,7 @@ class LoginView extends StatelessWidget {
                                   height: 60,
                                   decoration: BoxDecoration(
                                       color: Colors.red,
-                                      borderRadius:
-                                      BorderRadius.circular(12)),
+                                      borderRadius: BorderRadius.circular(12)),
                                   width: MediaQuery.of(context).size.width,
                                   child: Center(
                                     child: Stack(
@@ -234,35 +234,36 @@ class LoginView extends StatelessWidget {
                               const SizedBox(
                                 height: 12,
                               ),
-                          InkWell(
-                            onTap: () => viewModel.loginFacebook(),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(12)),
-                              width: MediaQuery.of(context).size.width,
-                              child: Stack(children: const [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding:
-                                    EdgeInsets.only(top: 4, left: 20),
-                                    child: Icon(Icons.facebook_rounded),
-                                  ),
-                                ),
-                                  Center(
-                                      child: Text(
-                                    'FACEBOOK',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
+                              InkWell(
+                                onTap: () => viewModel.loginFacebook(context),
+                                child: Container(
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Stack(children: const [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.only(top: 4, left: 20),
+                                        child: Icon(Icons.facebook_rounded),
+                                      ),
                                     ),
-                                  ))
-                                ]),
-                              ),
+                                    Center(
+                                        child: Text(
+                                      'FACEBOOK',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ))
+                                  ]),
+                                ),
+                              )
                             ],
                           )),
                     ),

@@ -6,8 +6,6 @@ import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
-
-import '../../app/app.locator.dart';
 import '../../core/services/api/api_service.dart';
 import '../application/application_view_model.dart';
 import '../home/homepage_view.dart';
@@ -54,13 +52,26 @@ class LoginViewModel extends ChangeNotifier {
     await navigationService.pushNamed(Routes.HomepageView);
   }
 
-  //facebookLogin
-  Future<void> loginFacebook() async {
+  Future<void> loginFacebook(BuildContext context) async {
+    isLogged = false;
+    notifyListeners();
     try {
       await apiService.facebookLogin();
+      // toHomepage();
+      // ignore: use_build_context_synchronously
+      Navigator.push(context, MaterialPageRoute(builder: (_) {
+        return ViewModelBuilder<ApplicationViewModel>.reactive(
+            disposeViewModel: false,
+            viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
+            builder: (context, viewModel, child) {
+              return const HomepageView();
+            });
+      }));
     } catch (e) {
       print(e);
     }
+    print("islogged: ${isLogged}");
+    isLogged = true;
     notifyListeners();
   }
 }

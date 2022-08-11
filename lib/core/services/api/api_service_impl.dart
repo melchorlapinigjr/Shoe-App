@@ -79,6 +79,7 @@ class ApiServiceImpl extends ApiService {
 
   @override
   Future<void> facebookLogin() async {
+    var fbuserdata;
     try {
       // Create an instance of FacebookLogin
       final fb = FacebookLogin();
@@ -90,20 +91,20 @@ class ApiServiceImpl extends ApiService {
         final FacebookAccessToken? accessToken = result.accessToken;
         print(true);
         print('Access token: ${accessToken?.token}');
-
         final body = {
           'provider': 'facebook',
           'access_token': accessToken?.token,
         };
         final response = await dio.post('/social/login', data: body);
-
+        print(response.data.toString());
         if (response.statusCode == 200 && response.data != null) {
-          print(true);
-          print('Access token: ${accessToken?.token}');
+          fbuserdata = User.fromJson(response.data);
+          sharedPreference.setUser(fbuserdata);
         }
       }
-    } catch (error) {
-      print(error);
+    } catch (e, stackTrace) {
+      print((stackTrace));
+      rethrow;
     }
   }
 
