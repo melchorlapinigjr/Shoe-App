@@ -64,6 +64,7 @@ class ShoeDetailsModel extends ChangeNotifier {
 
   List<String> getAvailableShoeSizes() {
     // TODO: show.availableSizes <string>[]
+    ALL_SHOE_SIZES.clear();
     ALL_SHOE_SIZES.addAll(shoe.sizes!);
     return ALL_SHOE_SIZES;
   }

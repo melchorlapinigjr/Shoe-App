@@ -35,21 +35,21 @@ class ApplicationViewModel extends ChangeNotifier {
   void addToMyLikes(Shoe shoe) {
     myLikes.add(shoe);
     notifyListeners();
-    //shoe.isLiked = true;
+    shoe.isLiked = true;
     notifyListeners();
   }
 
   void removeFromLikes(Shoe shoe) {
-    //shoe.isLiked = false;
+    shoe.isLiked = false;
     myLikes.remove(shoe);
     notifyListeners();
   }
 
   void onShoeLikePressed(Shoe shoe) {
-    // if (shoe.isLiked) {
-    //   removeFromLikes(shoe);
-    // } else {
-    //   addToMyLikes(shoe);
-    // }
+    if (shoe.isLiked) {
+      removeFromLikes(shoe);
+    } else {
+      addToMyLikes(shoe);
+    }
   }
 }
