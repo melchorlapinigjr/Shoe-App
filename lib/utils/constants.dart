@@ -3,5 +3,7 @@ import 'package:flutter/material.dart';
 const kTextColor = Colors.white;
 const kTextLightColor = Colors.black;
 
-const kDefaultPadding= 8.0;
+const kDefaultPaddin = 8.0;
 const baseUrl = "http://shoeweb.bisubilar.org/api";
+const userPrefKey = 'USER_PREF_KEY';
+var user;

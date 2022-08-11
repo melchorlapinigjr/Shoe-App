@@ -7,5 +7,5 @@ abstract class ApiService{
   Future <List<CategoryObject>> getShoesCategory();
   Future <List<Shoe>> getShoesByCategory(String category);
   Future <void> getLoginRegister(String name, String email, String password);
-
+  Future<void> googleSignIn();
 }

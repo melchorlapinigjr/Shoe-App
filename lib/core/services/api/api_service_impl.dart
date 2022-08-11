@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
+import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
 import 'package:flutter_shoe_app/models/category_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/utils/constants.dart';
 import 'package:flutter_shoe_app/views/home/shoe_object.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_shoe_app/views/login/log_in_register.dart';
 import 'package:injectable/injectable.dart';
 
@@ -15,6 +18,16 @@ class ApiServiceImpl extends ApiService {
     ..options.headers.addEntries([
       const MapEntry('accept', 'application/json'),
     ]);
+
+  //GoogleSignIn
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+
+  final SharedPreference sharedPreference = locator<SharedPreference>();
 
   @override
   Future<List<Shoe>> getShoes() async {
@@ -81,6 +94,33 @@ class ApiServiceImpl extends ApiService {
       }
     }catch(e){
       print(e);
+    }
+  }
+
+  @override
+  Future<void> googleSignIn() async {
+    var userdata;
+    try {
+      await _googleSignIn.signOut();
+      final GoogleSignInAccount? result = await _googleSignIn.signIn();
+      if (result != null) {
+        GoogleSignInAuthentication googleSignInAuthentication =
+            await result.authentication;
+        print(googleSignInAuthentication.accessToken);
+        final body = {
+          'provider': 'google',
+          'access_token': googleSignInAuthentication.accessToken,
+        };
+        final response = await dio.post('/social/login', data: body);
+        print(response.data.toString());
+        if (response.statusCode == 200 && response.data != null) {
+          userdata = User.fromJson(response.data);
+          sharedPreference.setUser(userdata);
+        }
+      }
+    } catch (e, stackTrace) {
+      print((stackTrace));
+      rethrow;
     }
   }
 }
