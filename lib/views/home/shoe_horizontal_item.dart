@@ -100,7 +100,7 @@ class ShoeHorizontalItem extends StatelessWidget {
             child: Transform.rotate(
               angle: math.pi / 180 * (-30),
               child: Hero(
-                tag: shoe.images![0],
+                tag: '1',
                 child: Image.network(shoe.images![0],
                   width: 252,
                 ),

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/utils/constants.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/home_view_model.dart';
 import 'package:flutter_shoe_app/views/home/shoe_category_view.dart';
 import 'package:flutter_shoe_app/views/home/shoe_horizontal_item.dart';
 import 'package:flutter_shoe_app/views/home/shoe_vertical_item.dart';
-import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
+
+import '../widgets/circular_ progress.dart';
 
 class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
   const HomeViewWidget({Key? key}) : super(key: key);
@@ -18,29 +17,6 @@ class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        backgroundColor: Colors.white,
-        actions: <Widget>[
-          IconButton(
-            icon: SvgPicture.asset(
-              SvgIcons.searchIcon,
-            ),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) {
-                return ViewModelBuilder<ApplicationViewModel>.reactive(
-                    disposeViewModel: false,
-                    viewModelBuilder: () =>
-                        Provider.of<ApplicationViewModel>(context),
-                    builder: (context, viewModel, child) {
-                      return const SearchPageView();
-                    });
-              }));
-            },
-          )
-        ],
-      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -68,16 +44,19 @@ class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
           Flexible(
             child: SizedBox(
               height: 348,
-              child: ListView.separated(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(16),
-                scrollDirection: Axis.horizontal,
-                itemCount: viewModel.items.length,
-                separatorBuilder: (context, _) => const SizedBox(width: 16),
-                itemBuilder: (context, index) => ShoeHorizontalItem(
-                  viewModel.items[index],
-                ),
-              ),
+              child: viewModel.itemsLoaded
+                  ? CircularProgress()
+                  : ListView.separated(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(16),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: viewModel.itemsByCategory.length,
+                      separatorBuilder: (context, _) =>
+                          const SizedBox(width: 16),
+                      itemBuilder: (context, index) => ShoeHorizontalItem(
+                        viewModel.itemsByCategory[index],
+                      ),
+                    ),
             ),
           ),
           Column(
@@ -107,7 +86,7 @@ class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
             ],
           ),
           ViewModelBuilder<ApplicationViewModel>.nonReactive(
-            disposeViewModel: false,
+              disposeViewModel: false,
               viewModelBuilder: () =>
                   Provider.of<ApplicationViewModel>(context),
               builder: (context, applicationViewModel, child) {

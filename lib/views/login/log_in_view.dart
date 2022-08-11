@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/homepage_view.dart';
-import 'package:flutter_shoe_app/views/login/log_in_register.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view_model.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:flutter_svg/flutter_svg.dart';
-// ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
@@ -189,71 +186,82 @@ class LoginView extends StatelessWidget {
 
                               const SizedBox(
                                 height: 20,
-                              ),
-                              Container(
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(12)),
-                                width: MediaQuery.of(context).size.width,
-                                child: Center(
-                                  child: Stack(
-                                    alignment: Alignment.centerLeft,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 2, left: 20),
-                                        child: SvgPicture.asset(
-                                            SvgIcons.googleIcon),
-                                      ),
-                                      const Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'GOOGLE',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
+                              ),InkWell(
+                                onTap: () {
+                                  viewModel.signInGoogle(context);
+                                  //viewModel.toHomepage();
+                                  // if (viewModel.isLogged == false) {
+                                  //   viewModel.signInGoogle();
+                                  // } else {
+                                  //   viewModel.navigationService
+                                  //       .pushNamed("HomepageView");
+                                  // }
+                                },
+                                child: Container(
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius:
+                                      BorderRadius.circular(12)),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Center(
+                                    child: Stack(
+                                      alignment: Alignment.centerLeft,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 4, left: 20),
+                                          child: SvgPicture.asset(
+                                              SvgIcons.googleIcon),
                                         ),
-                                      )
-                                    ],
+                                        const Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            'GOOGLE',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                               const SizedBox(
                                 height: 12,
                               ),
-                              InkWell(
-                                onTap: () => viewModel.loginFacebook(),
-                                child: Container(
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue,
-                                      borderRadius: BorderRadius.circular(12)),
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Stack(children: const [
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding:
-                                            EdgeInsets.only(top: 4, left: 20),
-                                        child: Icon(Icons.facebook_rounded),
-                                      ),
-                                    ),
-                                    Center(
-                                        child: Text(
-                                      'FACEBOOK',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
-                                    ))
-                                  ]),
+                          InkWell(
+                            onTap: () => viewModel.loginFacebook(),
+                            child: Container(
+                              height: 60,
+                              decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(12)),
+                              width: MediaQuery.of(context).size.width,
+                              child: Stack(children: const [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding:
+                                    EdgeInsets.only(top: 4, left: 20),
+                                    child: Icon(Icons.facebook_rounded),
+                                  ),
                                 ),
+                                  Center(
+                                      child: Text(
+                                    'FACEBOOK',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ))
+                                ]),
                               ),
                             ],
                           )),

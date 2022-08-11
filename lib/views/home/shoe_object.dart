@@ -103,5 +103,6 @@ class Shoe extends Equatable {
         sizes,
         created_at,
         updated_at,
+        isLiked
       ];
 }

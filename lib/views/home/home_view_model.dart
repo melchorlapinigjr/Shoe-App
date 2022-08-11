@@ -19,57 +19,62 @@ class HomeViewModel extends ChangeNotifier {
   //values for each shoe card
   List<Shoe> items = [];
 
+  List<Shoe> itemsByCategory = [];
+
   String selectedCategory = "All";
 
   Future<void> getShoes() async {
-    if(items != null){
+    if (items != null) {
       items.clear();
     }
     isBusy = true;
     notifyListeners();
     final shoes = await apiService.getShoes();
     final shoeCategories = await apiService.getShoesCategory();
-    if (shoes != null) {
-      items.addAll(shoes);
-      for (var s in shoeCategories) {
-        categories.add(s.toString().substring(15, s.toString().length - 1));
-      }
-      isBusy = false;
-      notifyListeners();
+    items.addAll(shoes);
+    for (var s in shoeCategories) {
+      categories.add(s.toString().substring(15, s.toString().length - 1));
     }
+    isBusy = false;
+    notifyListeners();
   }
 
+  //start shoe horizontal widget//
+  bool itemsLoaded = false;
+
   Future<void> getShoesByCategory(String category) async {
-    items.clear();
-    isBusy = true;
+    itemsLoaded = true;
+    itemsByCategory.clear();
     notifyListeners();
     final shoes = await apiService.getShoesByCategory(category);
-    if (shoes != null) {
-      items.addAll(shoes);
-      await getColors();
-      isBusy = false;
-      notifyListeners();
+    itemsByCategory.addAll(shoes);
+    for (Shoe s in itemsByCategory) {
+      s.paletteColor = await PaletteUtils.getColorFromImage(s.images![0]);
     }
+    itemsLoaded = false;
+    notifyListeners();
   }
 
   void onCategorySelected(String category) {
     selectedCategory = category;
     notifyListeners();
   }
+//end shoe horizontal widget//
 
   bool isBusy = false;
 
   Future<void> initialize() async {
     await getShoes();
+    getShoesByCategory(selectedCategory);
     stackIndex = 0;
     isHomeTrue();
-    await getColors();
+    await getColors(items);
   }
 
-  Future<void> getColors() async {
+  Future<void> getColors(List<Shoe> item) async {
     isBusy = true;
     notifyListeners();
-    for (Shoe s in items) {
+    for (Shoe s in item) {
       s.paletteColor = await PaletteUtils.getColorFromImage(s.images![0]);
     }
     isBusy = false;
