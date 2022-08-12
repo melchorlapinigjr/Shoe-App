@@ -75,7 +75,7 @@ class ImageView extends ViewModelWidget<AddShoeViewModel> {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
