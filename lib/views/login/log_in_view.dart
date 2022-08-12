@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
+import 'package:flutter_shoe_app/utils/constants.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/homepage_view.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view_model.dart';
@@ -152,6 +153,7 @@ class LoginView extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
+                              socialProvider = 'google';
                               viewModel.signInGoogle(context);
                             },
                             onTapCancel: () {
@@ -194,7 +196,10 @@ class LoginView extends StatelessWidget {
                             height: 12,
                           ),
                           InkWell(
-                            onTap: () => viewModel.loginFacebook(context),
+                            onTap: () {
+                              socialProvider = 'facebook';
+                              viewModel.loginFacebook(context);
+                            },
                             child: Container(
                               height: 60,
                               decoration: BoxDecoration(

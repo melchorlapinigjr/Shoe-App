@@ -86,7 +86,6 @@ class ApiServiceImpl extends ApiService {
 
       if (result.status == FacebookLoginStatus.success) {
         final FacebookAccessToken? accessToken = result.accessToken;
-
         print('Access token: ${accessToken?.token}');
         final body = {
           'provider': 'facebook',

@@ -40,9 +40,8 @@ class ProfilePageView extends StatelessWidget {
                                         color: Colors.black, width: 2),
                                   ),
                                   child: CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                      viewModel.user!.avatar!,
-                                    ),
+                                    backgroundImage:
+                                        NetworkImage(viewModel.user!.avatar!),
                                   ),
                                 ),
                               ),
