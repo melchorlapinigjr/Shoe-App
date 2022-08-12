@@ -78,16 +78,15 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<void> facebookLogin() async {
     var fbuserdata;
+    // Create an instance of FacebookLogin
+    final fb = FacebookLogin();
     try {
-      // Create an instance of FacebookLogin
-      final fb = FacebookLogin();
-
       // Log in
       final result = await fb.expressLogin();
 
       if (result.status == FacebookLoginStatus.success) {
         final FacebookAccessToken? accessToken = result.accessToken;
-        print(true);
+
         print('Access token: ${accessToken?.token}');
         final body = {
           'provider': 'facebook',
@@ -99,9 +98,10 @@ class ApiServiceImpl extends ApiService {
           fbuserdata = User.fromJson(response.data);
           sharedPreference.setUser(fbuserdata);
         }
+      } else {
+        throw 'Facebook activity canceled';
       }
-    } catch (e, stackTrace) {
-      print((stackTrace));
+    } catch (e) {
       rethrow;
     }
   }

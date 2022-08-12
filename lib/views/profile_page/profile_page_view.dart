@@ -55,7 +55,7 @@ class ProfilePageView extends StatelessWidget {
                               padding:
                                   const EdgeInsets.only(top: 5, bottom: 50),
                               child: Text(
-                                viewModel.user!.email,
+                                viewModel.userEmail,
                                 textAlign: TextAlign.center,
                               ),
                             ),

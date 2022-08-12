@@ -4,7 +4,7 @@ class User extends Equatable {
   String name;
   String? id;
   String? avatar;
-  String email;
+  String? email;
 
   User({required this.name, this.id, this.avatar, required this.email});
 
@@ -15,7 +15,7 @@ class User extends Equatable {
       name: json["name"] as String,
       id: json["id"] as String?,
       avatar: json["avatar"] as String?,
-      email: json["email"] as String);
+      email: json["email"] as String?);
 
   @override
   // TODO: implement props

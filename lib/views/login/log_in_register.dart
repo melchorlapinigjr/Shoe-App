@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/homepage_view.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view_model.dart';
-
-// ignore: depend_on_referenced_packages
-import 'package:flutter_svg/flutter_svg.dart';
-// ignore: depend_on_referenced_packages
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
@@ -68,7 +63,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                               ),
                               Container(
                                 padding:
-                                const EdgeInsets.fromLTRB(24, 5, 16, 16),
+                                    const EdgeInsets.fromLTRB(24, 5, 16, 16),
                                 height: 60,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
@@ -80,7 +75,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                                   child: TextFormField(
                                     decoration: const InputDecoration(
                                       contentPadding:
-                                      EdgeInsets.only(top: 4, left: 4),
+                                          EdgeInsets.only(top: 4, left: 4),
                                       hintStyle: TextStyle(),
                                       hintText: "Name:",
                                       border: OutlineInputBorder(),
@@ -90,7 +85,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                               ),
                               Container(
                                 padding:
-                                const EdgeInsets.fromLTRB(24, 5, 16, 16),
+                                    const EdgeInsets.fromLTRB(24, 5, 16, 16),
                                 height: 60,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
@@ -101,7 +96,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                                   height: 38,
                                   child: TextFormField(
                                     obscureText:
-                                    viewModel.isObscure ? true : false,
+                                        viewModel.isObscure ? true : false,
                                     decoration: InputDecoration(
                                       suffixIcon: IconButton(
                                         icon: const Padding(
@@ -126,7 +121,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                               ),
                               Container(
                                 padding:
-                                const EdgeInsets.fromLTRB(24, 5, 16, 16),
+                                    const EdgeInsets.fromLTRB(24, 5, 16, 16),
                                 height: 60,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
@@ -137,7 +132,7 @@ class _LoginRegisterState extends State<LoginRegister> {
                                   height: 38,
                                   child: TextFormField(
                                     obscureText:
-                                    viewModel.isObscure ? true : false,
+                                        viewModel.isObscure ? true : false,
                                     decoration: InputDecoration(
                                       suffixIcon: IconButton(
                                         icon: const Padding(
@@ -164,35 +159,36 @@ class _LoginRegisterState extends State<LoginRegister> {
                                 onTap: () {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (_) {
-                                        return ViewModelBuilder<
+                                    return ViewModelBuilder<
                                             ApplicationViewModel>.reactive(
-                                            disposeViewModel: false,
-                                            viewModelBuilder: () =>
-                                                Provider.of<ApplicationViewModel>(
-                                                    context),
-                                            builder: (context, viewModel, child) {
-                                              return const HomepageView();
-                                            });
-                                      }));
+                                        disposeViewModel: false,
+                                        viewModelBuilder: () =>
+                                            Provider.of<ApplicationViewModel>(
+                                                context),
+                                        builder: (context, viewModel, child) {
+                                          return const HomepageView();
+                                        });
+                                  }));
                                 },
                                 child: Container(
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(12)),
-                                  padding:
-                                  const EdgeInsets.fromLTRB(50, 20, 50, 16),
-                                  width: MediaQuery.of(context).size.width,
-                                  child: const Center(
-                                      child:  Text(
-                                          'Register',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        ),
-                                      )),
-                                ),
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
+                                    padding: const EdgeInsets.fromLTRB(
+                                        50, 20, 50, 16),
+                                    width: MediaQuery.of(context).size.width,
+                                    child: const Center(
+                                      child: Text(
+                                        'Register',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                    )),
+                              ),
                             ],
                           )),
                     ),

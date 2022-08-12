@@ -12,12 +12,18 @@ class ProfilePageViewModel extends ChangeNotifier {
   User? user;
 
   bool setBusy = false;
+  var userEmail;
 
   Future<void> initialize() async {
     setBusy = true;
     notifyListeners();
     try {
       user = await sharedPreference.getUser();
+      if (user!.email == null) {
+        userEmail = user!.id;
+      } else {
+        userEmail = 'Facebook Id: ${user!.email}';
+      }
       setBusy = false;
       notifyListeners();
     } catch (e, stackTrace) {
