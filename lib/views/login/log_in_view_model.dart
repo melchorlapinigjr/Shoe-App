@@ -72,4 +72,61 @@ class LoginViewModel extends ChangeNotifier {
       rethrow;
     }
   }
+
+  //login with fields
+  TextEditingController emailFieldController = TextEditingController(),
+      passwordFieldController = TextEditingController();
+  Future<void> loginFields(
+      String email, String password, BuildContext context) async {
+    try {
+      await apiService.signInWithFields(email, password);
+      Navigator.push(context, MaterialPageRoute(builder: (_) {
+        return ViewModelBuilder<ApplicationViewModel>.reactive(
+            disposeViewModel: false,
+            viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
+            builder: (context, viewModel, child) {
+              return const HomepageView();
+            });
+      }));
+    } catch (e) {
+      //rethrow;
+      showDialog(
+          context: context,
+          builder: (_) {
+            return AlertDialog(
+              title: const Text(
+                'Invalid Login!',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 24,
+                ),
+              ),
+              actions: [
+                Center(
+                  child: SizedBox(
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                        const Color(0xff14FC24).withOpacity(0.7),
+                      )),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Center(
+                          child: Text(
+                        'Got It!',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Color(0xff1F2732)),
+                      )),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          });
+    }
+  }
 }

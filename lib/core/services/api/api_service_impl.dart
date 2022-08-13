@@ -120,7 +120,6 @@ class ApiServiceImpl extends ApiService {
           'access_token': googleSignInAuthentication.accessToken,
         };
         final response = await dio.post('/social/login', data: body);
-        print(response.data.toString());
         if (response.statusCode == 200 && response.data != null) {
           userdata = User.fromJson(response.data);
           sharedPreference.setUser(userdata);
@@ -135,6 +134,33 @@ class ApiServiceImpl extends ApiService {
       } else {
         throw 'Logged Canceled';
       }
+    }
+  }
+
+  @override
+  Future<void> registerUser(User createUser) async {
+    try {
+      await dio.post('/auth/register', data: createUser.toJson());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> signInWithFields(String userEmail, String userPassword) async {
+    var userdata;
+    try {
+      final body = {
+        'email': userEmail,
+        'password': userPassword,
+      };
+      final response = await dio.post('/auth/login', data: body);
+      if (response.statusCode == 200 && response.data != null) {
+        userdata = User.fromJson(response.data);
+        sharedPreference.setUser(userdata);
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 }

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
-import 'package:flutter_shoe_app/utils/constants.dart';
-import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:flutter_shoe_app/views/home/homepage_view.dart';
+import 'package:flutter_shoe_app/views/login/log_in_register.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view_model.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends StatelessWidget {
@@ -60,7 +57,10 @@ class LoginView extends StatelessWidget {
                               width: 320,
                               height: 38,
                               child: TextFormField(
+                                controller: viewModel.emailFieldController,
+                                keyboardType: TextInputType.emailAddress,
                                 decoration: const InputDecoration(
+                                  prefixIcon: Icon(Icons.mail),
                                   contentPadding:
                                       EdgeInsets.only(top: 4, left: 4),
                                   hintStyle: TextStyle(),
@@ -73,17 +73,18 @@ class LoginView extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.fromLTRB(24, 5, 16, 16),
                             height: 60,
-                            width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(32),
-                            ),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(32)),
+                            width: MediaQuery.of(context).size.width,
                             child: SizedBox(
                               width: 320,
                               height: 38,
                               child: TextFormField(
+                                controller: viewModel.passwordFieldController,
                                 obscureText: viewModel.isObscure ? true : false,
                                 decoration: InputDecoration(
+                                  prefixIcon: const Icon(Icons.lock),
                                   suffixIcon: IconButton(
                                     icon: const Padding(
                                       padding:
@@ -97,6 +98,8 @@ class LoginView extends StatelessWidget {
                                       viewModel.changeObscure();
                                     },
                                   ),
+                                  contentPadding:
+                                      const EdgeInsets.only(top: 4, left: 4),
                                   hintText: "Password:",
                                   border: const OutlineInputBorder(),
                                 ),
@@ -108,7 +111,7 @@ class LoginView extends StatelessWidget {
                               child: Padding(
                                 padding: EdgeInsets.only(right: 20, bottom: 10),
                                 child: Text(
-                                  'forgot password',
+                                  'Forgot password',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14,
@@ -117,18 +120,10 @@ class LoginView extends StatelessWidget {
                               )),
                           InkWell(
                             onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (_) {
-                                return ViewModelBuilder<
-                                        ApplicationViewModel>.reactive(
-                                    disposeViewModel: false,
-                                    viewModelBuilder: () =>
-                                        Provider.of<ApplicationViewModel>(
-                                            context),
-                                    builder: (context, viewModel, child) {
-                                      return const HomepageView();
-                                    });
-                              }));
+                              viewModel.loginFields(
+                                  viewModel.emailFieldController.text,
+                                  viewModel.passwordFieldController.text,
+                                  context);
                             },
                             child: Container(
                               height: 60,
@@ -153,7 +148,30 @@ class LoginView extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              socialProvider = 'google';
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return LoginRegister();
+                              }));
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.only(top: 0, right: 20),
+                              child: Align(
+                                alignment: Alignment.topRight,
+                                child: Text(
+                                  'Sign Up',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          InkWell(
+                            onTap: () {
                               viewModel.signInGoogle(context);
                             },
                             onTapCancel: () {
@@ -197,7 +215,6 @@ class LoginView extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              socialProvider = 'facebook';
                               viewModel.loginFacebook(context);
                             },
                             child: Container(

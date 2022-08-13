@@ -40,8 +40,9 @@ class ProfilePageView extends StatelessWidget {
                                         color: Colors.black, width: 2),
                                   ),
                                   child: CircleAvatar(
-                                    backgroundImage:
-                                        NetworkImage(viewModel.user!.avatar!),
+                                    backgroundImage: NetworkImage(viewModel
+                                            .user!.avatar ??
+                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEWOF4Helqj7_TvdkNW6NS6oey-2JjfKNdew&usqp=CAU'),
                                   ),
                                 ),
                               ),
@@ -54,7 +55,7 @@ class ProfilePageView extends StatelessWidget {
                               padding:
                                   const EdgeInsets.only(top: 5, bottom: 50),
                               child: Text(
-                                viewModel.userEmail,
+                                viewModel.user!.email ?? '',
                                 textAlign: TextAlign.center,
                               ),
                             ),
