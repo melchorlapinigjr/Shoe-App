@@ -4,7 +4,6 @@ import 'package:image_picker/image_picker.dart';
 class AddShoeViewModel extends ChangeNotifier {
   final imagePicker = ImagePicker();
   List<XFile>? images = [];
-
   List<String> selectedSizes = [];
 
   Future getImages() async {
