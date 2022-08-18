@@ -1,6 +1,6 @@
 import 'package:flutter_shoe_app/models/category_object.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 
 abstract class ApiService {
   Future<List<Shoe>> getShoes();
@@ -10,4 +10,8 @@ abstract class ApiService {
   Future<void> googleSignIn();
   Future<void> registerUser(User createUser);
   Future<void> signInWithFields(String userEmail, String userPassword);
+  //Future<void> newProduct(List<String> imgs);
+  Future<List<Shoe>> getMyLikes(String userId);
+  Future<void> removeFromLikes(Shoe shoe);
+  Future<void> addToLikes(User user, Shoe shoe);
 }

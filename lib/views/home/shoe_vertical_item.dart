@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -12,10 +12,18 @@ typedef LikePressed = void Function(Shoe shoe);
 class ShoeVerticalItem extends StatelessWidget {
   final Shoe item;
 
-  const ShoeVerticalItem(
-      {super.key, required this.item, required this.onLikePressed});
+  ShoeVerticalItem(
+      {super.key,
+      required this.item,
+      required this.onLikePressed,
+      this.liked,
+      required this.isWishlistPage,
+      required this.applicationViewModel});
 
+  bool? liked;
+  bool isWishlistPage;
   final LikePressed onLikePressed;
+  final ApplicationViewModel applicationViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +33,10 @@ class ShoeVerticalItem extends StatelessWidget {
             context,
             PageRouteBuilder(
                 transitionDuration: const Duration(seconds: 2),
-                pageBuilder: (_, __, ___) =>
-                    ShoeDetailsView(
+                pageBuilder: (_, __, ___) => ShoeDetailsView(
                       item,
                       applicationViewModel:
-                      Provider.of<ApplicationViewModel>(context),
+                          Provider.of<ApplicationViewModel>(context),
                     )));
       },
       child: Container(
@@ -50,7 +57,7 @@ class ShoeVerticalItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.name?? "",
+                    item.name ?? "",
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
@@ -58,7 +65,7 @@ class ShoeVerticalItem extends StatelessWidget {
                       overflow: TextOverflow.clip,
                     ),
                   ),
-                   const SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -71,21 +78,20 @@ class ShoeVerticalItem extends StatelessWidget {
                       ),
                       Align(
                           alignment: Alignment.centerRight,
-                          child: item.isLiked
+                          child: isWishlistPage
                               ? IconButton(
-                            icon: SvgPicture.asset(
-                              item.isLiked
-                                  ? SvgIcons.heartFilled
-                                  : SvgIcons.heartBordered,
-                              width: 19,
-                              height: 17,
-                            ),
-                            onPressed: () {
-                              onLikePressed.call(item);
-                            },
-                          )
-                              : Container()
-                      )
+                                  icon: SvgPicture.asset(
+                                    applicationViewModel.wlist[item]!
+                                        ? SvgIcons.heartFilled
+                                        : SvgIcons.heartBordered,
+                                    width: 19,
+                                    height: 17,
+                                  ),
+                                  onPressed: () {
+                                    applicationViewModel.isLiked(item);
+                                  },
+                                )
+                              : Container())
                     ],
                   ),
                 ],

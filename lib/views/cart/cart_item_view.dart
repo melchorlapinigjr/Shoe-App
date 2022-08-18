@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
-import 'package:stacked/stacked.dart';
 import 'package:provider/provider.dart';
+import 'package:stacked/stacked.dart';
 
 class CartItemView extends StatelessWidget {
   const CartItemView({Key? key, required this.shoe, required this.quantity})
@@ -117,7 +117,7 @@ class CartItemView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          shoe.name??  "",
+                          shoe.name ?? "",
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,

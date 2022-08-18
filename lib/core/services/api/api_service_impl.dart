@@ -5,9 +5,9 @@ import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
 import 'package:flutter_shoe_app/models/category_object.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/utils/constants.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 
@@ -163,4 +163,48 @@ class ApiServiceImpl extends ApiService {
       rethrow;
     }
   }
+
+  @override
+  Future<List<Shoe>> getMyLikes(String userId) async {
+    try {
+      final response = await dio.get('/wishlist/$userId');
+      if (response.statusCode == 200 && response.data != null) {
+        return (response.data as List<dynamic>)
+            .map((e) => Shoe.fromJson(e as Map<String, dynamic>))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  //remove from my likes
+  @override
+  Future<void> removeFromLikes(Shoe shoe) async {
+    try {
+      final response = await dio.post('/removeWishlist', data: shoe.toJSON());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  //add to my likes
+  @override
+  Future<void> addToLikes(User user, Shoe shoe) async {
+    try {
+      final body = {"user_id": user.id, "product_id": shoe.id};
+      final response = await dio.post('/addwishlist', data: body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // //upload new product
+  // @override
+  // Future<void> newProduct(List<String> imgs) async {
+  //   final body = {"images": imgs};
+  //   final response = await dio.post('/addproduct', data: body);
+  //   print('response : ${response.data}');
+  // }
 }

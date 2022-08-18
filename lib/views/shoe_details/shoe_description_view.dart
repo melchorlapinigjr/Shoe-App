@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -23,7 +23,7 @@ class ShoeDescriptionView extends ViewModelWidget<ShoeDetailsModel> {
               children: [
                 Expanded(
                   child: Text(
-                    shoe.name?? "",
+                    shoe.name ?? "",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       fontFamily: 'Avenir',
@@ -93,8 +93,10 @@ class ShoeDescriptionWidget extends ViewModelWidget<ShoeDetailsModel> {
         child: Text(
           viewModel.onState() ? 'Read Less' : 'Read More',
           style: const TextStyle(
-            fontFamily: 'Avenir',
-              color: Color(0xFF1F2732), height: 2, fontWeight: FontWeight.bold),
+              fontFamily: 'Avenir',
+              color: Color(0xFF1F2732),
+              height: 2,
+              fontWeight: FontWeight.bold),
         ),
       ),
     ]);

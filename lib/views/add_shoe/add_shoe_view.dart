@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/views/add_shoe/add_shoe_view_model.dart';
 import 'package:flutter_shoe_app/views/widgets/show_sizes_view.dart';
 import 'package:stacked/stacked.dart';
+
 import 'add_shoe_image_view.dart';
 
 class AddShoeView extends StatefulWidget {
@@ -141,7 +142,9 @@ class _AddShoeViewState extends State<AddShoeView> {
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ))),
-                  onPressed: () {},
+                  onPressed: () {
+                    //viewModel.uploadNew(viewModel.shoeImages);
+                  },
                   child: const Text('Add',
                       style: TextStyle(
                         fontSize: 16,

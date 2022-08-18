@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.locator.dart';
+import 'package:flutter_shoe_app/core/services/api/api_service.dart';
+import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
+import 'package:flutter_shoe_app/models/user_object.dart';
+import 'package:get/get.dart';
+import 'package:stacked/stacked_annotations.dart';
 
+@LazySingleton()
 class ApplicationViewModel extends ChangeNotifier {
+  final ApiService apiService = locator<ApiService>();
+  User? user;
+  final SharedPreference sharedPreference = locator<SharedPreference>();
+  List<Shoe> wishlist = [];
+
   // int = quantity
   Map<Shoe, int> cart = {};
+  Map<Shoe, bool> wlist = {};
 
   void addToCart(Shoe shoe) {
     cart[shoe] = (cart[shoe] ?? 0) + 1;
@@ -51,5 +64,51 @@ class ApplicationViewModel extends ChangeNotifier {
     } else {
       addToMyLikes(shoe);
     }
+  }
+
+  Future<void> getMyLikes() async {
+    try {
+      user = await sharedPreference.getUser();
+      if (user!.id != null) {
+        final wishlists = await apiService.getMyLikes(user!.id!);
+        wishlist.clear();
+        wlist.clear();
+        wishlist.addAll(wishlists);
+        Map<Shoe, bool> map = {};
+        for (Shoe shoe in wishlist) {
+          map.addAll({shoe: true});
+        }
+        wlist.addAll(map);
+        print(wlist);
+      }
+    } catch (e) {
+      rethrow;
+    }
+    notifyListeners();
+  }
+
+  Future<void> isLiked(Shoe shoe) async {
+    if (wlist[shoe] == true) {
+      wlist[shoe] = false;
+      try {
+        await apiService.removeFromLikes(shoe);
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+            const SnackBar(content: Text('Removed from your likes')));
+      } catch (e) {
+        rethrow;
+      }
+    } else {
+      wlist[shoe] = true;
+      try {
+        if (user!.id != null) {
+          await apiService.addToLikes(user!, shoe);
+          ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
+              content: Text('Successfully added to your likes')));
+        }
+      } catch (e) {
+        rethrow;
+      }
+    }
+    notifyListeners();
   }
 }

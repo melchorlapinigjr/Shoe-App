@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
+import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/utils/palette_utils.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 import '../../app/app.locator.dart';
@@ -10,6 +11,8 @@ class HomeViewModel extends ChangeNotifier {
   List<String> categories = [
     "All",
   ];
+
+  User? user;
 
   final ApiService apiService = locator<ApiService>();
 
@@ -26,6 +29,8 @@ class HomeViewModel extends ChangeNotifier {
   Future<void> getShoes() async {
     if (items != null) {
       items.clear();
+      categories.clear();
+      categories.add('All');
     }
     isBusy = true;
     notifyListeners();

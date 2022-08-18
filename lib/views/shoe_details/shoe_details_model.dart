@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/utils/palette_utils.dart';
 import 'package:flutter_shoe_app/views/widgets/show_sizes_view.dart';
-import '../home/shoe_object.dart';
+
+import '../../models/shoe_object.dart';
 
 class ShoeDetailsModel extends ChangeNotifier {
   Shoe shoe;
@@ -78,9 +79,9 @@ class ShoeDetailsModel extends ChangeNotifier {
   }
 
   //wishlist
-bool liked;
+  bool liked;
 
-  void isLikeClicked(Shoe shoe){
+  void isLikeClicked(Shoe shoe) {
     liked = shoe.isLiked;
     notifyListeners();
   }

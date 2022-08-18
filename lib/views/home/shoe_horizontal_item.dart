@@ -2,8 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +42,7 @@ class ShoeHorizontalItem extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      shoe.name?? "",
+                      shoe.name ?? "",
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -101,7 +101,8 @@ class ShoeHorizontalItem extends StatelessWidget {
               angle: math.pi / 180 * (-30),
               child: Hero(
                 tag: '1',
-                child: Image.network(shoe.images![0],
+                child: Image.network(
+                  shoe.images![0],
                   width: 252,
                 ),
               ),

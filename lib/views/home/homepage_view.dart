@@ -111,10 +111,10 @@ class HomepageView extends StatelessWidget {
                   body: IndexedStack(
                     index: viewModel.stackIndex,
                     children: const [
-                      HomeViewWidget(),
-                      CartPageView(),
-                      WishlistView(),
-                      ProfilePageView(),
+                      const HomeViewWidget(),
+                      const CartPageView(),
+                      const WishlistView(),
+                      const ProfilePageView(),
                     ],
                   ),
                   backgroundColor: Colors.white,
