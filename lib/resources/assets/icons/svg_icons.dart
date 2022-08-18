@@ -10,5 +10,6 @@ class SvgIcons {
   static const String arrowLeft = '${_rootPath}arrow_left.svg';
   static const String googleIcon = '${_rootPath}google_icon.svg';
   static const String heartFilled = '${_rootPath}heart_filled.svg';
-  static const String heartBordered ='${_rootPath}heart_border.svg';
+  static const String heartBordered = '${_rootPath}heart_border.svg';
+  static const String errorOutlined = '${_rootPath}error_outline.svg';
 }

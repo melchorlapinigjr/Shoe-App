@@ -26,6 +26,8 @@ class HomeViewModel extends ChangeNotifier {
   Future<void> getShoes() async {
     if (items != null) {
       items.clear();
+      categories.clear();
+      categories.add('All');
     }
     isBusy = true;
     notifyListeners();
@@ -59,6 +61,7 @@ class HomeViewModel extends ChangeNotifier {
     selectedCategory = category;
     notifyListeners();
   }
+
 //end shoe horizontal widget//
 
   bool isBusy = false;

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
@@ -40,8 +41,7 @@ class ApiServiceImpl extends ApiService {
             .toList();
       }
       return [];
-    } catch (e, stackTrace) {
-      print((stackTrace));
+    } catch (e) {
       rethrow;
     }
   }
@@ -56,8 +56,7 @@ class ApiServiceImpl extends ApiService {
             .toList();
       }
       return [];
-    } catch (e, stackTrace) {
-      print((stackTrace));
+    } catch (e) {
       rethrow;
     }
   }
@@ -72,8 +71,7 @@ class ApiServiceImpl extends ApiService {
             .toList();
       }
       return [];
-    } catch (e, stackTrace) {
-      print((stackTrace));
+    } catch (e) {
       rethrow;
     }
   }
@@ -81,16 +79,14 @@ class ApiServiceImpl extends ApiService {
   @override
   Future<void> facebookLogin() async {
     var fbuserdata;
+    // Create an instance of FacebookLogin
+    final fb = FacebookLogin();
     try {
-      // Create an instance of FacebookLogin
-      final fb = FacebookLogin();
-
       // Log in
       final result = await fb.expressLogin();
 
       if (result.status == FacebookLoginStatus.success) {
         final FacebookAccessToken? accessToken = result.accessToken;
-        print(true);
         print('Access token: ${accessToken?.token}');
         final body = {
           'provider': 'facebook',
@@ -102,9 +98,10 @@ class ApiServiceImpl extends ApiService {
           fbuserdata = User.fromJson(response.data);
           sharedPreference.setUser(fbuserdata);
         }
+      } else {
+        throw 'Facebook activity canceled';
       }
-    } catch (e, stackTrace) {
-      print((stackTrace));
+    } catch (e) {
       rethrow;
     }
   }
@@ -144,15 +141,58 @@ class ApiServiceImpl extends ApiService {
           'access_token': googleSignInAuthentication.accessToken,
         };
         final response = await dio.post('/social/login', data: body);
-        print(response.data.toString());
         if (response.statusCode == 200 && response.data != null) {
           userdata = User.fromJson(response.data);
           sharedPreference.setUser(userdata);
         }
+      } else {
+        //do something
+        throw 'User canceled';
       }
-    } catch (e, stackTrace) {
-      print((stackTrace));
+    } catch (e) {
+      if (e is PlatformException) {
+        throw e.message!;
+      } else {
+        throw 'Logged Canceled';
+      }
+    }
+  }
+
+  @override
+  Future<void> registerUser(User createUser) async {
+    try {
+      await dio.post('/auth/register', data: createUser.toJson());
+    } catch (e) {
       rethrow;
+    }
+  }
+
+  @override
+  Future<void> signInWithFields(String userEmail, String userPassword) async {
+    var userdata;
+    try {
+      final body = {
+        'email': userEmail,
+        'password': userPassword,
+      };
+      final response = await dio.post('/auth/login', data: body);
+      if (response.statusCode == 200 && response.data != null) {
+        userdata = User.fromJson(response.data);
+        sharedPreference.setUser(userdata);
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> addShoeItem(Shoe shoeItem) async {
+    print(shoeItem.toJSON());
+    try {
+      final response = await dio.post('/addproduct', data: shoeItem.toJSON());
+      print('success');
+    } catch (e) {
+      throw e.toString();
     }
   }
 }
