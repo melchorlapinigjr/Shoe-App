@@ -280,7 +280,7 @@ class AddShoeView extends StatelessWidget with InputValidationMixin {
                                         Colors.lightBlue,
                                       )),
                                       onPressed: () {
-                                        viewModel.addShoes(
+                                        viewModel.addShoe(
                                           context,
                                           viewModel.nameController.text,
                                           viewModel.descriptionController.text,

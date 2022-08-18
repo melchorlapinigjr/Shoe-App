@@ -14,6 +14,7 @@ class AddShoeViewModel extends ChangeNotifier {
   TextEditingController priceController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
 
+  final ApiService apiService = locator<ApiService>();
   final imagePicker = ImagePicker();
   String imagePath = "";
   List<XFile>? images = [];
@@ -55,10 +56,8 @@ class AddShoeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  final ApiService apiService = locator<ApiService>();
-
   //adding new shoe item
-  Future<void> addShoes(
+  Future<void> addShoe(
     BuildContext context,
     String name,
     String description,
@@ -76,9 +75,9 @@ class AddShoeViewModel extends ChangeNotifier {
         sizes: sizes,
         category: category,
       ));
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+          const SnackBar(content: Text('Shoe has been added successfully!')));
     } catch (e) {
-      ScaffoldMessenger.of(Get.context!)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
       print(e);
     }
   }
