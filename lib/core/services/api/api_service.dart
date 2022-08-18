@@ -10,4 +10,5 @@ abstract class ApiService {
   Future<void> googleSignIn();
   Future<void> registerUser(User createUser);
   Future<void> signInWithFields(String userEmail, String userPassword);
+  Future <void> addShoeItem(Shoe shoeItem);
 }

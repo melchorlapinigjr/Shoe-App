@@ -93,7 +93,7 @@ class HomepageView extends StatelessWidget {
                                         viewModel.isProfileTrue();
                                         Navigator.push(context,
                                             MaterialPageRoute(builder: (_) {
-                                          return const AddShoeView();
+                                          return AddShoeView();
                                         }));
                                       },
                                     ),
