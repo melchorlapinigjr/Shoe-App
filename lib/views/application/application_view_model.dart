@@ -79,7 +79,7 @@ class ApplicationViewModel extends ChangeNotifier {
           map.addAll({shoe: true});
         }
         wlist.addAll(map);
-        print(wlist);
+        print('wlist: $wlist');
       }
     } catch (e) {
       rethrow;
@@ -88,16 +88,7 @@ class ApplicationViewModel extends ChangeNotifier {
   }
 
   Future<void> isLiked(Shoe shoe) async {
-    if (wlist[shoe] == true) {
-      wlist[shoe] = false;
-      try {
-        await apiService.removeFromLikes(shoe);
-        ScaffoldMessenger.of(Get.context!).showSnackBar(
-            const SnackBar(content: Text('Removed from your likes')));
-      } catch (e) {
-        rethrow;
-      }
-    } else {
+    if (wlist[shoe] == false || wlist[shoe] == null) {
       wlist[shoe] = true;
       try {
         if (user!.id != null) {
@@ -105,6 +96,15 @@ class ApplicationViewModel extends ChangeNotifier {
           ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
               content: Text('Successfully added to your likes')));
         }
+      } catch (e) {
+        rethrow;
+      }
+    } else {
+      wlist[shoe] = false;
+      try {
+        await apiService.removeFromLikes(shoe);
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+            const SnackBar(content: Text('Removed from your likes')));
       } catch (e) {
         rethrow;
       }

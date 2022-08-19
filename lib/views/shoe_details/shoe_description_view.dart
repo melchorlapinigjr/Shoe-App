@@ -56,7 +56,7 @@ class ShoeDescriptionView extends ViewModelWidget<ShoeDetailsModel> {
         Flexible(
           child: Container(
             padding: const EdgeInsets.only(left: 16, right: 16),
-            child: ShoeDescriptionWidget(viewModel.description),
+            child: ShoeDescriptionWidget(shoe.description ?? 'No description'),
           ),
         ),
       ],

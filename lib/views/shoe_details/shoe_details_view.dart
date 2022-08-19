@@ -39,14 +39,15 @@ class ShoeDetailsView extends StatelessWidget {
                     actions: [
                       IconButton(
                         icon: SvgPicture.asset(
-                          applicationViewModel.wlist[shoe]!
+                          viewModel.liked
                               ? SvgIcons.heartFilled
                               : SvgIcons.heartBordered,
                           width: 19,
                           height: 17,
                         ),
                         onPressed: () {
-                          applicationViewModel.isLiked(shoe);
+                          viewModel.isLikeClicked(shoe);
+                          viewModel.isLiked(shoe);
                         },
                       )
                     ],
