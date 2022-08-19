@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.locator.dart';
+import 'package:flutter_shoe_app/core/services/api/api_service.dart';
+import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
+import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/utils/palette_utils.dart';
+import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/widgets/show_sizes_view.dart';
-import '../home/shoe_object.dart';
+import 'package:get/get.dart';
+
+import '../../models/shoe_object.dart';
 
 class ShoeDetailsModel extends ChangeNotifier {
   Shoe shoe;
-
+  //wishlist
+  bool liked;
   ShoeDetailsModel(this.shoe, this.liked);
-
+  User? user;
   bool isBusy = false;
-
-  String description =
-      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.';
+  final ApplicationViewModel applicationViewModel =
+      locator<ApplicationViewModel>();
+  final ApiService apiService = locator<ApiService>();
+  final SharedPreference sharedPreference = locator<SharedPreference>();
 
   /*shoe items*/
   List<String> shoeVariants = [];
@@ -19,6 +28,7 @@ class ShoeDetailsModel extends ChangeNotifier {
   //color palette adaptive to image
   Future<void> initialize() async {
     shoeVariants.addAll(shoe.images!);
+    isLikeClicked(shoe);
     await getPaletteColor();
   }
 
@@ -77,11 +87,48 @@ class ShoeDetailsModel extends ChangeNotifier {
     }
   }
 
-  //wishlist
-bool liked;
+  void isLikeClicked(Shoe shoe) {
+    print('sd ${applicationViewModel.myWishlist[shoe]}');
+    if (applicationViewModel.myWishlist[shoe] == true) {
+      liked = true;
+      notifyListeners();
+    } else {
+      liked = false;
+      notifyListeners();
+    }
+  }
 
-  void isLikeClicked(Shoe shoe){
-    liked = shoe.isLiked;
+  Future<void> isLiked(Shoe shoe) async {
+    try {
+      user = await sharedPreference.getUser();
+      if (applicationViewModel.myWishlist[shoe] == false ||
+          applicationViewModel.myWishlist[shoe] == null) {
+        applicationViewModel.myWishlist[shoe] = true;
+        liked = true;
+        try {
+          if (user!.id != null) {
+            await apiService.addToLikes(user!, shoe);
+
+            ScaffoldMessenger.of(Get.context!).showSnackBar(const SnackBar(
+                content: Text('Successfully added to your likes')));
+          }
+        } catch (e) {
+          rethrow;
+        }
+      } else {
+        applicationViewModel.myWishlist[shoe] = false;
+        liked = false;
+        try {
+          await apiService.removeFromLikes(shoe);
+          ScaffoldMessenger.of(Get.context!).showSnackBar(
+              const SnackBar(content: Text('Removed from your likes')));
+        } catch (e) {
+          rethrow;
+        }
+      }
+    } catch (e) {
+      rethrow;
+    }
     notifyListeners();
   }
 }

@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_shoe_app/app/app.locator.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.locator.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
 import '../../core/services/api/api_service.dart';
 
 class AddShoeViewModel extends ChangeNotifier {
@@ -47,6 +49,9 @@ class AddShoeViewModel extends ChangeNotifier {
     } else {
       print('No images Selected');
     }
+    // else {
+    //   print('No images Selected');
+    // }
     notifyListeners();
   }
 

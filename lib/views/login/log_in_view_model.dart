@@ -65,7 +65,7 @@ class LoginViewModel extends ChangeNotifier {
             disposeViewModel: false,
             viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
             builder: (context, viewModel, child) {
-              return const HomepageView();
+              return HomepageView();
             });
       }));
     } catch (e) {
@@ -85,7 +85,7 @@ class LoginViewModel extends ChangeNotifier {
             disposeViewModel: false,
             viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
             builder: (context, viewModel, child) {
-              return const HomepageView();
+              return HomepageView();
             });
       }));
     } catch (e) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_banner_view.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_description_view.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_model.dart';
@@ -38,17 +38,16 @@ class ShoeDetailsView extends StatelessWidget {
                     backgroundColor: Colors.transparent,
                     actions: [
                       IconButton(
-                        icon: viewModel.liked
-                            ? SvgPicture.asset(SvgIcons.heartFilled)
-                            : SvgPicture.asset(
-                                SvgIcons.heartIcon,
-                              ),
-                        onPressed: () {
+                        icon: SvgPicture.asset(
                           viewModel.liked
-                              ? applicationViewModel.removeFromLikes(shoe)
-                              : applicationViewModel.addToMyLikes(shoe);
+                              ? SvgIcons.heartFilled
+                              : SvgIcons.heartBordered,
+                          width: 19,
+                          height: 17,
+                        ),
+                        onPressed: () {
                           viewModel.isLikeClicked(shoe);
-
+                          viewModel.isLiked(shoe);
                         },
                       )
                     ],
@@ -68,8 +67,8 @@ class ShoeDetailsView extends StatelessWidget {
                               primary: false,
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) =>
-                                  ShoeVariantView(viewModel.shoeVariants[index]),
+                              itemBuilder: (context, index) => ShoeVariantView(
+                                  viewModel.shoeVariants[index]),
                               separatorBuilder: (context, _) =>
                                   const SizedBox(width: 8),
                               itemCount: viewModel.shoeVariants.length),

@@ -4,6 +4,7 @@ import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dar
 import 'package:flutter_shoe_app/core/services/navigation/navigation_service_impl.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference_impl.dart';
+import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/homepage_view.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -17,6 +18,7 @@ import 'package:stacked/stacked_annotations.dart';
     LazySingleton(classType: SharedPreferenceImpl, asType: SharedPreference),
     LazySingleton(classType: ApiServiceImpl, asType: ApiService),
     LazySingleton(classType: NavigationServiceImpl, asType: NavigationService),
+    LazySingleton(classType: ApplicationViewModel, asType: ApplicationViewModel)
   ],
 )
 class App {}
