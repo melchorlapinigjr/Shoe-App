@@ -165,6 +165,17 @@ class ApiServiceImpl extends ApiService {
   }
 
   @override
+  Future<void> addShoeItem(Shoe shoeItem) async {
+    print(shoeItem.toJSON());
+    try {
+      final response = await dio.post('/addproduct', data: shoeItem.toJSON());
+      print('success');
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  @override
   Future<List<Shoe>> getMyLikes(String userId) async {
     try {
       final response = await dio.get('/wishlist/$userId');

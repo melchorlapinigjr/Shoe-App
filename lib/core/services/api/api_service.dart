@@ -10,7 +10,7 @@ abstract class ApiService {
   Future<void> googleSignIn();
   Future<void> registerUser(User createUser);
   Future<void> signInWithFields(String userEmail, String userPassword);
-  //Future<void> newProduct(List<String> imgs);
+  Future <void> addShoeItem(Shoe shoeItem);
   Future<List<Shoe>> getMyLikes(String userId);
   Future<void> removeFromLikes(Shoe shoe);
   Future<void> addToLikes(User user, Shoe shoe);

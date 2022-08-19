@@ -67,6 +67,7 @@ class HomeViewModel extends ChangeNotifier {
     selectedCategory = category;
     notifyListeners();
   }
+
 //end shoe horizontal widget//
 
   bool isBusy = false;
