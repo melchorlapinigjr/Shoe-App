@@ -88,7 +88,6 @@ class ShoeDetailsModel extends ChangeNotifier {
   }
 
   void isLikeClicked(Shoe shoe) {
-    print('sd ${applicationViewModel.myWishlist[shoe]}');
     if (applicationViewModel.myWishlist[shoe] == true) {
       liked = true;
       notifyListeners();
@@ -119,9 +118,11 @@ class ShoeDetailsModel extends ChangeNotifier {
         applicationViewModel.myWishlist[shoe] = false;
         liked = false;
         try {
-          await apiService.removeFromLikes(shoe);
-          ScaffoldMessenger.of(Get.context!).showSnackBar(
-              const SnackBar(content: Text('Removed from your likes')));
+          if (user!.id != null) {
+            await apiService.removeFromLikes(shoe, user!);
+            ScaffoldMessenger.of(Get.context!).showSnackBar(
+                const SnackBar(content: Text('Removed from your likes')));
+          }
         } catch (e) {
           rethrow;
         }

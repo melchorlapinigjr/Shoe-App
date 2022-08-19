@@ -4,6 +4,7 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
+import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/category_object.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
@@ -30,6 +31,7 @@ class ApiServiceImpl extends ApiService {
 
   final SharedPreference sharedPreference = locator<SharedPreference>();
 
+  /// ******************SHOES************************************************/
   @override
   Future<List<Shoe>> getShoes() async {
     try {
@@ -75,6 +77,9 @@ class ApiServiceImpl extends ApiService {
     }
   }
 
+  ///********************************END SHOES************************************************/
+
+  /// **********************************BEGIN LOGIN********************************************/
   @override
   Future<void> facebookLogin() async {
     var fbuserdata;
@@ -137,6 +142,7 @@ class ApiServiceImpl extends ApiService {
     }
   }
 
+  //register user
   @override
   Future<void> registerUser(User createUser) async {
     try {
@@ -164,6 +170,9 @@ class ApiServiceImpl extends ApiService {
     }
   }
 
+  /// *********************************END LOGIN*****************************************************
+
+  /// ********************************ADD SHOE********************************************/
   @override
   Future<void> addShoeItem(Shoe shoeItem) async {
     print(shoeItem.toJSON());
@@ -175,6 +184,9 @@ class ApiServiceImpl extends ApiService {
     }
   }
 
+  /**********************************ADD SHOE********************************************/
+
+  /// ************************BEGIN MYLIKES***************************/
   @override
   Future<List<Shoe>> getMyLikes(String userId) async {
     try {
@@ -190,11 +202,11 @@ class ApiServiceImpl extends ApiService {
     }
   }
 
-  //remove from my likes
   @override
-  Future<void> removeFromLikes(Shoe shoe) async {
+  Future<void> removeFromLikes(Shoe shoe, User user) async {
     try {
-      final response = await dio.post('/removeWishlist', data: shoe.toJSON());
+      final body = {"user_id": user.id, "product_id": shoe.id};
+      final response = await dio.post('/removeWishlist', data: body);
     } catch (e) {
       rethrow;
     }
@@ -211,11 +223,30 @@ class ApiServiceImpl extends ApiService {
     }
   }
 
-  // //upload new product
-  // @override
-  // Future<void> newProduct(List<String> imgs) async {
-  //   final body = {"images": imgs};
-  //   final response = await dio.post('/addproduct', data: body);
-  //   print('response : ${response.data}');
-  // }
+  /***************************END MYLIKES******************************/
+
+  /// ************BEGIN CART****************************/
+  @override
+  Future<List<CartObject>> myCart(User user) async {
+    try {
+      final response = await dio.get('/cart/${user.id}');
+      if (response.statusCode == 200 && response.data != null) {
+        return (response.data as List<dynamic>)
+            .map((e) => CartObject.fromJson(e as Map<String, dynamic>))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+/*****************END CART***************************/
+// //upload new product
+// @override
+// Future<void> newProduct(List<String> imgs) async {
+//   final body = {"images": imgs};
+//   final response = await dio.post('/addproduct', data: body);
+//   print('response : ${response.data}');
+// }
 }
