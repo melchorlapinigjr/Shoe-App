@@ -5,6 +5,7 @@ import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/homepage_view.dart';
 import 'package:flutter_shoe_app/views/widgets/show_sizes_view.dart';
 import 'package:stacked/stacked.dart';
+
 import 'add_shoe_image_view.dart';
 
 class AddShoeView extends StatelessWidget with InputValidationMixin {

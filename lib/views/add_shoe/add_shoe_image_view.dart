@@ -20,16 +20,6 @@ class AddShoeImageView extends ViewModelWidget<AddShoeViewModel> {
             InkWell(
               onTap: () {
                 viewModel.getImages();
-                showDialog(
-                    context: context,
-                    builder: (_) {
-                      return SingleChildScrollView(
-                          child: Flexible(
-                        child: AlertDialog(
-                          title: Text(viewModel.shoeImages.toString()),
-                        ),
-                      ));
-                    });
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 14.0),
