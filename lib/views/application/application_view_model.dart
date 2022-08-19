@@ -17,7 +17,7 @@ class ApplicationViewModel extends ChangeNotifier {
 
   // int = quantity
   Map<Shoe, int> cart = {};
-  Map<Shoe, bool> wlist = {};
+  Map<Shoe, bool> myWishlist = {};
 
   void addToCart(Shoe shoe) {
     cart[shoe] = (cart[shoe] ?? 0) + 1;
@@ -72,14 +72,13 @@ class ApplicationViewModel extends ChangeNotifier {
       if (user!.id != null) {
         final wishlists = await apiService.getMyLikes(user!.id!);
         wishlist.clear();
-        wlist.clear();
+        myWishlist.clear();
         wishlist.addAll(wishlists);
         Map<Shoe, bool> map = {};
         for (Shoe shoe in wishlist) {
           map.addAll({shoe: true});
         }
-        wlist.addAll(map);
-        print('wlist: $wlist');
+        myWishlist.addAll(map);
       }
     } catch (e) {
       rethrow;
@@ -88,8 +87,8 @@ class ApplicationViewModel extends ChangeNotifier {
   }
 
   Future<void> isLiked(Shoe shoe) async {
-    if (wlist[shoe] == false || wlist[shoe] == null) {
-      wlist[shoe] = true;
+    if (myWishlist[shoe] == false || myWishlist[shoe] == null) {
+      myWishlist[shoe] = true;
       try {
         if (user!.id != null) {
           await apiService.addToLikes(user!, shoe);
@@ -100,7 +99,7 @@ class ApplicationViewModel extends ChangeNotifier {
         rethrow;
       }
     } else {
-      wlist[shoe] = false;
+      myWishlist[shoe] = false;
       try {
         await apiService.removeFromLikes(shoe);
         ScaffoldMessenger.of(Get.context!).showSnackBar(

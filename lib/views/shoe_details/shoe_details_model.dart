@@ -88,8 +88,8 @@ class ShoeDetailsModel extends ChangeNotifier {
   }
 
   void isLikeClicked(Shoe shoe) {
-    print('sd ${applicationViewModel.wlist[shoe]}');
-    if (applicationViewModel.wlist[shoe] == true) {
+    print('sd ${applicationViewModel.myWishlist[shoe]}');
+    if (applicationViewModel.myWishlist[shoe] == true) {
       liked = true;
       notifyListeners();
     } else {
@@ -101,9 +101,9 @@ class ShoeDetailsModel extends ChangeNotifier {
   Future<void> isLiked(Shoe shoe) async {
     try {
       user = await sharedPreference.getUser();
-      if (applicationViewModel.wlist[shoe] == false ||
-          applicationViewModel.wlist[shoe] == null) {
-        applicationViewModel.wlist[shoe] = true;
+      if (applicationViewModel.myWishlist[shoe] == false ||
+          applicationViewModel.myWishlist[shoe] == null) {
+        applicationViewModel.myWishlist[shoe] = true;
         liked = true;
         try {
           if (user!.id != null) {
@@ -116,7 +116,7 @@ class ShoeDetailsModel extends ChangeNotifier {
           rethrow;
         }
       } else {
-        applicationViewModel.wlist[shoe] = false;
+        applicationViewModel.myWishlist[shoe] = false;
         liked = false;
         try {
           await apiService.removeFromLikes(shoe);

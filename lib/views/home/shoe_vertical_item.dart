@@ -81,7 +81,7 @@ class ShoeVerticalItem extends StatelessWidget {
                           child: isWishlistPage
                               ? IconButton(
                                   icon: SvgPicture.asset(
-                                    applicationViewModel.wlist[item]!
+                                    applicationViewModel.myWishlist[item]!
                                         ? SvgIcons.heartFilled
                                         : SvgIcons.heartBordered,
                                     width: 19,

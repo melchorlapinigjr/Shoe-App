@@ -20,9 +20,10 @@ class WishlistView extends StatelessWidget {
                     child: ListView.builder(
                         primary: false,
                         shrinkWrap: true,
-                        itemCount: viewModel.wlist.length,
+                        itemCount: viewModel.myWishlist.length,
                         itemBuilder: (context, index) {
-                          final shoe = viewModel.wlist.keys.toList()[index];
+                          final shoe =
+                              viewModel.myWishlist.keys.toList()[index];
                           return ShoeVerticalItem(
                             item: shoe,
                             key: ValueKey(shoe),
