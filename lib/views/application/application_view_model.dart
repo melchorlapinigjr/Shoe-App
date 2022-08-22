@@ -24,6 +24,7 @@ class ApplicationViewModel extends ChangeNotifier {
   //add shoe to cart
   void addToCart(Shoe shoe) {
     cart[shoe] = (cart[shoe] ?? 0) + 1;
+    getMyCart();
     notifyListeners();
   }
 
@@ -37,6 +38,7 @@ class ApplicationViewModel extends ChangeNotifier {
     } else {
       cart[shoe] = cart[shoe]! - 1;
     }
+    getMyCart();
     notifyListeners();
   }
 
