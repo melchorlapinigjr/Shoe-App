@@ -3,6 +3,7 @@ import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
+import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:get/get.dart';
@@ -14,11 +15,13 @@ class ApplicationViewModel extends ChangeNotifier {
   User? user;
   final SharedPreference sharedPreference = locator<SharedPreference>();
   List<Shoe> wishlist = [];
-
+  List<CartObject> tempCart = [];
   // int = quantity
   Map<Shoe, int> cart = {};
   Map<Shoe, bool> myWishlist = {};
 
+  ///***************BEGIN CART***********************/
+  //add shoe to cart
   void addToCart(Shoe shoe) {
     cart[shoe] = (cart[shoe] ?? 0) + 1;
     notifyListeners();
@@ -41,6 +44,26 @@ class ApplicationViewModel extends ChangeNotifier {
     final quantity = cart[shoe] ?? 1;
     return (quantity * shoe.price!).toCurrencyFormat();
   }
+
+  Future<void> getMyCart() async {
+    try {
+      user = await sharedPreference.getUser();
+      if (user != null) {
+        tempCart.clear();
+        tempCart = await apiService.myCart(user!);
+        cart.clear();
+        Map<Shoe, int> map = {};
+        for (CartObject cartObject in tempCart) {
+          map.addAll({cartObject.shoe as Shoe: cartObject.quantity!});
+        }
+        cart.addAll(map);
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  ///***************END CART***********************/
 
 //My Likes implementation
   List<Shoe> myLikes = []; //store items that are liked
@@ -70,10 +93,10 @@ class ApplicationViewModel extends ChangeNotifier {
     try {
       user = await sharedPreference.getUser();
       if (user!.id != null) {
-        final wishlists = await apiService.getMyLikes(user!.id!);
+        final tempWishlists = await apiService.getMyLikes(user!.id!);
         wishlist.clear();
         myWishlist.clear();
-        wishlist.addAll(wishlists);
+        wishlist.addAll(tempWishlists);
         Map<Shoe, bool> map = {};
         for (Shoe shoe in wishlist) {
           map.addAll({shoe: true});
@@ -101,9 +124,11 @@ class ApplicationViewModel extends ChangeNotifier {
     } else {
       myWishlist[shoe] = false;
       try {
-        await apiService.removeFromLikes(shoe);
-        ScaffoldMessenger.of(Get.context!).showSnackBar(
-            const SnackBar(content: Text('Removed from your likes')));
+        if (user!.id != null) {
+          await apiService.removeFromLikes(shoe, user!);
+          ScaffoldMessenger.of(Get.context!).showSnackBar(
+              const SnackBar(content: Text('Removed from your likes')));
+        }
       } catch (e) {
         rethrow;
       }

@@ -10,6 +10,7 @@ class WishlistView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ApplicationViewModel>.reactive(
         viewModelBuilder: () => ApplicationViewModel(),
+        disposeViewModel: false,
         onModelReady: (model) => model.getMyLikes(),
         builder: (context, viewModel, child) {
           if (viewModel.wishlist.isNotEmpty) {

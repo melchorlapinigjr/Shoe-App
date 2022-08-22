@@ -78,6 +78,7 @@ class HomeViewModel extends ChangeNotifier {
     stackIndex = 0;
     isHomeTrue();
     applicationViewModel.getMyLikes();
+    applicationViewModel.getMyCart();
     await getColors(items);
   }
 
@@ -87,6 +88,13 @@ class HomeViewModel extends ChangeNotifier {
     stackIndex = 2;
     isWishlistTrue();
     await getColors(items);
+  }
+
+  Future<void> initializeCart() async {
+    await getShoes();
+    getShoesByCategory(selectedCategory);
+    stackIndex = 1;
+    isCartTrue();
   }
 
   Future<void> getColors(List<Shoe> item) async {

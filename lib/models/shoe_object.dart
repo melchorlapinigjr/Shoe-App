@@ -70,8 +70,8 @@ class Shoe extends Equatable {
         "price": price,
         "images": images,
         "sizes": sizes,
-        "created_at": created_at.toString(),
-        "updated_at": updated_at.toString(),
+        // "created_at": created_at.toString(),
+        // "updated_at": updated_at.toString(),
       };
 
   factory Shoe.fromJson(Map<String, dynamic> json) => Shoe(
@@ -82,12 +82,12 @@ class Shoe extends Equatable {
         price: json['price'].toDouble(),
         images: List.from(json["images"]),
         sizes: List.from(json["sizes"]),
-        created_at: json["created_at"] != null
-            ? DateTime.parse(json["created_at"])
-            : null,
-        updated_at: json["updated_at"] != null
-            ? DateTime.parse(json["updated_at"])
-            : null,
+        // created_at: json["created_at"] != null
+        //     ? DateTime.parse(json["created_at"])
+        //     : null,
+        // updated_at: json["updated_at"] != null
+        //     ? DateTime.parse(json["updated_at"])
+        //     : null,
       );
 
   @override
