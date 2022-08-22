@@ -14,7 +14,7 @@ class CartItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ApplicationViewModel>.nonReactive(
+    return ViewModelBuilder<ApplicationViewModel>.reactive(
         disposeViewModel: false,
         viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
         builder: (context, viewModel, child) {

@@ -240,13 +240,4 @@ class ApiServiceImpl extends ApiService {
       rethrow;
     }
   }
-
-/*****************END CART***************************/
-// //upload new product
-// @override
-// Future<void> newProduct(List<String> imgs) async {
-//   final body = {"images": imgs};
-//   final response = await dio.post('/addproduct', data: body);
-//   print('response : ${response.data}');
-// }
 }

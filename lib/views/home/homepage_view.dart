@@ -10,7 +10,6 @@ import 'package:flutter_shoe_app/views/profile_page/profile_page_view.dart';
 import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
 import 'package:flutter_shoe_app/views/wishlist/wishlist_view.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 class HomepageView extends StatelessWidget {
@@ -21,6 +20,7 @@ class HomepageView extends StatelessWidget {
     final ApplicationViewModel applicationViewModel =
         locator<ApplicationViewModel>();
     applicationViewModel.getMyLikes();
+    applicationViewModel.getMyCart();
     return ViewModelBuilder<HomeViewModel>.reactive(
         viewModelBuilder: () => HomeViewModel(),
         onModelReady: (model) => model.initialize(),
@@ -225,6 +225,7 @@ class HomepageView extends StatelessWidget {
                               child: Stack(children: [
                                 IconButton(
                                   onPressed: () {
+                                    viewModel.initializeCart();
                                     viewModel.changeIndex(1);
                                   },
                                   icon: SvgPicture.asset(SvgIcons.cartIcon,
@@ -233,40 +234,31 @@ class HomepageView extends StatelessWidget {
                                           : Colors.black),
                                 ),
                                 Positioned(
-                                    right: 0,
-                                    child: ViewModelBuilder<
-                                            ApplicationViewModel>.reactive(
-                                        disposeViewModel: false,
-                                        viewModelBuilder: () =>
-                                            Provider.of<ApplicationViewModel>(
-                                                context),
-                                        builder: (context, model, child) {
-                                          return model.cart.isNotEmpty
-                                              ? Container(
-                                                  height: 20,
-                                                  width: 20,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color:
-                                                        const Color(0xffE24C4D),
-                                                    border: Border.all(
-                                                      width: 2,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                  child: Center(
-                                                      child: Text(
-                                                    '${model.cart.length}',
-                                                    textAlign: TextAlign.center,
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: Colors.white,
-                                                    ),
-                                                  )))
-                                              : Container();
-                                        })),
+                                  right: 0,
+                                  child: applicationViewModel.cart.isNotEmpty
+                                      ? Container(
+                                          height: 20,
+                                          width: 20,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: const Color(0xffE24C4D),
+                                            border: Border.all(
+                                              width: 2,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          child: Center(
+                                              child: Text(
+                                            '${applicationViewModel.cart.length}',
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white,
+                                            ),
+                                          )))
+                                      : Container(),
+                                ),
                               ]),
                             ),
                             Text(

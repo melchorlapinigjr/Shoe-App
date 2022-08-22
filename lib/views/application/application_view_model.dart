@@ -3,6 +3,7 @@ import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
+import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:get/get.dart';
@@ -44,9 +45,18 @@ class ApplicationViewModel extends ChangeNotifier {
     return (quantity * shoe.price!).toCurrencyFormat();
   }
 
-  Future<void> getMyCart(User user) async {
+  Future<void> getMyCart() async {
     try {
-      final tempCart = await apiService.myCart(user);
+      user = await sharedPreference.getUser();
+      if (user != null) {
+        final List<CartObject> tempMyCart = await apiService.myCart(user!);
+        cart.clear();
+        Map<Shoe, int> map = {};
+        for (CartObject cartObject in tempMyCart) {
+          map.addAll({cartObject.shoe as Shoe: cartObject.quantity!});
+        }
+        cart.addAll(map);
+      }
     } catch (e) {
       rethrow;
     }
@@ -85,7 +95,7 @@ class ApplicationViewModel extends ChangeNotifier {
         final tempWishlists = await apiService.getMyLikes(user!.id!);
         wishlist.clear();
         myWishlist.clear();
-        wishlist.addAll(wishlist);
+        wishlist.addAll(tempWishlists);
         Map<Shoe, bool> map = {};
         for (Shoe shoe in wishlist) {
           map.addAll({shoe: true});
