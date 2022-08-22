@@ -16,4 +16,6 @@ abstract class ApiService {
   Future<void> removeFromLikes(Shoe shoe, User user);
   Future<void> addToLikes(User user, Shoe shoe);
   Future<List<CartObject>> myCart(User user);
+  Future<void> addToMyCart(CartObject cartObject);
+  Future<void> removeFromMyCart(CartObject cartObject);
 }

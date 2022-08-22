@@ -15,7 +15,7 @@ class ApplicationViewModel extends ChangeNotifier {
   User? user;
   final SharedPreference sharedPreference = locator<SharedPreference>();
   List<Shoe> wishlist = [];
-
+  List<CartObject> tempCart = [];
   // int = quantity
   Map<Shoe, int> cart = {};
   Map<Shoe, bool> myWishlist = {};
@@ -49,10 +49,11 @@ class ApplicationViewModel extends ChangeNotifier {
     try {
       user = await sharedPreference.getUser();
       if (user != null) {
-        final List<CartObject> tempMyCart = await apiService.myCart(user!);
+        tempCart.clear();
+        tempCart = await apiService.myCart(user!);
         cart.clear();
         Map<Shoe, int> map = {};
-        for (CartObject cartObject in tempMyCart) {
+        for (CartObject cartObject in tempCart) {
           map.addAll({cartObject.shoe as Shoe: cartObject.quantity!});
         }
         cart.addAll(map);

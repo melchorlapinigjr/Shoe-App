@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.locator.dart';
+import 'package:flutter_shoe_app/core/services/api/api_service.dart';
+import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
+import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
+import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 class CartItemView extends StatelessWidget {
-  const CartItemView({Key? key, required this.shoe, required this.quantity})
+  const CartItemView(
+      {Key? key,
+      required this.shoe,
+      required this.quantity,
+      required this.cartObject})
       : super(key: key);
 
   final Shoe shoe;
+  final CartObject cartObject;
   final int quantity;
 
   @override
   Widget build(BuildContext context) {
+    final SharedPreference sharedPreference = locator<SharedPreference>();
+    final ApiService apiService = locator<ApiService>();
     return ViewModelBuilder<ApplicationViewModel>.reactive(
         disposeViewModel: false,
         viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
@@ -49,7 +61,9 @@ class CartItemView extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             InkWell(
-                              onTap: () {
+                              onTap: () async {
+                                await apiService.removeFromMyCart(
+                                    CartObject(id: cartObject.id));
                                 viewModel.removeFromCart(shoe);
                               },
                               child: Container(
@@ -85,7 +99,11 @@ class CartItemView extends StatelessWidget {
                               )),
                             ),
                             InkWell(
-                              onTap: () {
+                              onTap: () async {
+                                User user = await sharedPreference.getUser();
+                                await apiService.addToMyCart(CartObject(
+                                    userId: int.parse(user.id!),
+                                    productId: int.parse(shoe.id.toString())));
                                 viewModel.addToCart(shoe);
                               },
                               child: Container(

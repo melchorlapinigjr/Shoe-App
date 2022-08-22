@@ -177,7 +177,7 @@ class ApiServiceImpl extends ApiService {
   Future<void> addShoeItem(Shoe shoeItem) async {
     print(shoeItem.toJSON());
     try {
-      final response = await dio.post('/addproduct', data: shoeItem.toJSON());
+      await dio.post('/addproduct', data: shoeItem.toJSON());
       print('success');
     } catch (e) {
       throw e.toString();
@@ -206,7 +206,7 @@ class ApiServiceImpl extends ApiService {
   Future<void> removeFromLikes(Shoe shoe, User user) async {
     try {
       final body = {"user_id": user.id, "product_id": shoe.id};
-      final response = await dio.post('/removeWishlist', data: body);
+      await dio.post('/removeWishlist', data: body);
     } catch (e) {
       rethrow;
     }
@@ -217,7 +217,7 @@ class ApiServiceImpl extends ApiService {
   Future<void> addToLikes(User user, Shoe shoe) async {
     try {
       final body = {"user_id": user.id, "product_id": shoe.id};
-      final response = await dio.post('/addwishlist', data: body);
+      await dio.post('/addwishlist', data: body);
     } catch (e) {
       rethrow;
     }
@@ -236,6 +236,24 @@ class ApiServiceImpl extends ApiService {
             .toList();
       }
       return [];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> addToMyCart(CartObject cartObject) async {
+    try {
+      await dio.post('/addtocart', data: cartObject.toJson());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> removeFromMyCart(CartObject cartObject) async {
+    try {
+      await dio.post('/subtractquantity', data: cartObject.toJson());
     } catch (e) {
       rethrow;
     }

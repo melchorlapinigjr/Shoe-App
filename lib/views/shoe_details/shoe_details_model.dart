@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
+import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/utils/palette_utils.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
@@ -12,9 +13,12 @@ import '../../models/shoe_object.dart';
 
 class ShoeDetailsModel extends ChangeNotifier {
   Shoe shoe;
+
   //wishlist
   bool liked;
+
   ShoeDetailsModel(this.shoe, this.liked);
+
   User? user;
   bool isBusy = false;
   final ApplicationViewModel applicationViewModel =
@@ -131,5 +135,18 @@ class ShoeDetailsModel extends ChangeNotifier {
       rethrow;
     }
     notifyListeners();
+  }
+
+  Future<void> addToMyCart(Shoe shoe) async {
+    try {
+      user = await sharedPreference.getUser();
+      if (user != null) {
+        await apiService.addToMyCart(CartObject(
+            userId: int.parse(user!.id!),
+            productId: int.parse(shoe.id.toString())));
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 }

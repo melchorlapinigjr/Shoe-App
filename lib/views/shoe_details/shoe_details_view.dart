@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
@@ -11,11 +12,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
 class ShoeDetailsView extends StatelessWidget {
-  const ShoeDetailsView(this.shoe,
-      {Key? key, required this.applicationViewModel})
+  ShoeDetailsView(this.shoe,
+      {Key? key, required this.applicationViewModel, this.cartObject})
       : super(key: key);
 
   final Shoe shoe;
+  CartObject? cartObject;
   final ApplicationViewModel applicationViewModel;
 
   @override
@@ -100,6 +102,7 @@ class ShoeDetailsView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12.0),
                             ))),
                         onPressed: () {
+                          viewModel.addToMyCart(shoe);
                           applicationViewModel.addToCart(shoe);
                         },
                         child: const Text('Add to Bag',

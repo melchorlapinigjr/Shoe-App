@@ -3,12 +3,6 @@ import 'package:flutter_shoe_app/models/shoe_object.dart';
 
 class CartObject extends Equatable {
   int? id;
-  String? name;
-  String? description;
-  double? price;
-  List<String>? images;
-  List<String>? sizes;
-  String? category;
   int? productId;
   int? userId;
   int? quantity;
@@ -16,12 +10,6 @@ class CartObject extends Equatable {
 
   CartObject(
       {this.id,
-      this.name,
-      this.description,
-      this.price,
-      this.images,
-      this.sizes,
-      this.category,
       this.productId,
       this.userId,
       this.quantity,
@@ -29,7 +17,7 @@ class CartObject extends Equatable {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "shoe": shoe!.toJSON(),
+        "product_id": productId,
         "user_id": userId,
         "quantity": quantity,
       };
@@ -37,9 +25,10 @@ class CartObject extends Equatable {
   factory CartObject.fromJson(Map<String, dynamic> json) => CartObject(
         id: json["id"] as int,
         userId: int.parse(json["user_id"]),
+        productId: json["product_id"] as int,
         quantity: json["quantity"] as int,
         shoe: Shoe(
-          id: json["id"] as int?,
+          id: json["product_id"] as int?,
           name: json["name"] as String?,
           description: json["description"] as String?,
           category: json["category"] as String?,
@@ -53,12 +42,7 @@ class CartObject extends Equatable {
   // TODO: implement props
   List<Object?> get props => [
         id,
-        name,
-        description,
-        price,
-        images,
-        sizes,
-        category,
+        shoe,
         productId,
         userId,
         quantity
