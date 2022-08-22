@@ -101,8 +101,8 @@ class ShoeDetailsView extends StatelessWidget {
                                 RoundedRectangleBorder>(RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12.0),
                             ))),
-                        onPressed: () {
-                          viewModel.addToMyCart(shoe);
+                        onPressed: () async {
+                          await viewModel.addToMyCart(shoe);
                           applicationViewModel.addToCart(shoe);
                         },
                         child: const Text('Add to Bag',
