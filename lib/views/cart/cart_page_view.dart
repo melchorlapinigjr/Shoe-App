@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/cart/cart_item_view.dart';
 import 'package:provider/provider.dart';
@@ -9,11 +10,12 @@ class CartPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final applicationViewModel = Provider.of<ApplicationViewModel>(context);
+    final ApplicationViewModel applicationViewModel =
+        locator<ApplicationViewModel>();
     return ViewModelBuilder<ApplicationViewModel>.reactive(
         disposeViewModel: false,
         onModelReady: (model) => model.getMyCart(),
-        viewModelBuilder: () => applicationViewModel,
+        viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
         builder: (context, viewModel, child) {
           return viewModel.cart.isNotEmpty
               ? Container(
@@ -27,14 +29,12 @@ class CartPageView extends StatelessWidget {
                         ListView.builder(
                           primary: false,
                           shrinkWrap: true,
-                          itemCount: applicationViewModel.cart.length,
+                          itemCount: viewModel.cart.length,
                           itemBuilder: (BuildContext context, int index) {
-                            final shoe =
-                                applicationViewModel.cart.keys.toList()[index];
+                            final shoe = viewModel.cart.keys.toList()[index];
                             final cartObject =
                                 applicationViewModel.tempCart[index];
-                            final quantity =
-                                applicationViewModel.cart[shoe] ?? 0;
+                            final quantity = viewModel.cart[shoe] ?? 0;
                             return CartItemView(
                               shoe: shoe,
                               quantity: quantity,

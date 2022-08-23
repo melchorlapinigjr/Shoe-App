@@ -148,5 +148,7 @@ class ShoeDetailsModel extends ChangeNotifier {
     } catch (e) {
       rethrow;
     }
+    await applicationViewModel.getMyCart();
+    notifyListeners();
   }
 }

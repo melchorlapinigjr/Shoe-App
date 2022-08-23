@@ -61,6 +61,7 @@ class ApplicationViewModel extends ChangeNotifier {
     } catch (e) {
       rethrow;
     }
+    notifyListeners();
   }
 
   ///***************END CART***********************/
