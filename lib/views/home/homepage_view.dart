@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/views/add_shoe/add_shoe_view.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
@@ -17,6 +18,9 @@ class HomepageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ApplicationViewModel applicationViewModel =
+        locator<ApplicationViewModel>();
+    applicationViewModel.getMyLikes();
     return ViewModelBuilder<HomeViewModel>.reactive(
         viewModelBuilder: () => HomeViewModel(),
         onModelReady: (model) => model.initialize(),
@@ -110,11 +114,11 @@ class HomepageView extends StatelessWidget {
                   ),
                   body: IndexedStack(
                     index: viewModel.stackIndex,
-                    children: const [
-                      HomeViewWidget(),
-                      CartPageView(),
-                      WishlistView(),
-                      ProfilePageView(),
+                    children: [
+                      const HomeViewWidget(),
+                      const CartPageView(),
+                      const WishlistView(),
+                      const ProfilePageView(),
                     ],
                   ),
                   backgroundColor: Colors.white,
@@ -147,6 +151,7 @@ class HomepageView extends StatelessWidget {
                               ),
                               child: IconButton(
                                 onPressed: () {
+                                  viewModel.initialize();
                                   viewModel.changeIndex(0);
                                 },
                                 icon: SvgPicture.asset(
@@ -184,6 +189,7 @@ class HomepageView extends StatelessWidget {
                               ),
                               child: IconButton(
                                 onPressed: () {
+                                  viewModel.initializeWishlist();
                                   viewModel.changeIndex(2);
                                 },
                                 icon: SvgPicture.asset(SvgIcons.heartIcon,
@@ -219,6 +225,7 @@ class HomepageView extends StatelessWidget {
                               child: Stack(children: [
                                 IconButton(
                                   onPressed: () {
+                                    viewModel.initializeCart();
                                     viewModel.changeIndex(1);
                                   },
                                   icon: SvgPicture.asset(SvgIcons.cartIcon,
@@ -231,6 +238,8 @@ class HomepageView extends StatelessWidget {
                                     child: ViewModelBuilder<
                                             ApplicationViewModel>.reactive(
                                         disposeViewModel: false,
+                                        onModelReady: (model) =>
+                                            model.getMyCart(),
                                         viewModelBuilder: () =>
                                             Provider.of<ApplicationViewModel>(
                                                 context),

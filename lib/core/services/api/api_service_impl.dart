@@ -4,10 +4,11 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
+import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/category_object.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/utils/constants.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_shoe_app/views/login/log_in_register.dart';
 import 'package:injectable/injectable.dart';
@@ -31,6 +32,7 @@ class ApiServiceImpl extends ApiService {
 
   final SharedPreference sharedPreference = locator<SharedPreference>();
 
+  /// ******************SHOES************************************************/
   @override
   Future<List<Shoe>> getShoes() async {
     try {
@@ -76,6 +78,9 @@ class ApiServiceImpl extends ApiService {
     }
   }
 
+  ///********************************END SHOES************************************************/
+
+  /// **********************************BEGIN LOGIN********************************************/
   @override
   Future<void> facebookLogin() async {
     var fbuserdata;
@@ -158,6 +163,7 @@ class ApiServiceImpl extends ApiService {
     }
   }
 
+  //register user
   @override
   Future<void> registerUser(User createUser) async {
     try {
@@ -185,14 +191,92 @@ class ApiServiceImpl extends ApiService {
     }
   }
 
+  /// *********************************END LOGIN*****************************************************
+
+  /// ********************************ADD SHOE********************************************/
   @override
   Future<void> addShoeItem(Shoe shoeItem) async {
     print(shoeItem.toJSON());
     try {
-      final response = await dio.post('/addproduct', data: shoeItem.toJSON());
+      await dio.post('/addproduct', data: shoeItem.toJSON());
       print('success');
     } catch (e) {
       throw e.toString();
+    }
+  }
+
+  /**********************************ADD SHOE********************************************/
+
+  /// ************************BEGIN MYLIKES***************************/
+  @override
+  Future<List<Shoe>> getMyLikes(String userId) async {
+    try {
+      final response = await dio.get('/wishlist/$userId');
+      if (response.statusCode == 200 && response.data != null) {
+        return (response.data as List<dynamic>)
+            .map((e) => Shoe.fromJson(e as Map<String, dynamic>))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> removeFromLikes(Shoe shoe, User user) async {
+    try {
+      final body = {"user_id": user.id, "product_id": shoe.id};
+      await dio.post('/removeWishlist', data: body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  //add to my likes
+  @override
+  Future<void> addToLikes(User user, Shoe shoe) async {
+    try {
+      final body = {"user_id": user.id, "product_id": shoe.id};
+      await dio.post('/addwishlist', data: body);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  /***************************END MYLIKES******************************/
+
+  /// ************BEGIN CART****************************/
+  @override
+  Future<List<CartObject>> myCart(User user) async {
+    try {
+      final response = await dio.get('/cart/${user.id}');
+      if (response.statusCode == 200 && response.data != null) {
+        return (response.data as List<dynamic>)
+            .map((e) => CartObject.fromJson(e as Map<String, dynamic>))
+            .toList();
+      }
+      return [];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> addToMyCart(CartObject cartObject) async {
+    try {
+      await dio.post('/addtocart', data: cartObject.toJson());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> removeFromMyCart(CartObject cartObject) async {
+    try {
+      await dio.post('/subtractquantity', data: cartObject.toJson());
+    } catch (e) {
+      rethrow;
     }
   }
 }

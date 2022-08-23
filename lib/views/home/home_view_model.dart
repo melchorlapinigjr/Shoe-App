@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
+import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/utils/palette_utils.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
+import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 import '../../app/app.locator.dart';
@@ -11,6 +13,10 @@ class HomeViewModel extends ChangeNotifier {
     "All",
   ];
 
+  User? user;
+
+  final ApplicationViewModel applicationViewModel =
+      locator<ApplicationViewModel>();
   final ApiService apiService = locator<ApiService>();
 
   //initialize for color storing
@@ -71,7 +77,24 @@ class HomeViewModel extends ChangeNotifier {
     getShoesByCategory(selectedCategory);
     stackIndex = 0;
     isHomeTrue();
+    applicationViewModel.getMyLikes();
+    applicationViewModel.getMyCart();
     await getColors(items);
+  }
+
+  Future<void> initializeWishlist() async {
+    await getShoes();
+    getShoesByCategory(selectedCategory);
+    stackIndex = 2;
+    isWishlistTrue();
+    await getColors(items);
+  }
+
+  Future<void> initializeCart() async {
+    await getShoes();
+    getShoesByCategory(selectedCategory);
+    stackIndex = 1;
+    isCartTrue();
   }
 
   Future<void> getColors(List<Shoe> item) async {

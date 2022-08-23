@@ -49,20 +49,20 @@ class Shoe extends Equatable {
   PaletteColor? paletteColor;
   bool isLiked;
 
-  Shoe({this.id,
-    this.name,
-    this.description,
-    this.category,
-    this.price,
-    this.images,
-    this.sizes,
-    this.created_at,
-    this.updated_at,
-    this.paletteColor,
-    this.isLiked = false});
+  Shoe(
+      {this.id,
+      this.name,
+      this.description,
+      this.category,
+      this.price,
+      this.images,
+      this.sizes,
+      this.created_at,
+      this.updated_at,
+      this.paletteColor,
+      this.isLiked = false});
 
-  Map<String, dynamic> toJSON() =>
-      {
+  Map<String, dynamic> toJSON() => {
         "id": id,
         "name": name,
         "description": description,
@@ -70,30 +70,29 @@ class Shoe extends Equatable {
         "price": price,
         "images": images,
         "sizes": sizes,
-        "created_at": created_at,
-        "updated_at": updated_at,
+        // "created_at": created_at.toString(),
+        // "updated_at": updated_at.toString(),
       };
 
-
-
   factory Shoe.fromJson(Map<String, dynamic> json) => Shoe(
-          id: json["id"] as int?,
-          name: json["name"] as String?,
-          description: json["description"] as String?,
-          category: json["category"] as String?,
-          price: json['price'].toDouble(),
-          images: List.from(json["images"]),
-          sizes: List.from(json["sizes"]),
-          created_at: json["created_at"] != null ? DateTime.parse(
-              json["created_at"]) : null,
-          updated_at: json["updated_at"] != null ? DateTime.parse(
-              json["updated_at"]) : null);
-
+        id: json["id"] as int?,
+        name: json["name"] as String?,
+        description: json["description"] as String?,
+        category: json["category"] as String?,
+        price: json['price'].toDouble(),
+        images: List.from(json["images"]),
+        sizes: List.from(json["sizes"]),
+        // created_at: json["created_at"] != null
+        //     ? DateTime.parse(json["created_at"])
+        //     : null,
+        // updated_at: json["updated_at"] != null
+        //     ? DateTime.parse(json["updated_at"])
+        //     : null,
+      );
 
   @override
   // TODO: implement props
-  List<Object?> get props =>
-      [
+  List<Object?> get props => [
         id,
         name,
         description,

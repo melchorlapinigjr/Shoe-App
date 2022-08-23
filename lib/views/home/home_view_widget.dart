@@ -111,6 +111,8 @@ class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
                     itemBuilder: (context, index) => ShoeVerticalItem(
                       item: viewModel.items[index],
                       onLikePressed: applicationViewModel.onShoeLikePressed,
+                      isWishlistPage: false,
+                      applicationViewModel: applicationViewModel,
                     ),
                   );
                 }),

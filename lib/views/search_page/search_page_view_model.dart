@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/views/home/home_view_model.dart';
-import 'package:flutter_shoe_app/views/home/shoe_object.dart';
 
 class SearchPageViewModel extends ChangeNotifier {
-
   final HomeViewModel homeViewModel;
 
   List<Shoe> foundShoes = [];
@@ -20,7 +19,7 @@ class SearchPageViewModel extends ChangeNotifier {
   }
 
   void onTextChanged(String input) {
-    foundShoes =  homeViewModel.items
+    foundShoes = homeViewModel.items
         .where((shoe) => shoe.name!.toLowerCase().contains(input.toLowerCase()))
         .toList();
     hideResultCount = false;
