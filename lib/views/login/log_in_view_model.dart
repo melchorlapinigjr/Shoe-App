@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
 import 'package:provider/provider.dart';
@@ -27,12 +26,9 @@ class LoginViewModel extends ChangeNotifier {
   bool isLogged = false;
 
   Future<void> signInGoogle(BuildContext context) async {
-    isLogged = false;
-    notifyListeners();
     try {
       await apiService.googleSignIn();
-      isLogged = true;
-      Navigator.push(context, MaterialPageRoute(builder: (_) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
         return ViewModelBuilder<ApplicationViewModel>.reactive(
             disposeViewModel: false,
             viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
@@ -40,16 +36,12 @@ class LoginViewModel extends ChangeNotifier {
               return const HomepageView();
             });
       }));
+      //navigationService.pushReplacementNamed(Routes.HomepageView);
     } catch (e) {
       // ScaffoldMessenger.of(Get.context!)
       //     .showSnackBar(SnackBar(content: Text(e.toString())));
       throw 'Logged Canceled by User';
     }
-  }
-
-  //route to homepage
-  Future<void> toHomepage() async {
-    await navigationService.pushNamed(Routes.HomepageView);
   }
 
   //facebook login
@@ -58,14 +50,12 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
     try {
       await apiService.facebookLogin();
-      // toHomepage();
-      // ignore: use_build_context_synchronously
-      Navigator.push(context, MaterialPageRoute(builder: (_) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
         return ViewModelBuilder<ApplicationViewModel>.reactive(
             disposeViewModel: false,
             viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
             builder: (context, viewModel, child) {
-              return HomepageView();
+              return const HomepageView();
             });
       }));
     } catch (e) {
@@ -80,12 +70,12 @@ class LoginViewModel extends ChangeNotifier {
       String email, String password, BuildContext context) async {
     try {
       await apiService.signInWithFields(email, password);
-      Navigator.push(context, MaterialPageRoute(builder: (_) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
         return ViewModelBuilder<ApplicationViewModel>.reactive(
             disposeViewModel: false,
             viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
             builder: (context, viewModel, child) {
-              return HomepageView();
+              return const HomepageView();
             });
       }));
     } catch (e) {

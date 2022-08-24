@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
+import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,6 +19,8 @@ class AddShoeViewModel extends ChangeNotifier {
 
   final ApiService apiService = locator<ApiService>();
   final imagePicker = ImagePicker();
+  final NavigationService navigationService = locator<NavigationService>();
+
   String imagePath = "";
   List<XFile>? images = [];
   List<String> selectedSizes = [];

@@ -187,31 +187,24 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
                                                         const Color(0xff1F2732),
                                                       )),
                                                       onPressed: () {
-                                                        Navigator.of(context)
-                                                            .push(
-                                                          MaterialPageRoute(
-                                                            settings:
-                                                                const RouteSettings(
-                                                                    name:
-                                                                        "/login"),
-                                                            builder: (_) {
-                                                              return ViewModelBuilder<
-                                                                      ApplicationViewModel>.reactive(
-                                                                  viewModelBuilder:
-                                                                      () =>
-                                                                          ApplicationViewModel(),
-                                                                  builder: (context,
-                                                                      appModel,
-                                                                      child) {
-                                                                    return const LoginView();
-                                                                  });
-                                                            },
-                                                          ),
-                                                        );
-                                                        Navigator.of(context)
-                                                            .popUntil(ModalRoute
-                                                                .withName(
-                                                                    "/login"));
+                                                        Navigator.pop(context);
+                                                        Navigator.pushReplacement(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (_) {
+                                                          return ViewModelBuilder<
+                                                                  ApplicationViewModel>.reactive(
+                                                              disposeViewModel:
+                                                                  false,
+                                                              viewModelBuilder:
+                                                                  () =>
+                                                                      ApplicationViewModel(),
+                                                              builder: (context,
+                                                                  viewModel,
+                                                                  child) {
+                                                                return const LoginView();
+                                                              });
+                                                        }));
                                                       },
                                                       child: const Center(
                                                           child: Text(

@@ -219,32 +219,27 @@ class ProfilePageView extends StatelessWidget {
                                                     const Color(0xffE30405),
                                                   )),
                                                   onPressed: () {
+                                                    Navigator.pop(context);
                                                     viewModel.sharedPreference
                                                         .logOut();
-                                                    Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                        settings:
-                                                            const RouteSettings(
-                                                                name: "/login"),
-                                                        builder: (_) {
-                                                          return ViewModelBuilder<
-                                                                  ApplicationViewModel>.reactive(
-                                                              viewModelBuilder:
-                                                                  () => Provider
-                                                                      .of<ApplicationViewModel>(
-                                                                          context),
-                                                              builder: (context,
-                                                                  appModel,
-                                                                  child) {
-                                                                return const LoginView();
-                                                              });
-                                                        },
-                                                      ),
-                                                    );
-                                                    Navigator.of(context)
-                                                        .popUntil(
-                                                            ModalRoute.withName(
-                                                                "/login"));
+                                                    Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (_) {
+                                                      return ViewModelBuilder<
+                                                              ApplicationViewModel>.reactive(
+                                                          disposeViewModel:
+                                                              false,
+                                                          viewModelBuilder:
+                                                              () => Provider.of<
+                                                                      ApplicationViewModel>(
+                                                                  context),
+                                                          builder: (context,
+                                                              viewModel,
+                                                              child) {
+                                                            return const LoginView();
+                                                          });
+                                                    }));
                                                   },
                                                   child: const Center(
                                                       child: Text(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/views/login/log_in_register.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view_model.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends StatelessWidget {
@@ -149,7 +149,7 @@ class LoginView extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
+                                  MaterialPageRoute(builder: (_) {
                                 return LoginRegister();
                               }));
                             },
@@ -171,8 +171,8 @@ class LoginView extends StatelessWidget {
                             height: 32,
                           ),
                           InkWell(
-                            onTap: () {
-                              viewModel.signInGoogle(context);
+                            onTap: () async{
+                              await viewModel.signInGoogle(context);
                             },
                             onTapCancel: () {
                               Navigator.pop(context);

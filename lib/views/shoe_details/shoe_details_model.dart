@@ -144,11 +144,11 @@ class ShoeDetailsModel extends ChangeNotifier {
         await apiService.addToMyCart(CartObject(
             userId: int.parse(user!.id!),
             productId: int.parse(shoe.id.toString())));
+        await applicationViewModel.getMyCart();
+        notifyListeners();
       }
     } catch (e) {
       rethrow;
     }
-    await applicationViewModel.getMyCart();
-    notifyListeners();
   }
 }

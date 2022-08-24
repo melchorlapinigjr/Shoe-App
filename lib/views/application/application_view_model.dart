@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
+import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
 import 'package:flutter_shoe_app/models/cart_object.dart';
@@ -11,6 +12,7 @@ import 'package:stacked/stacked_annotations.dart';
 
 @LazySingleton()
 class ApplicationViewModel extends ChangeNotifier {
+  final NavigationService navigationService = locator<NavigationService>();
   final ApiService apiService = locator<ApiService>();
   User? user;
   final SharedPreference sharedPreference = locator<SharedPreference>();

@@ -4,6 +4,7 @@ import 'package:flutter_shoe_app/views/add_shoe/add_shoe_view_model.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/homepage_view.dart';
 import 'package:flutter_shoe_app/views/widgets/show_sizes_view.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 import 'add_shoe_image_view.dart';
@@ -280,7 +281,7 @@ class AddShoeView extends StatelessWidget with InputValidationMixin {
                                               MaterialStateProperty.all(
                                         Colors.lightBlue,
                                       )),
-                                      onPressed: () {
+                                      onPressed: () async {
                                         viewModel.addShoe(
                                           context,
                                           viewModel.nameController.text,
@@ -291,25 +292,19 @@ class AddShoeView extends StatelessWidget with InputValidationMixin {
                                           viewModel.selectedSizes,
                                           viewModel.categoryController.text,
                                         );
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            settings: const RouteSettings(
-                                                name: "/homepage"),
-                                            builder: (_) {
-                                              return ViewModelBuilder<
-                                                      ApplicationViewModel>.reactive(
-                                                  createNewModelOnInsert: true,
-                                                  viewModelBuilder: () =>
-                                                      ApplicationViewModel(),
-                                                  builder: (context, appModel,
-                                                      child) {
-                                                    return const HomepageView();
-                                                  });
-                                            },
-                                          ),
-                                        );
-                                        Navigator.of(context).popUntil(
-                                            ModalRoute.withName("/homepage"));
+                                        Navigator.pushReplacement(context,
+                                            MaterialPageRoute(builder: (_) {
+                                          return ViewModelBuilder<
+                                                  ApplicationViewModel>.reactive(
+                                              disposeViewModel: false,
+                                              viewModelBuilder: () => Provider
+                                                  .of<ApplicationViewModel>(
+                                                      context),
+                                              builder:
+                                                  (context, viewModel, child) {
+                                                return const HomepageView();
+                                              });
+                                        }));
                                       },
                                       child: const Center(
                                           child: Text(

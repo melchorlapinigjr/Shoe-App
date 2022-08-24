@@ -34,7 +34,7 @@ void main() {
       title: 'Shoe App',
       home: ViewModelBuilder<ApplicationViewModel>.reactive(
         builder: (context, model, child) {
-          return user == null ? const LoginView() : HomepageView();
+          return user == null ? const LoginView() : const HomepageView();
         },
         viewModelBuilder: () => ApplicationViewModel(),
         disposeViewModel: false,

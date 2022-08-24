@@ -56,7 +56,7 @@ class NavigationServiceImpl implements NavigationService {
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
-  @override
+  @override 
   Future<dynamic>? popUntilFirstAndPushNamed(String routeName,
       {dynamic arguments}) {
     _clearBackstackTillFirst();

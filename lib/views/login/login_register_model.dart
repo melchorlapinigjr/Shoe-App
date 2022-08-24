@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
+import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:image_picker/image_picker.dart';
 
 class LoginRegisterModel extends ChangeNotifier {
   //register
   final ApiService apiService = locator<ApiService>();
-
+  final NavigationService navigationService = locator<NavigationService>();
   final nameFieldController = TextEditingController();
   final emailFieldController = TextEditingController();
   final passFieldController = TextEditingController();
-
   final imagePicker = ImagePicker();
   XFile? image;
   bool isImageLoaded = false;
