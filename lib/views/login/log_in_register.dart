@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view.dart';
 import 'package:flutter_shoe_app/views/login/login_register_model.dart';
@@ -187,24 +188,8 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
                                                         const Color(0xff1F2732),
                                                       )),
                                                       onPressed: () {
-                                                        Navigator.pop(context);
-                                                        Navigator.pushReplacement(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder: (_) {
-                                                          return ViewModelBuilder<
-                                                                  ApplicationViewModel>.reactive(
-                                                              disposeViewModel:
-                                                                  false,
-                                                              viewModelBuilder:
-                                                                  () =>
-                                                                      ApplicationViewModel(),
-                                                              builder: (context,
-                                                                  viewModel,
-                                                                  child) {
-                                                                return const LoginView();
-                                                              });
-                                                        }));
+                                                       viewModel.navigationService.pop();
+                                                       viewModel.navigationService.pushReplacementNamed(Routes.LoginView);
                                                       },
                                                       child: const Center(
                                                           child: Text(
@@ -251,7 +236,7 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
                                                             .withOpacity(0.7),
                                                       )),
                                                       onPressed: () {
-                                                        Navigator.pop(context);
+                                                        viewModel.navigationService.pop();
                                                       },
                                                       child: const Center(
                                                           child: Text(

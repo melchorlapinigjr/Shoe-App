@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/views/login/log_in_register.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view_model.dart';
@@ -149,10 +150,7 @@ class LoginView extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (_) {
-                                return LoginRegister();
-                              }));
+                              viewModel.navigationService.pushNamed(Routes.Register, arguments: LoginRegisterArguments());
                             },
                             child: const Padding(
                               padding: EdgeInsets.only(top: 0, right: 20),
@@ -174,9 +172,6 @@ class LoginView extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               viewModel.signInGoogle();
-                            },
-                            onTapCancel: () {
-                              Navigator.pop(context);
                             },
                             child: Container(
                               height: 60,

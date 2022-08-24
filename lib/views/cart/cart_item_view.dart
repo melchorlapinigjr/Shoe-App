@@ -34,15 +34,10 @@ class CartItemView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: InkWell(
               onTap: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (_) {
-                //   return ShoeDetailsView(shoe);
-                // }));
                 viewModel.navigationService.pushNamed(Routes.ShoeDetails,
                     arguments: ShoeDetailsViewArguments(
                         shoe: shoe,
-                        applicationViewModel: Provider.of<ApplicationViewModel>(
-                            context,
-                            listen: false)));
+                        applicationViewModel: ApplicationViewModel()));
               },
               child: Row(
                 children: <Widget>[

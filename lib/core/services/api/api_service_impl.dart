@@ -91,13 +91,11 @@ class ApiServiceImpl extends ApiService {
 
       if (result.status == FacebookLoginStatus.success) {
         final FacebookAccessToken? accessToken = result.accessToken;
-        print('Access token: ${accessToken?.token}');
         final body = {
           'provider': 'facebook',
           'access_token': accessToken?.token,
         };
         final response = await dio.post('/social/login', data: body);
-        print(response.data.toString());
         if (response.statusCode == 200 && response.data != null) {
           fbuserdata = User.fromJson(response.data);
           sharedPreference.setUser(fbuserdata);
@@ -119,7 +117,6 @@ class ApiServiceImpl extends ApiService {
       if (result != null) {
         GoogleSignInAuthentication googleSignInAuthentication =
             await result.authentication;
-        print(googleSignInAuthentication.accessToken);
         final body = {
           'provider': 'google',
           'access_token': googleSignInAuthentication.accessToken,
@@ -175,10 +172,8 @@ class ApiServiceImpl extends ApiService {
   /// ********************************ADD SHOE********************************************/
   @override
   Future<void> addShoeItem(Shoe shoeItem) async {
-    print(shoeItem.toJSON());
     try {
       await dio.post('/addproduct', data: shoeItem.toJSON());
-      print('success');
     } catch (e) {
       throw e.toString();
     }

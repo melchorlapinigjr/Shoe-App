@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.locator.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
+import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 
 typedef LikePressed = void Function(Shoe shoe);
 
@@ -24,20 +25,14 @@ class ShoeVerticalItem extends StatelessWidget {
   bool isWishlistPage;
   final LikePressed onLikePressed;
   final ApplicationViewModel applicationViewModel;
-
+  final NavigationService navigationService = locator<NavigationService>();
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context,
-            PageRouteBuilder(
-                transitionDuration: const Duration(seconds: 2),
-                pageBuilder: (_, __, ___) => ShoeDetailsView(
-                      item,
-                      applicationViewModel:
-                          Provider.of<ApplicationViewModel>(context),
-                    )));
+        navigationService.pushNamed(Routes.ShoeDetails,
+            arguments: ShoeDetailsViewArguments(
+                shoe: item, applicationViewModel: ApplicationViewModel()));
       },
       child: Container(
         margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),

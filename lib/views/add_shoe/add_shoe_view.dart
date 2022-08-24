@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/views/add_shoe/add_shoe_view_model.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/homepage_view.dart';
@@ -258,7 +259,7 @@ class AddShoeView extends StatelessWidget with InputValidationMixin {
                                         Colors.redAccent,
                                       )),
                                       onPressed: () {
-                                        Navigator.pop(context);
+                                       viewModel.navigationService.pop();
                                       },
                                       child: const Center(
                                           child: Text(
@@ -292,19 +293,7 @@ class AddShoeView extends StatelessWidget with InputValidationMixin {
                                           viewModel.selectedSizes,
                                           viewModel.categoryController.text,
                                         );
-                                        Navigator.pushReplacement(context,
-                                            MaterialPageRoute(builder: (_) {
-                                          return ViewModelBuilder<
-                                                  ApplicationViewModel>.reactive(
-                                              disposeViewModel: false,
-                                              viewModelBuilder: () => Provider
-                                                  .of<ApplicationViewModel>(
-                                                      context),
-                                              builder:
-                                                  (context, viewModel, child) {
-                                                return const HomepageView();
-                                              });
-                                        }));
+                                       viewModel.navigationService.pushReplacementNamed(Routes.HomepageView);
                                       },
                                       child: const Center(
                                           child: Text(

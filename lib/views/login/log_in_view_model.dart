@@ -5,28 +5,22 @@ import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stacked/stacked.dart';
 
 import '../../app/app.locator.dart';
 import '../../core/services/api/api_service.dart';
-import '../application/application_view_model.dart';
-import '../home/homepage_view.dart';
 
 class LoginViewModel extends ChangeNotifier {
   bool isObscure = true;
-
+  //handle google signin
+  final ApiService apiService = locator<ApiService>();
+  bool isLogged = false;
   final NavigationService navigationService = locator<NavigationService>();
 
   void changeObscure() {
     isObscure = isObscure == false ? true : false;
     notifyListeners();
   }
-
-  //handle google signin
-  final ApiService apiService = locator<ApiService>();
-  bool isLogged = false;
 
   Future<void> init() async {
     await isUserLoggedIn();

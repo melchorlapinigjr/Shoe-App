@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
@@ -16,16 +15,9 @@ class SearchResultsList extends ViewModelWidget<SearchPageViewModel> {
   Widget build(BuildContext context, SearchPageViewModel viewModel) {
     return InkWell(
       onTap: () {
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (_) => ShoeDetailsView(shoe,
-        //             applicationViewModel:
-        //                 Provider.of<ApplicationViewModel>(context))));
         viewModel.navigationService.pushNamed(Routes.ShoeDetails,
             arguments: ShoeDetailsViewArguments(
-                shoe: shoe,
-                applicationViewModel: locator<ApplicationViewModel>()));
+                shoe: shoe, applicationViewModel: ApplicationViewModel()));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),
