@@ -93,8 +93,7 @@ class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
             ),
             ViewModelBuilder<ApplicationViewModel>.nonReactive(
                 disposeViewModel: false,
-                viewModelBuilder: () =>
-                    Provider.of<ApplicationViewModel>(context),
+                viewModelBuilder: () => ApplicationViewModel(),
                 builder: (context, applicationViewModel, child) {
                   return ListView.separated(
                     primary: false,

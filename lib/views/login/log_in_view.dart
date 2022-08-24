@@ -12,6 +12,7 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
         viewModelBuilder: () => LoginViewModel(),
+        onModelReady: (model) => model.init(),
         builder: (context, viewModel, child) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
@@ -121,9 +122,9 @@ class LoginView extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               viewModel.loginFields(
-                                  viewModel.emailFieldController.text,
-                                  viewModel.passwordFieldController.text,
-                                  context);
+                                viewModel.emailFieldController.text,
+                                viewModel.passwordFieldController.text,
+                              );
                             },
                             child: Container(
                               height: 60,
@@ -171,8 +172,8 @@ class LoginView extends StatelessWidget {
                             height: 32,
                           ),
                           InkWell(
-                            onTap: () async{
-                              await viewModel.signInGoogle(context);
+                            onTap: () {
+                              viewModel.signInGoogle();
                             },
                             onTapCancel: () {
                               Navigator.pop(context);
@@ -215,7 +216,7 @@ class LoginView extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              viewModel.loginFacebook(context);
+                              viewModel.loginFacebook();
                             },
                             child: Container(
                               height: 60,

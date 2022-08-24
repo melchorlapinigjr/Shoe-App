@@ -19,9 +19,6 @@ void main() {
   //Get.put(MyAppController());
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {
-    final SharedPreferences sharedPreference =
-        await SharedPreferences.getInstance();
-    var user = sharedPreference.getString('userPrefKey');
     runApp(GetMaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -32,64 +29,6 @@ void main() {
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
       title: 'Shoe App',
-      home: ViewModelBuilder<ApplicationViewModel>.reactive(
-        builder: (context, model, child) {
-          return user == null ? const LoginView() : const HomepageView();
-        },
-        viewModelBuilder: () => ApplicationViewModel(),
-        disposeViewModel: false,
-      ),
     ));
-
-    //runApp(const MyApp());
   });
-}
-
-class MyApp extends GetView<MyAppController> {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return controller.obx((state) {
-      return GetBuilder<MyAppController>(builder: (controller) {
-        return GetMaterialApp(
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            fontFamily: 'Avalon',
-            canvasColor: Colors.white,
-            backgroundColor: Colors.white,
-          ),
-          onGenerateRoute: StackedRouter().onGenerateRoute,
-          navigatorKey: locator<NavigationService>().navigatorKey,
-          title: 'Shoe App',
-          home: ViewModelBuilder<ApplicationViewModel>.reactive(
-            builder: (context, model, child) {
-              return controller.userKey == null
-                  ? const LoginView()
-                  : const HomepageView();
-            },
-            viewModelBuilder: () => ApplicationViewModel(),
-            disposeViewModel: false,
-          ),
-        );
-      });
-    }, onLoading: CircularProgress());
-  }
-}
-
-class MyAppController extends GetxController with StateMixin {
-  String? userKey;
-
-  getData() async {
-    // make status to loading
-    change(null, status: RxStatus.loading());
-
-    final SharedPreferences sharedPreference =
-        await SharedPreferences.getInstance();
-    // Code to get data
-    userKey = sharedPreference.getString('userPrefKey');
-
-    // if done, change status to success
-    change(null, status: RxStatus.success());
-  }
 }

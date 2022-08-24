@@ -236,8 +236,7 @@ class HomepageView extends StatelessWidget {
                                         onModelReady: (model) =>
                                             model.getMyCart(),
                                         viewModelBuilder: () =>
-                                            Provider.of<ApplicationViewModel>(
-                                                context),
+                                            ApplicationViewModel(),
                                         builder: (context, model, child) {
                                           return model.cart.isNotEmpty
                                               ? Container(

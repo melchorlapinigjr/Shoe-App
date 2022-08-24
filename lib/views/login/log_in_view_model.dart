@@ -1,9 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../app/app.locator.dart';
@@ -25,18 +28,23 @@ class LoginViewModel extends ChangeNotifier {
   final ApiService apiService = locator<ApiService>();
   bool isLogged = false;
 
-  Future<void> signInGoogle(BuildContext context) async {
+  Future<void> init() async {
+    await isUserLoggedIn();
+  }
+
+  Future<void> isUserLoggedIn() async {
+    final SharedPreferences sharedPreference =
+        await SharedPreferences.getInstance();
+    var user = sharedPreference.getString('userPrefKey');
+    if (user != null) {
+      navigationService.pushReplacementNamed(Routes.HomepageView);
+    }
+  }
+
+  Future<void> signInGoogle() async {
     try {
       await apiService.googleSignIn();
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-        return ViewModelBuilder<ApplicationViewModel>.reactive(
-            disposeViewModel: false,
-            viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
-            builder: (context, viewModel, child) {
-              return const HomepageView();
-            });
-      }));
-      //navigationService.pushReplacementNamed(Routes.HomepageView);
+      navigationService.pushReplacementNamed(Routes.HomepageView);
     } catch (e) {
       // ScaffoldMessenger.of(Get.context!)
       //     .showSnackBar(SnackBar(content: Text(e.toString())));
@@ -45,19 +53,12 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   //facebook login
-  Future<void> loginFacebook(BuildContext context) async {
+  Future<void> loginFacebook() async {
     isLogged = false;
     notifyListeners();
     try {
       await apiService.facebookLogin();
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-        return ViewModelBuilder<ApplicationViewModel>.reactive(
-            disposeViewModel: false,
-            viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
-            builder: (context, viewModel, child) {
-              return const HomepageView();
-            });
-      }));
+      navigationService.pushReplacementNamed(Routes.HomepageView);
     } catch (e) {
       rethrow;
     }
@@ -66,22 +67,15 @@ class LoginViewModel extends ChangeNotifier {
   //login with fields
   TextEditingController emailFieldController = TextEditingController(),
       passwordFieldController = TextEditingController();
-  Future<void> loginFields(
-      String email, String password, BuildContext context) async {
+
+  Future<void> loginFields(String email, String password) async {
     try {
       await apiService.signInWithFields(email, password);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-        return ViewModelBuilder<ApplicationViewModel>.reactive(
-            disposeViewModel: false,
-            viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
-            builder: (context, viewModel, child) {
-              return const HomepageView();
-            });
-      }));
+      navigationService.pushReplacementNamed(Routes.HomepageView);
     } catch (e) {
       //rethrow;
       showDialog(
-          context: context,
+          context: Get.context!,
           builder: (_) {
             return AlertDialog(
               title: const Text(
@@ -101,7 +95,7 @@ class LoginViewModel extends ChangeNotifier {
                         const Color(0xff14FC24).withOpacity(0.7),
                       )),
                       onPressed: () {
-                        Navigator.pop(context);
+                        navigationService.pop();
                       },
                       child: const Center(
                           child: Text(
