@@ -217,7 +217,7 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
                                           builder: (_) {
                                             return AlertDialog(
                                               title: const Text(
-                                                'Di pwede na!!!',
+                                                'It seems that some of your inputs are invalid.',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 24,
@@ -240,7 +240,7 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
                                                       },
                                                       child: const Center(
                                                           child: Text(
-                                                        'Pwede kaayu..Haha',
+                                                        'Ok',
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.w500,

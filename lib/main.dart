@@ -22,7 +22,7 @@ void main() {
       ),
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
-      title: 'Shoe App',
+      title: "Shoe App",
     ));
   });
 }
