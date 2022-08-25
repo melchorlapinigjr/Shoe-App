@@ -101,7 +101,6 @@ class ApiServiceImpl extends ApiService {
           fbuserdata = User.fromJson(response.data);
           sharedPreference.setUser(fbuserdata);
         }
-        print('user: $fbuserdata');
       } else {
         throw 'Facebook activity canceled';
       }

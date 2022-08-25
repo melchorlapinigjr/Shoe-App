@@ -14,6 +14,7 @@ import '../models/cart_object.dart';
 import '../models/shoe_object.dart';
 import '../views/add_shoe/add_shoe_view.dart';
 import '../views/application/application_view_model.dart';
+import '../views/check_out_page/checkout_page_view.dart';
 import '../views/home/homepage_view.dart';
 import '../views/login/log_in_register.dart';
 import '../views/login/log_in_view.dart';
@@ -27,6 +28,7 @@ class Routes {
   static const String SearchPageView = '/search-page-view';
   static const String AddShoeView = '/add-shoe-view';
   static const String Register = '/login-register';
+  static const String Checkout = '/checkout-page-view';
   static const all = <String>{
     LoginView,
     HomepageView,
@@ -34,6 +36,7 @@ class Routes {
     SearchPageView,
     AddShoeView,
     Register,
+    Checkout,
   };
 }
 
@@ -47,6 +50,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.SearchPageView, page: SearchPageView),
     RouteDef(Routes.AddShoeView, page: AddShoeView),
     RouteDef(Routes.Register, page: LoginRegister),
+    RouteDef(Routes.Checkout, page: CheckoutPageView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -100,6 +104,12 @@ class StackedRouter extends RouterBase {
       );
       return buildAdaptivePageRoute<dynamic>(
         builder: (context) => LoginRegister(key: args.key),
+        settings: data,
+      );
+    },
+    CheckoutPageView: (data) {
+      return buildAdaptivePageRoute<dynamic>(
+        builder: (context) => const CheckoutPageView(),
         settings: data,
       );
     },

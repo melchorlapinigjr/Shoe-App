@@ -91,13 +91,10 @@ class ShoeHorizontalItem extends StatelessWidget {
             },
             child: Transform.rotate(
               angle: math.pi / 180 * (-30),
-              child: Hero(
-                tag: '1',
-                child: Image.network(
+              child: Image.network(
                   shoe.images![0],
                   width: 252,
                 ),
-              ),
             ),
           ),
         ),

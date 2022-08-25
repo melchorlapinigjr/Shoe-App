@@ -94,7 +94,7 @@ class CheckOutItemView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10.0),
                             ))),
                         child: const Text(
-                          'Submit',
+                          'Place Order',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
