@@ -220,6 +220,7 @@ class ProfilePageView extends StatelessWidget {
                                                   onPressed: () {
                                                     viewModel.sharedPreference
                                                         .logOut();
+                                                        
                                                     viewModel.navigationService
                                                         .pushReplacementNamed(
                                                             Routes.LoginView);

@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/views/add_shoe/add_shoe_view_model.dart';
-import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:flutter_shoe_app/views/home/homepage_view.dart';
 import 'package:flutter_shoe_app/views/widgets/show_sizes_view.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 import 'add_shoe_image_view.dart';

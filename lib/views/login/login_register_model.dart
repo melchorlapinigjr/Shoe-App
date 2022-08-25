@@ -38,12 +38,11 @@ class LoginRegisterModel extends ChangeNotifier {
   }
 
   Future<void> onRegister(String name, String email, String password) async {
-    print('name: $name, email: $email, password: $password');
     try {
       await apiService
           .registerUser(User(name: name, email: email, password: password));
     } catch (e) {
-      print(e);
+      rethrow;
     }
   }
 }

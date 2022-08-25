@@ -27,10 +27,14 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   Future<void> isUserLoggedIn() async {
+    isLogged = false;
+    notifyListeners();
     final SharedPreferences sharedPreference =
         await SharedPreferences.getInstance();
     var user = sharedPreference.getString('userPrefKey');
     if (user != null) {
+      isLogged = true;
+      notifyListeners();
       navigationService.pushReplacementNamed(Routes.HomepageView);
     }
   }

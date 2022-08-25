@@ -9,7 +9,6 @@ import 'package:flutter_shoe_app/views/home/home_view_widget.dart';
 import 'package:flutter_shoe_app/views/profile_page/profile_page_view.dart';
 import 'package:flutter_shoe_app/views/wishlist/wishlist_view.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 class HomepageView extends StatelessWidget {
@@ -23,6 +22,7 @@ class HomepageView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.reactive(
         viewModelBuilder: () => HomeViewModel(),
         onModelReady: (model) => model.initialize(),
+        disposeViewModel: false,
         builder: (context, viewModel, child) {
           return viewModel.isBusy
               ? const Scaffold(

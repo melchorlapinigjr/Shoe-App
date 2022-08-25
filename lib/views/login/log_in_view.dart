@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
-import 'package:flutter_shoe_app/views/login/log_in_register.dart';
+import 'package:flutter_shoe_app/views/home/homepage_view.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
@@ -15,7 +15,7 @@ class LoginView extends StatelessWidget {
         viewModelBuilder: () => LoginViewModel(),
         onModelReady: (model) => model.init(),
         builder: (context, viewModel, child) {
-          return Scaffold(
+          return viewModel.isLogged ? const HomepageView() : Scaffold(
             resizeToAvoidBottomInset: false,
             body: ListView(
               children: [
