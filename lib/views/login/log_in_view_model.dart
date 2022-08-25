@@ -15,6 +15,7 @@ class LoginViewModel extends ChangeNotifier {
   //handle google signin
   final ApiService apiService = locator<ApiService>();
   bool isLogged = false;
+  bool isBusy = false;
   final NavigationService navigationService = locator<NavigationService>();
 
   void changeObscure() {
@@ -28,6 +29,7 @@ class LoginViewModel extends ChangeNotifier {
 
   Future<void> isUserLoggedIn() async {
     isLogged = false;
+    isBusy = true;
     notifyListeners();
     final SharedPreferences sharedPreference =
         await SharedPreferences.getInstance();
@@ -37,6 +39,8 @@ class LoginViewModel extends ChangeNotifier {
       notifyListeners();
       navigationService.pushReplacementNamed(Routes.HomepageView);
     }
+    isBusy = false;
+    notifyListeners();
   }
 
   Future<void> signInGoogle() async {
