@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/cart/cart_item_view.dart';
+import 'package:flutter_shoe_app/views/check_out_page/checkout_page_view.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 class CartPageView extends StatelessWidget {
@@ -56,7 +58,12 @@ class CartPageView extends StatelessWidget {
                                     RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12.0),
                                 ))),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (_) {
+                                return CheckoutPageView();
+                              }));
+                            },
                             child: const Text('Checkout',
                                 style: TextStyle(
                                   fontSize: 16,
