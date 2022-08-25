@@ -6,6 +6,7 @@ import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
 import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/category_object.dart';
+
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/utils/constants.dart';
@@ -102,6 +103,7 @@ class ApiServiceImpl extends ApiService {
           fbuserdata = User.fromJson(response.data);
           sharedPreference.setUser(fbuserdata);
         }
+        print('user: $fbuserdata');
       } else {
         throw 'Facebook activity canceled';
       }
@@ -257,5 +259,25 @@ class ApiServiceImpl extends ApiService {
     } catch (e) {
       rethrow;
     }
+  }
+
+  @override
+  Future<void> checkOut(CartObject cartObject) async {
+    //print(cartObject);
+    try{
+      await dio.post('/checkout', data: cartObject.toJson());
+    } catch (e){
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> removeCart(CartObject cartObject) async {
+    try {
+      await dio.post('/removeCart', data: cartObject.toJson());
+    } catch (e) {
+      rethrow;
+    }
+
   }
 }
