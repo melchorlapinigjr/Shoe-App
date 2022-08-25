@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.locator.dart';
+import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
-import 'package:flutter_shoe_app/views/home/home_view_model.dart';
 
 class SearchPageViewModel extends ChangeNotifier {
-  final HomeViewModel homeViewModel;
+  final List<Shoe> items;
 
   List<Shoe> foundShoes = [];
 
@@ -11,15 +12,16 @@ class SearchPageViewModel extends ChangeNotifier {
 
   bool hasInput = false;
 
-  SearchPageViewModel(this.homeViewModel);
+  SearchPageViewModel(this.items);
+  final NavigationService navigationService = locator<NavigationService>();
 
   void initialize() {
-    foundShoes = homeViewModel.items;
+    foundShoes = items;
     notifyListeners();
   }
 
   void onTextChanged(String input) {
-    foundShoes = homeViewModel.items
+    foundShoes = items
         .where((shoe) => shoe.name!.toLowerCase().contains(input.toLowerCase()))
         .toList();
     hideResultCount = false;

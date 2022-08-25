@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:flutter_shoe_app/views/login/log_in_view.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/views/login/login_register_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -181,31 +179,8 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
                                                         const Color(0xff1F2732),
                                                       )),
                                                       onPressed: () {
-                                                        Navigator.of(context)
-                                                            .push(
-                                                          MaterialPageRoute(
-                                                            settings:
-                                                                const RouteSettings(
-                                                                    name:
-                                                                        "/login"),
-                                                            builder: (_) {
-                                                              return ViewModelBuilder<
-                                                                      ApplicationViewModel>.reactive(
-                                                                  viewModelBuilder:
-                                                                      () =>
-                                                                          ApplicationViewModel(),
-                                                                  builder: (context,
-                                                                      appModel,
-                                                                      child) {
-                                                                    return const LoginView();
-                                                                  });
-                                                            },
-                                                          ),
-                                                        );
-                                                        Navigator.of(context)
-                                                            .popUntil(ModalRoute
-                                                                .withName(
-                                                                    "/login"));
+                                                       viewModel.navigationService.pop();
+                                                       viewModel.navigationService.pushReplacementNamed(Routes.LoginView);
                                                       },
                                                       child: const Center(
                                                           child: Text(
@@ -233,7 +208,7 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
                                           builder: (_) {
                                             return AlertDialog(
                                               title: const Text(
-                                                'Di pwede na!!!',
+                                                'It seems that some of your inputs are invalid.',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 24,
@@ -252,11 +227,11 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
                                                             .withOpacity(0.7),
                                                       )),
                                                       onPressed: () {
-                                                        Navigator.pop(context);
+                                                        viewModel.navigationService.pop();
                                                       },
                                                       child: const Center(
                                                           child: Text(
-                                                        'Pwede kaayu..Haha',
+                                                        'Ok',
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.w500,

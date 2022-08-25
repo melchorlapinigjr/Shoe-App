@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/cart/cart_item_view.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 class CartPageView extends StatelessWidget {
@@ -15,7 +14,7 @@ class CartPageView extends StatelessWidget {
     return ViewModelBuilder<ApplicationViewModel>.reactive(
         disposeViewModel: false,
         onModelReady: (model) => model.getMyCart(),
-        viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
+        viewModelBuilder: () => ApplicationViewModel(),
         builder: (context, viewModel, child) {
           return viewModel.cart.isNotEmpty
               ? Container(

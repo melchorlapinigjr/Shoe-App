@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
 import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
 import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
@@ -34,11 +34,10 @@ class CartItemView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: InkWell(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) {
-                  return ShoeDetailsView(shoe,
-                      applicationViewModel:
-                          Provider.of<ApplicationViewModel>(context));
-                }));
+                viewModel.navigationService.pushNamed(Routes.ShoeDetails,
+                    arguments: ShoeDetailsViewArguments(
+                        shoe: shoe,
+                        applicationViewModel: ApplicationViewModel()));
               },
               child: Row(
                 children: <Widget>[

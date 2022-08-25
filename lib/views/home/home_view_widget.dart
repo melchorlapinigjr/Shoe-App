@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_shoe_app/utils/constants.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/home_view_model.dart';
 import 'package:flutter_shoe_app/views/home/shoe_category_view.dart';
 import 'package:flutter_shoe_app/views/home/shoe_horizontal_item.dart';
 import 'package:flutter_shoe_app/views/home/shoe_vertical_item.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 import '../widgets/circular_ progress.dart';
@@ -93,8 +91,7 @@ class HomeViewWidget extends ViewModelWidget<HomeViewModel> {
             ),
             ViewModelBuilder<ApplicationViewModel>.nonReactive(
                 disposeViewModel: false,
-                viewModelBuilder: () =>
-                    Provider.of<ApplicationViewModel>(context),
+                viewModelBuilder: () => ApplicationViewModel(),
                 builder: (context, applicationViewModel, child) {
                   return ListView.separated(
                     primary: false,

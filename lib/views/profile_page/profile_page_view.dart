@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:flutter_shoe_app/views/login/log_in_view.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/views/profile_page/profile_page_view_model.dart';
 import 'package:flutter_shoe_app/views/widgets/circular_%20progress.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfilePageView extends StatelessWidget {
@@ -193,7 +191,8 @@ class ProfilePageView extends StatelessWidget {
                                                     const Color(0xff14FC24),
                                                   )),
                                                   onPressed: () {
-                                                    Navigator.pop(context);
+                                                    viewModel.navigationService
+                                                        .pop();
                                                   },
                                                   child: const Center(
                                                       child: Text(
@@ -221,30 +220,10 @@ class ProfilePageView extends StatelessWidget {
                                                   onPressed: () {
                                                     viewModel.sharedPreference
                                                         .logOut();
-                                                    Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                        settings:
-                                                            const RouteSettings(
-                                                                name: "/login"),
-                                                        builder: (_) {
-                                                          return ViewModelBuilder<
-                                                                  ApplicationViewModel>.reactive(
-                                                              viewModelBuilder:
-                                                                  () => Provider
-                                                                      .of<ApplicationViewModel>(
-                                                                          context),
-                                                              builder: (context,
-                                                                  appModel,
-                                                                  child) {
-                                                                return const LoginView();
-                                                              });
-                                                        },
-                                                      ),
-                                                    );
-                                                    Navigator.of(context)
-                                                        .popUntil(
-                                                            ModalRoute.withName(
-                                                                "/login"));
+                                                        
+                                                    viewModel.navigationService
+                                                        .pushReplacementNamed(
+                                                            Routes.LoginView);
                                                   },
                                                   child: const Center(
                                                       child: Text(

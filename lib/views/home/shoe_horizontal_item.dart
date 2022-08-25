@@ -1,17 +1,18 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.locator.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
+import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
-import 'package:provider/provider.dart';
 
 class ShoeHorizontalItem extends StatelessWidget {
   final Shoe shoe;
+  ShoeHorizontalItem(this.shoe, {Key? key}) : super(key: key);
 
-  const ShoeHorizontalItem(this.shoe, {Key? key}) : super(key: key);
-
+  final NavigationService navigationService = locator<NavigationService>();
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -21,13 +22,9 @@ class ShoeHorizontalItem extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_) {
-              return ShoeDetailsView(
-                shoe,
-                applicationViewModel:
-                    Provider.of<ApplicationViewModel>(context),
-              );
-            }));
+            navigationService.pushNamed(Routes.ShoeDetails,
+                arguments: ShoeDetailsViewArguments(
+                    shoe: shoe, applicationViewModel: ApplicationViewModel()));
           },
           child: Container(
             width: 256,
@@ -87,15 +84,10 @@ class ShoeHorizontalItem extends StatelessWidget {
           bottom: 9.87,
           child: InkWell(
             onTap: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                      transitionDuration: const Duration(seconds: 2),
-                      pageBuilder: (_, __, ___) => ShoeDetailsView(
-                            shoe,
-                            applicationViewModel:
-                                Provider.of<ApplicationViewModel>(context),
-                          )));
+              navigationService.pushNamed(Routes.ShoeDetails,
+                  arguments: ShoeDetailsViewArguments(
+                      shoe: shoe,
+                      applicationViewModel: ApplicationViewModel()));
             },
             child: Transform.rotate(
               angle: math.pi / 180 * (-30),
