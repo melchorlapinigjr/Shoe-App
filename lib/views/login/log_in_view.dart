@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
-import 'package:flutter_shoe_app/views/login/log_in_register.dart';
+import 'package:flutter_shoe_app/views/home/homepage_view.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view_model.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends StatelessWidget {
@@ -12,8 +13,9 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
         viewModelBuilder: () => LoginViewModel(),
+        onModelReady: (model) => model.init(),
         builder: (context, viewModel, child) {
-          return Scaffold(
+          return viewModel.isLogged ? const HomepageView() : Scaffold(
             resizeToAvoidBottomInset: false,
             body: ListView(
               children: [
@@ -121,9 +123,9 @@ class LoginView extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               viewModel.loginFields(
-                                  viewModel.emailFieldController.text,
-                                  viewModel.passwordFieldController.text,
-                                  context);
+                                viewModel.emailFieldController.text,
+                                viewModel.passwordFieldController.text,
+                              );
                             },
                             child: Container(
                               height: 60,
@@ -148,10 +150,7 @@ class LoginView extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return LoginRegister();
-                              }));
+                              viewModel.navigationService.pushNamed(Routes.Register, arguments: LoginRegisterArguments());
                             },
                             child: const Padding(
                               padding: EdgeInsets.only(top: 0, right: 20),
@@ -172,10 +171,7 @@ class LoginView extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              viewModel.signInGoogle(context);
-                            },
-                            onTapCancel: () {
-                              Navigator.pop(context);
+                              viewModel.signInGoogle();
                             },
                             child: Container(
                               height: 60,
@@ -215,7 +211,7 @@ class LoginView extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              viewModel.loginFacebook(context);
+                              viewModel.loginFacebook();
                             },
                             child: Container(
                               height: 60,

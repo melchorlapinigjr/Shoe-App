@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart' show GlobalKey, NavigatorState;
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import 'navigation_service.dart';
@@ -33,6 +32,7 @@ class NavigationServiceImpl implements NavigationService {
   }
 
   /// Pops the back stack the number of times you indicate with [popTimes]
+  @override
   void popRepeated(int popTimes) {
     Get.close(popTimes);
   }
@@ -56,7 +56,7 @@ class NavigationServiceImpl implements NavigationService {
   }
 
   /// Pops the navigation stack until there's 1 view left then pushes [routeName] onto the stack
-  @override
+  @override 
   Future<dynamic>? popUntilFirstAndPushNamed(String routeName,
       {dynamic arguments}) {
     _clearBackstackTillFirst();

@@ -4,15 +4,23 @@ import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dar
 import 'package:flutter_shoe_app/core/services/navigation/navigation_service_impl.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference_impl.dart';
+import 'package:flutter_shoe_app/views/add_shoe/add_shoe_view.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/home/homepage_view.dart';
+import 'package:flutter_shoe_app/views/login/log_in_register.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view.dart';
+import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
+import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 @StackedApp(
   routes: [
     AdaptiveRoute(page: LoginView, name: "LoginView", initial: true),
     AdaptiveRoute(page: HomepageView, name: "HomepageView"),
+    AdaptiveRoute(page: ShoeDetailsView, name: "ShoeDetails"),
+    AdaptiveRoute(page: SearchPageView, name: "SearchPageView"),
+    AdaptiveRoute(page: AddShoeView, name: "AddShoeView"),
+    AdaptiveRoute(page: LoginRegister, name: "Register"),
   ],
   dependencies: [
     LazySingleton(classType: SharedPreferenceImpl, asType: SharedPreference),

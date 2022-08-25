@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
-import 'package:provider/provider.dart';
-import 'package:stacked/stacked.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app/app.locator.dart';
 import '../../core/services/api/api_service.dart';
-import '../application/application_view_model.dart';
-import '../home/homepage_view.dart';
 
 class LoginViewModel extends ChangeNotifier {
   bool isObscure = true;
-
+  //handle google signin
+  final ApiService apiService = locator<ApiService>();
+  bool isLogged = false;
   final NavigationService navigationService = locator<NavigationService>();
 
   void changeObscure() {
@@ -22,24 +22,27 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  //handle google signin
-  final ApiService apiService = locator<ApiService>();
-  bool isLogged = false;
+  Future<void> init() async {
+    await isUserLoggedIn();
+  }
 
-  Future<void> signInGoogle(BuildContext context) async {
+  Future<void> isUserLoggedIn() async {
     isLogged = false;
     notifyListeners();
+    final SharedPreferences sharedPreference =
+        await SharedPreferences.getInstance();
+    var user = sharedPreference.getString('userPrefKey');
+    if (user != null) {
+      isLogged = true;
+      notifyListeners();
+      navigationService.pushReplacementNamed(Routes.HomepageView);
+    }
+  }
+
+  Future<void> signInGoogle() async {
     try {
       await apiService.googleSignIn();
-      isLogged = true;
-      Navigator.push(context, MaterialPageRoute(builder: (_) {
-        return ViewModelBuilder<ApplicationViewModel>.reactive(
-            disposeViewModel: false,
-            viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
-            builder: (context, viewModel, child) {
-              return const HomepageView();
-            });
-      }));
+      navigationService.pushReplacementNamed(Routes.HomepageView);
     } catch (e) {
       // ScaffoldMessenger.of(Get.context!)
       //     .showSnackBar(SnackBar(content: Text(e.toString())));
@@ -47,27 +50,13 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
-  //route to homepage
-  Future<void> toHomepage() async {
-    await navigationService.pushNamed(Routes.HomepageView);
-  }
-
   //facebook login
-  Future<void> loginFacebook(BuildContext context) async {
+  Future<void> loginFacebook() async {
     isLogged = false;
     notifyListeners();
     try {
       await apiService.facebookLogin();
-      // toHomepage();
-      // ignore: use_build_context_synchronously
-      Navigator.push(context, MaterialPageRoute(builder: (_) {
-        return ViewModelBuilder<ApplicationViewModel>.reactive(
-            disposeViewModel: false,
-            viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
-            builder: (context, viewModel, child) {
-              return HomepageView();
-            });
-      }));
+      navigationService.pushReplacementNamed(Routes.HomepageView);
     } catch (e) {
       rethrow;
     }
@@ -76,22 +65,15 @@ class LoginViewModel extends ChangeNotifier {
   //login with fields
   TextEditingController emailFieldController = TextEditingController(),
       passwordFieldController = TextEditingController();
-  Future<void> loginFields(
-      String email, String password, BuildContext context) async {
+
+  Future<void> loginFields(String email, String password) async {
     try {
       await apiService.signInWithFields(email, password);
-      Navigator.push(context, MaterialPageRoute(builder: (_) {
-        return ViewModelBuilder<ApplicationViewModel>.reactive(
-            disposeViewModel: false,
-            viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
-            builder: (context, viewModel, child) {
-              return HomepageView();
-            });
-      }));
+      navigationService.pushReplacementNamed(Routes.HomepageView);
     } catch (e) {
       //rethrow;
       showDialog(
-          context: context,
+          context: Get.context!,
           builder: (_) {
             return AlertDialog(
               title: const Text(
@@ -111,7 +93,7 @@ class LoginViewModel extends ChangeNotifier {
                         const Color(0xff14FC24).withOpacity(0.7),
                       )),
                       onPressed: () {
-                        Navigator.pop(context);
+                        navigationService.pop();
                       },
                       child: const Center(
                           child: Text(

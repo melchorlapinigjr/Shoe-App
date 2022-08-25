@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/core/services/api/api_service.dart';
+import 'package:flutter_shoe_app/core/services/navigation/navigation_service.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/utils/palette_utils.dart';
@@ -18,6 +19,7 @@ class HomeViewModel extends ChangeNotifier {
   final ApplicationViewModel applicationViewModel =
       locator<ApplicationViewModel>();
   final ApiService apiService = locator<ApiService>();
+  final NavigationService navigationService = locator<NavigationService>();
 
   //initialize for color storing
   List<PaletteColor> colors = [];
