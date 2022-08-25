@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/resources/assets/icons/svg_icons.dart';
-import 'package:flutter_shoe_app/views/add_shoe/add_shoe_view.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/cart/cart_page_view.dart';
 import 'package:flutter_shoe_app/views/home/home_view_model.dart';
 import 'package:flutter_shoe_app/views/home/home_view_widget.dart';
 import 'package:flutter_shoe_app/views/profile_page/profile_page_view.dart';
-import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
 import 'package:flutter_shoe_app/views/wishlist/wishlist_view.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 class HomepageView extends StatelessWidget {
@@ -24,6 +22,7 @@ class HomepageView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.reactive(
         viewModelBuilder: () => HomeViewModel(),
         onModelReady: (model) => model.initialize(),
+        disposeViewModel: false,
         builder: (context, viewModel, child) {
           return viewModel.isBusy
               ? const Scaffold(
@@ -77,12 +76,10 @@ class HomepageView extends StatelessWidget {
                                     SvgIcons.searchIcon,
                                   ),
                                   onPressed: () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (_) {
-                                      return SearchPageView(
-                                        homeViewModel: viewModel,
-                                      );
-                                    }));
+                                    viewModel.navigationService.pushNamed(
+                                        Routes.SearchPageView,
+                                        arguments: SearchPageViewArguments(
+                                            items: viewModel.items));
                                   },
                                 )
                               ]
@@ -95,10 +92,8 @@ class HomepageView extends StatelessWidget {
                                       ),
                                       onPressed: () {
                                         viewModel.isProfileTrue();
-                                        Navigator.push(context,
-                                            MaterialPageRoute(builder: (_) {
-                                          return AddShoeView();
-                                        }));
+                                        viewModel.navigationService
+                                            .pushNamed(Routes.AddShoeView);
                                       },
                                     ),
                                     IconButton(
@@ -241,8 +236,7 @@ class HomepageView extends StatelessWidget {
                                         onModelReady: (model) =>
                                             model.getMyCart(),
                                         viewModelBuilder: () =>
-                                            Provider.of<ApplicationViewModel>(
-                                                context),
+                                            ApplicationViewModel(),
                                         builder: (context, model, child) {
                                           return model.cart.isNotEmpty
                                               ? Container(

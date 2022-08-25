@@ -16,7 +16,7 @@ class CartPageView extends StatelessWidget {
     return ViewModelBuilder<ApplicationViewModel>.reactive(
         disposeViewModel: false,
         onModelReady: (model) => model.getMyCart(),
-        viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
+        viewModelBuilder: () => ApplicationViewModel(),
         builder: (context, viewModel, child) {
           return viewModel.cart.isNotEmpty
               ? Container(

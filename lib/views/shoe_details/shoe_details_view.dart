@@ -103,6 +103,7 @@ class ShoeDetailsView extends StatelessWidget {
                             ))),
                         onPressed: () async {
                           await viewModel.addToMyCart(shoe);
+                          await viewModel.applicationViewModel.getMyCart();
                           applicationViewModel.addToCart(shoe);
                         },
                         child: const Text('Add to Bag',
