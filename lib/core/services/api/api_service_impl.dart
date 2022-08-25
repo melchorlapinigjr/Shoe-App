@@ -270,14 +270,4 @@ class ApiServiceImpl extends ApiService {
       rethrow;
     }
   }
-
-  @override
-  Future<void> removeCart(CartObject cartObject) async {
-    try {
-      await dio.post('/removeCart', data: cartObject.toJson());
-    } catch (e) {
-      rethrow;
-    }
-
-  }
 }
