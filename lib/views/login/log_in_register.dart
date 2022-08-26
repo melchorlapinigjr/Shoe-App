@@ -184,9 +184,12 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
                                                                   .all(
                                                         const Color(0xff1F2732),
                                                       )),
-                                                      onPressed: () {
-                                                       viewModel.navigationService.pop();
-                                                       viewModel.navigationService.pushReplacementNamed(Routes.LoginView);
+                                                      onPressed: () async {
+                                                        await viewModel
+                                                            .navigationService
+                                                            .popAllAndPushNamed(
+                                                                Routes
+                                                                    .LoginView);
                                                       },
                                                       child: const Center(
                                                           child: Text(
@@ -206,9 +209,6 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
                                             );
                                           });
                                     } else {
-                                      // ScaffoldMessenger.of(Get.context!)
-                                      //     .showSnackBar(const SnackBar(
-                                      //         content: Text('Di pwede na!!!')));
                                       showDialog(
                                           context: context,
                                           builder: (_) {
@@ -233,7 +233,9 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
                                                             .withOpacity(0.7),
                                                       )),
                                                       onPressed: () {
-                                                        viewModel.navigationService.pop();
+                                                        viewModel
+                                                            .navigationService
+                                                            .pop();
                                                       },
                                                       child: const Center(
                                                           child: Text(
