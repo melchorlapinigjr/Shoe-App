@@ -52,7 +52,7 @@ class CheckoutPageViewModel extends ChangeNotifier {
       ScaffoldMessenger.of(Get.context!).showSnackBar(
           const SnackBar(content: Text('Order placed successfully!')));
       await applicationViewModel.navigationService
-          .pushReplacementNamed(Routes.HomepageView);
+          .popAllAndPushNamed(Routes.HomepageView);
     } catch (e) {
       rethrow;
     }
