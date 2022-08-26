@@ -3,8 +3,6 @@ import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
 import 'package:flutter_shoe_app/views/cart/cart_item_view.dart';
-import 'package:flutter_shoe_app/views/check_out_page/checkout_page_view.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 class CartPageView extends StatelessWidget {
@@ -12,12 +10,10 @@ class CartPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ApplicationViewModel applicationViewModel =
-        locator<ApplicationViewModel>();
     return ViewModelBuilder<ApplicationViewModel>.reactive(
         disposeViewModel: false,
         onModelReady: (model) => model.getMyCart(),
-        viewModelBuilder: () => ApplicationViewModel(),
+        viewModelBuilder: () => locator<ApplicationViewModel>(),
         builder: (context, viewModel, child) {
           return viewModel.cart.isNotEmpty
               ? Container(
@@ -34,8 +30,7 @@ class CartPageView extends StatelessWidget {
                           itemCount: viewModel.cart.length,
                           itemBuilder: (BuildContext context, int index) {
                             final shoe = viewModel.cart.keys.toList()[index];
-                            final cartObject =
-                                applicationViewModel.tempCart[index];
+                            final cartObject = viewModel.tempCart[index];
                             final quantity = viewModel.cart[shoe] ?? 0;
                             return CartItemView(
                               shoe: shoe,
@@ -60,7 +55,7 @@ class CartPageView extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(12.0),
                                 ))),
                             onPressed: () async {
-                              await applicationViewModel.navigationService
+                              await viewModel.navigationService
                                   .pushNamed(Routes.Checkout);
                             },
                             child: const Text('Checkout',

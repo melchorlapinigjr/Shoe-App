@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
+import 'package:flutter_shoe_app/views/my_purchases/my_purchases_view.dart';
 import 'package:flutter_shoe_app/views/profile_page/profile_page_view_model.dart';
 import 'package:flutter_shoe_app/views/widgets/circular_%20progress.dart';
 import 'package:stacked/stacked.dart';
@@ -56,6 +57,39 @@ class ProfilePageView extends StatelessWidget {
                                 viewModel.user!.email ?? '',
                                 textAlign: TextAlign.center,
                               ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return const MyPurchasesView();
+                                  }),
+                                );
+                              },
+                              child: Stack(
+                                alignment: Alignment.centerLeft,
+                                children: [
+                                  Row(
+                                    children: const [
+                                      Padding(
+                                        padding: EdgeInsets.all(12),
+                                        child: Icon(
+                                          Icons.shopping_bag_outlined,
+                                        ),
+                                      ),
+                                      Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            'My Purchases',
+                                          )),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Divider(
+                              color: Colors.black26,
                             ),
                             InkWell(
                               onTap: () {},

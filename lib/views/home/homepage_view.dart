@@ -109,11 +109,11 @@ class HomepageView extends StatelessWidget {
                   ),
                   body: IndexedStack(
                     index: viewModel.stackIndex,
-                    children: [
-                      const HomeViewWidget(),
-                      const CartPageView(),
-                      const WishlistView(),
-                      const ProfilePageView(),
+                    children: const [
+                      HomeViewWidget(),
+                      CartPageView(),
+                      WishlistView(),
+                      ProfilePageView(),
                     ],
                   ),
                   backgroundColor: Colors.white,
@@ -236,7 +236,7 @@ class HomepageView extends StatelessWidget {
                                         onModelReady: (model) =>
                                             model.getMyCart(),
                                         viewModelBuilder: () =>
-                                            ApplicationViewModel(),
+                                            locator<ApplicationViewModel>(),
                                         builder: (context, model, child) {
                                           return model.cart.isNotEmpty
                                               ? Container(

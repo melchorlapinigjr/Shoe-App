@@ -64,6 +64,7 @@ class ApplicationViewModel extends ChangeNotifier {
           map.addAll({cartObject.shoe as Shoe: cartObject.quantity!});
         }
         cart.addAll(map);
+        notifyListeners();
       }
     } catch (e) {
       rethrow;

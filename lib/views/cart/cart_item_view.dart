@@ -28,7 +28,7 @@ class CartItemView extends StatelessWidget {
     final ApiService apiService = locator<ApiService>();
     return ViewModelBuilder<ApplicationViewModel>.reactive(
         disposeViewModel: false,
-        viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
+        viewModelBuilder: () => locator<ApplicationViewModel>(),
         builder: (context, viewModel, child) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -37,7 +37,7 @@ class CartItemView extends StatelessWidget {
                 viewModel.navigationService.pushNamed(Routes.ShoeDetails,
                     arguments: ShoeDetailsViewArguments(
                         shoe: shoe,
-                        applicationViewModel: ApplicationViewModel()));
+                        applicationViewModel: locator<ApplicationViewModel>()));
               },
               child: Row(
                 children: <Widget>[
