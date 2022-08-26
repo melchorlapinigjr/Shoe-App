@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_shoe_app/app/app.locator.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
+import 'package:flutter_shoe_app/core/services/api/api_service.dart';
+import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
+import 'package:flutter_shoe_app/models/checkout_object.dart';
+import 'package:flutter_shoe_app/models/user_object.dart';
+import 'package:flutter_shoe_app/views/application/application_view_model.dart';
+import 'package:get/get.dart';
 
-class CheckOutPageViewModel extends ChangeNotifier {
-  //TextEditingController cardNumberController = TextEditingController();
+class CheckoutPageViewModel extends ChangeNotifier {
   TextEditingController nameOnCardController = TextEditingController();
   TextEditingController provinceAddressController = TextEditingController();
   TextEditingController cityAddressController = TextEditingController();
@@ -10,8 +17,55 @@ class CheckOutPageViewModel extends ChangeNotifier {
   TextEditingController postalCodeController = TextEditingController();
   TextEditingController contactNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
+
+  CheckoutPageViewModel();
+  User? user;
+  double price = 0;
+  List<int> productIds = [];
+  int quantity = 0;
+
+  final ApiService apiService = locator<ApiService>();
+  final SharedPreference sharedPreference = locator<SharedPreference>();
+  final ApplicationViewModel applicationViewModel =
+      locator<ApplicationViewModel>();
 
   final card = PaymentCard();
+
+  void init() {
+    numberController.addListener(getCardTypeFrmNumber);
+  }
+
+  Future<void> checkOutItem() async {
+    productIds.clear();
+    applicationViewModel.cart.forEach((key, value) {
+      productIds.add(key.id!);
+      quantity += value;
+      price += applicationViewModel.getCartTotalPrice(key);
+    });
+    try {
+      await apiService.checkOut(CheckoutObject(
+          userId: int.parse(applicationViewModel.user!.id!),
+          productId: productIds,
+          quantity: quantity,
+          totalPrice: price));
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+          const SnackBar(content: Text('Order placed successfully!')));
+      await applicationViewModel.navigationService
+          .pushReplacementNamed(Routes.HomepageView);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  void getCardTypeFrmNumber() {
+    String input = CardUtils.getCleanedNumber(numberController.text);
+    notifyListeners();
+    CardType cardType = CardUtils.getCardTypeFrmNumber(input);
+    notifyListeners();
+    card.type = cardType;
+    notifyListeners();
+  }
 }
 
 class PaymentCard {
