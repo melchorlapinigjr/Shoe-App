@@ -6,6 +6,7 @@ import 'package:flutter_shoe_app/core/services/api/api_service.dart';
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference.dart';
 import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/category_object.dart';
+import 'package:flutter_shoe_app/models/checkout_object.dart';
 
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
@@ -255,11 +256,11 @@ class ApiServiceImpl extends ApiService {
     }
   }
 
+/// Checkout
   @override
-  Future<void> checkOut(CartObject cartObject) async {
-    //print(cartObject);
+  Future<void> checkOut(CheckoutObject checkoutObject) async {
     try{
-      await dio.post('/checkout', data: cartObject.toJson());
+      await dio.post('/checkout', data: checkoutObject.toJson());
     } catch (e){
       rethrow;
     }

@@ -6,12 +6,12 @@ import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_prefere
 import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_preference_impl.dart';
 import 'package:flutter_shoe_app/views/add_shoe/add_shoe_view.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
+import 'package:flutter_shoe_app/views/check_out_page/checkout_page_view.dart';
 import 'package:flutter_shoe_app/views/home/homepage_view.dart';
 import 'package:flutter_shoe_app/views/login/log_in_register.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view.dart';
 import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
-import 'package:flutter_shoe_app/views/check_out_page/checkout_page_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 @StackedApp(

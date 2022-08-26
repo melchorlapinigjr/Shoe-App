@@ -47,6 +47,11 @@ class ApplicationViewModel extends ChangeNotifier {
     return (quantity * shoe.price!).toCurrencyFormat();
   }
 
+  double getCartTotalPrice(Shoe shoe) {
+    final quantity = cart[shoe] ?? 1;
+    return quantity * shoe.price!;
+  }
+
   Future<void> getMyCart() async {
     try {
       user = await sharedPreference.getUser();

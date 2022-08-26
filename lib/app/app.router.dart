@@ -108,8 +108,11 @@ class StackedRouter extends RouterBase {
       );
     },
     CheckoutPageView: (data) {
+      var args = data.getArgs<CheckoutPageViewArguments>(
+        orElse: () => CheckoutPageViewArguments(),
+      );
       return buildAdaptivePageRoute<dynamic>(
-        builder: (context) => const CheckoutPageView(),
+        builder: (context) => CheckoutPageView(key: args.key),
         settings: data,
       );
     },
@@ -150,4 +153,10 @@ class AddShoeViewArguments {
 class LoginRegisterArguments {
   final Key? key;
   LoginRegisterArguments({this.key});
+}
+
+/// CheckoutPageView arguments holder class
+class CheckoutPageViewArguments {
+  final Key? key;
+  CheckoutPageViewArguments({this.key});
 }

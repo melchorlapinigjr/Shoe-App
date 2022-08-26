@@ -1,36 +1,20 @@
+import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_shoe_app/views/check_out_page/checkout_item_view.dart';
 import 'package:flutter_shoe_app/views/check_out_page/checkout_page_view_model.dart';
-import 'package:flutter_shoe_app/views/check_out_page/show_checkout_item_view.dart';
 import 'package:stacked/stacked.dart';
-import 'package:country_list_pick/country_list_pick.dart';
 
-class CheckoutPageView extends StatefulWidget {
-  const CheckoutPageView({Key? key}) : super(key: key);
-
-  @override
-  State<CheckoutPageView> createState() => _CheckoutPageViewState();
-}
-
-class _CheckoutPageViewState extends State<CheckoutPageView> {
+class CheckoutPageView extends StatelessWidget {
+  CheckoutPageView({Key? key}) : super(key: key);
   final formGlobalKey = GlobalKey<FormState>();
-  final numberController = TextEditingController();
-  final _paymentCard = PaymentCard();
-
-  //var _autoValidateMode = AutovalidateMode.disabled;
-
-  @override
-  void initState() {
-    super.initState();
-    _paymentCard.type = CardType.others;
-    numberController.addListener(_getCardTypeFrmNumber);
-  }
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<CheckOutPageViewModel>.reactive(
-        viewModelBuilder: () => CheckOutPageViewModel(),
+    return ViewModelBuilder<CheckoutPageViewModel>.reactive(
+        viewModelBuilder: () => CheckoutPageViewModel(),
         builder: (context, viewModel, child) {
+          viewModel.init();
           return Scaffold(
             appBar: AppBar(
               title: const Text('Payment Information',
@@ -102,7 +86,7 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                       height: 14,
                     ),
                     TextFormField(
-                      controller: numberController,
+                      controller: viewModel.numberController,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
@@ -114,13 +98,11 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         filled: true,
-                        icon: CardUtils.getCardIcon(_paymentCard.type),
+                        icon: CardUtils.getCardIcon(viewModel.card.type),
                         labelText: "Card Number",
                       ),
                       onSaved: (String? value) {
-                        //print('onSaved = $value');
-                        //print('Num controller has = ${numberController.text}');
-                        _paymentCard.number =
+                        viewModel.card.number =
                             CardUtils.getCleanedNumber(value!);
                       },
                       validator: CardUtils.validateCardNum,
@@ -317,20 +299,39 @@ class _CheckoutPageViewState extends State<CheckoutPageView> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const ShowCheckOutItemView(),
+                    ListView.builder(
+                      primary: false,
+                      shrinkWrap: true,
+                      itemCount: viewModel.applicationViewModel.cart.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final shoe = viewModel.applicationViewModel.cart.keys
+                            .toList()[index];
+                        return CheckoutItemView(shoe: shoe);
+                      },
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          viewModel.checkOutItem();
+                        },
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.green),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ))),
+                        child: const Text(
+                          'Place Order',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ))
                   ],
                 ),
               ),
             ),
           );
         });
-  }
-
-  void _getCardTypeFrmNumber() {
-    String input = CardUtils.getCleanedNumber(numberController.text);
-    CardType cardType = CardUtils.getCardTypeFrmNumber(input);
-    setState(() {
-      _paymentCard.type = cardType;
-    });
   }
 }
