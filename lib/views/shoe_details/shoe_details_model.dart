@@ -131,6 +131,7 @@ class ShoeDetailsModel extends ChangeNotifier {
           rethrow;
         }
       }
+      applicationViewModel.initializeWishlist();
     } catch (e) {
       rethrow;
     }
@@ -144,11 +145,14 @@ class ShoeDetailsModel extends ChangeNotifier {
         await apiService.addToMyCart(CartObject(
             userId: int.parse(user!.id!),
             productId: int.parse(shoe.id.toString())));
-        await applicationViewModel.getMyCart();
+            notifyListeners();
+        applicationViewModel.addToCart(shoe);
         notifyListeners();
       }
     } catch (e) {
       rethrow;
     }
+    await applicationViewModel.getMyCart();
+    notifyListeners();
   }
 }

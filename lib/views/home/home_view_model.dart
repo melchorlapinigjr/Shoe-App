@@ -26,10 +26,14 @@ class HomeViewModel extends ChangeNotifier {
 
   //values for each shoe card
   List<Shoe> items = [];
-
   List<Shoe> itemsByCategory = [];
-
   String selectedCategory = "All";
+
+  //bottom navbar switching
+  bool isHome = false;
+  bool isWishlist = false;
+  bool isCart = false;
+  bool isProfile = false;
 
   Future<void> getShoes() async {
     if (items != null) {
@@ -79,24 +83,13 @@ class HomeViewModel extends ChangeNotifier {
     getShoesByCategory(selectedCategory);
     stackIndex = 0;
     isHomeTrue();
-    applicationViewModel.getMyLikes();
     applicationViewModel.getMyCart();
     await getColors(items);
   }
 
-  Future<void> initializeWishlist() async {
-    await getShoes();
-    getShoesByCategory(selectedCategory);
-    stackIndex = 2;
-    isWishlistTrue();
-    await getColors(items);
-  }
-
   Future<void> initializeCart() async {
-    await getShoes();
-    getShoesByCategory(selectedCategory);
-    stackIndex = 1;
-    isCartTrue();
+    applicationViewModel.getMyCart();
+    notifyListeners();
   }
 
   Future<void> getColors(List<Shoe> item) async {
@@ -108,12 +101,6 @@ class HomeViewModel extends ChangeNotifier {
     isBusy = false;
     notifyListeners();
   }
-
-  //bottom navbar switching
-  bool isHome = false;
-  bool isWishlist = false;
-  bool isCart = false;
-  bool isProfile = false;
 
   void isHomeTrue() {
     isHome = true;

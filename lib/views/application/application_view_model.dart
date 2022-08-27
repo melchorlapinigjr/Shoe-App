@@ -21,6 +21,8 @@ class ApplicationViewModel extends ChangeNotifier {
   // int = quantity
   Map<Shoe, int> cart = {};
   Map<Shoe, bool> myWishlist = {};
+  //check if resources wishlist page is loaded
+  bool isWishlistInitialized = false;
 
   ///***************BEGIN CART***********************/
   //add shoe to cart
@@ -57,14 +59,19 @@ class ApplicationViewModel extends ChangeNotifier {
       user = await sharedPreference.getUser();
       if (user != null) {
         tempCart.clear();
-        tempCart = await apiService.myCart(user!);
-        cart.clear();
-        Map<Shoe, int> map = {};
-        for (CartObject cartObject in tempCart) {
-          map.addAll({cartObject.shoe as Shoe: cartObject.quantity!});
+        try {
+          tempCart = await apiService.myCart(user!);
+          notifyListeners();
+          cart.clear();
+          Map<Shoe, int> map = {};
+          for (CartObject cartObject in tempCart) {
+            map.addAll({cartObject.shoe as Shoe: cartObject.quantity!});
+          }
+          cart.addAll(map);
+          notifyListeners();
+        } catch (e) {
+          rethrow;
         }
-        cart.addAll(map);
-        notifyListeners();
       }
     } catch (e) {
       rethrow;
@@ -115,6 +122,19 @@ class ApplicationViewModel extends ChangeNotifier {
     } catch (e) {
       rethrow;
     }
+    notifyListeners();
+  }
+
+  Future<void> initializeWishlist() async {
+    isWishlistInitialized = false;
+    notifyListeners();
+    try {
+      await getMyLikes();
+      isWishlistInitialized = true;
+    } catch (e) {
+      rethrow;
+    }
+    isWishlistInitialized = true;
     notifyListeners();
   }
 

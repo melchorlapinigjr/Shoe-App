@@ -146,7 +146,7 @@ class HomepageView extends StatelessWidget {
                               ),
                               child: IconButton(
                                 onPressed: () {
-                                  viewModel.initialize();
+                                  // viewModel.initialize();
                                   viewModel.changeIndex(0);
                                 },
                                 icon: SvgPicture.asset(
@@ -183,8 +183,8 @@ class HomepageView extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.3)),
                               ),
                               child: IconButton(
-                                onPressed: () {
-                                  viewModel.initializeWishlist();
+                                onPressed: () async {
+                                  await applicationViewModel.initializeWishlist();
                                   viewModel.changeIndex(2);
                                 },
                                 icon: SvgPicture.asset(SvgIcons.heartIcon,
@@ -220,7 +220,7 @@ class HomepageView extends StatelessWidget {
                               child: Stack(children: [
                                 IconButton(
                                   onPressed: () {
-                                    viewModel.initializeCart();
+                                    //viewModel.initializeCart();
                                     viewModel.changeIndex(1);
                                   },
                                   icon: SvgPicture.asset(SvgIcons.cartIcon,

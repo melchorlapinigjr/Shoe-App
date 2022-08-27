@@ -15,7 +15,7 @@ class CartPageView extends StatelessWidget {
         onModelReady: (model) => model.getMyCart(),
         viewModelBuilder: () => locator<ApplicationViewModel>(),
         builder: (context, viewModel, child) {
-          return viewModel.cart.isNotEmpty
+          return viewModel.tempCart.isNotEmpty
               ? Container(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                   child: SingleChildScrollView(
@@ -29,8 +29,8 @@ class CartPageView extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: viewModel.cart.length,
                           itemBuilder: (BuildContext context, int index) {
-                            final shoe = viewModel.cart.keys.toList()[index];
                             final cartObject = viewModel.tempCart[index];
+                            final shoe = viewModel.cart.keys.toList()[index];
                             final quantity = viewModel.cart[shoe] ?? 0;
                             return CartItemView(
                               shoe: shoe,
