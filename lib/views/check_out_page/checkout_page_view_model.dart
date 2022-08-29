@@ -58,6 +58,14 @@ class CheckoutPageViewModel extends ChangeNotifier {
     }
   }
 
+  double getTotalCartPrice() {
+    price = 0;
+    applicationViewModel.cart.forEach((key, value) {
+      price += applicationViewModel.getCartTotalPrice(key);
+    });
+    return price ?? 0;
+  }
+
   void getCardTypeFrmNumber() {
     String input = CardUtils.getCleanedNumber(numberController.text);
     notifyListeners();
