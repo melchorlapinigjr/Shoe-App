@@ -1,6 +1,7 @@
 import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
 import 'package:flutter_shoe_app/views/check_out_page/checkout_item_view.dart';
 import 'package:flutter_shoe_app/views/check_out_page/checkout_page_view_model.dart';
@@ -317,36 +318,38 @@ class CheckoutPageView extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    
                     Padding(
-                      padding: const EdgeInsets.only(left :8.0, right:8.0),
+                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                       child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Total Price: ',
-                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Total Price: ',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                        Text(
-                         viewModel.getTotalCartPrice().toCurrencyFormat(),
-                         style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                          Text(
+                            viewModel.getTotalCartPrice().toCurrencyFormat(),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                      ],
-                                      ),
+                        ],
+                      ),
                     ),
-                  const SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
-                        onPressed: () {
-                          viewModel.checkOutItem();
+                        onPressed: () async {
+                          await viewModel.checkOutItem();
+                          await viewModel.applicationViewModel.getMyCart();
+                          await viewModel.applicationViewModel.navigationService
+                              .pushNamed(Routes.MyPurchases);
                         },
                         style: ButtonStyle(
                             backgroundColor:

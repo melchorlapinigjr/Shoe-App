@@ -59,13 +59,8 @@ class ProfilePageView extends StatelessWidget {
                               ),
                             ),
                             InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return const MyPurchasesView();
-                                  }),
-                                );
+                              onTap: () async {
+                                await viewModel.navigationService.pushNamed(Routes.MyPurchases);
                               },
                               child: Stack(
                                 alignment: Alignment.centerLeft,
