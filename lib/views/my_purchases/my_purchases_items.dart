@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
-import 'package:flutter_shoe_app/extensions/double_extension.dart';
 import 'package:flutter_shoe_app/views/my_purchases/my_purchases_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -13,10 +12,12 @@ class MyPurchasesItems extends ViewModelWidget<MyPurchasesViewModel> {
   @override
   Widget build(BuildContext context, MyPurchasesViewModel viewModel) {
     return Container(
-      padding:const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       width: double.infinity,
       child: Row(
+        textBaseline: TextBaseline.alphabetic,
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           ClipRect(
             child: Image.network(
@@ -30,7 +31,7 @@ class MyPurchasesItems extends ViewModelWidget<MyPurchasesViewModel> {
           ),
           Flexible(
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               Text(
                 shoe.name ?? "",
                 style: const TextStyle(
@@ -51,7 +52,7 @@ class MyPurchasesItems extends ViewModelWidget<MyPurchasesViewModel> {
               // ),
               // const SizedBox(height: 4),
               Align(
-                alignment: Alignment.centerRight,
+                alignment: Alignment.bottomRight,
                 child: Text(
                   'x$quantity',
                   style: TextStyle(
@@ -61,7 +62,7 @@ class MyPurchasesItems extends ViewModelWidget<MyPurchasesViewModel> {
               ),
               const SizedBox(height: 4),
               Align(
-                alignment: Alignment.centerRight,
+                alignment: Alignment.bottomRight,
                 child: Text(
                   viewModel.applicationViewModel.getTotalPrice(shoe),
                   style: TextStyle(
