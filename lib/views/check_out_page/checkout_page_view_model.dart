@@ -38,21 +38,17 @@ class CheckoutPageViewModel extends ChangeNotifier {
 
   Future<void> checkOutItem() async {
     productIds.clear();
-    applicationViewModel.cart.forEach((key, value) {
-      productIds.add(key.id!);
-      quantity += value;
-      price += applicationViewModel.getCartTotalPrice(key);
-    });
+    getTotalCartPrice();
+    notifyListeners();
     try {
       await apiService.checkOut(CheckoutObject(
           userId: int.parse(applicationViewModel.user!.id!),
           productId: productIds,
           quantity: quantity,
           totalPrice: price));
+      notifyListeners();
       ScaffoldMessenger.of(Get.context!).showSnackBar(
           const SnackBar(content: Text('Order placed successfully!')));
-      await applicationViewModel.navigationService
-          .popAllAndPushNamed(Routes.HomepageView);
     } catch (e) {
       rethrow;
     }
@@ -60,7 +56,10 @@ class CheckoutPageViewModel extends ChangeNotifier {
 
   double getTotalCartPrice() {
     price = 0;
+    quantity = 0;
     applicationViewModel.cart.forEach((key, value) {
+      productIds.add(key.id!);
+      quantity += value;
       price += applicationViewModel.getCartTotalPrice(key);
     });
     return price ?? 0;

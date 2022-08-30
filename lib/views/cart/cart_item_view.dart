@@ -7,7 +7,6 @@ import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 class CartItemView extends StatelessWidget {
