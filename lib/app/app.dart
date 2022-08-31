@@ -13,11 +13,13 @@ import 'package:flutter_shoe_app/views/login/log_in_view.dart';
 import 'package:flutter_shoe_app/views/my_purchases/my_purchases_view.dart';
 import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
+import 'package:flutter_shoe_app/views/splash_screen/splash_screen_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 @StackedApp(
   routes: [
-    AdaptiveRoute(page: LoginView, name: "LoginView", initial: true),
+    AdaptiveRoute(page: SplashScreen, name: "Splash", initial: true), 
+    AdaptiveRoute(page: LoginView, name: "LoginView"),
     AdaptiveRoute(page: HomepageView, name: "HomepageView"),
     AdaptiveRoute(page: ShoeDetailsView, name: "ShoeDetails"),
     AdaptiveRoute(page: SearchPageView, name: "SearchPageView"),
