@@ -21,9 +21,11 @@ import '../views/login/log_in_view.dart';
 import '../views/my_purchases/my_purchases_view.dart';
 import '../views/search_page/search_page_view.dart';
 import '../views/shoe_details/shoe_details_view.dart';
+import '../views/splash_screen/splash_screen_view.dart';
 
 class Routes {
-  static const String LoginView = '/';
+  static const String Splash = '/';
+  static const String LoginView = '/login-view';
   static const String HomepageView = '/homepage-view';
   static const String ShoeDetails = '/shoe-details-view';
   static const String SearchPageView = '/search-page-view';
@@ -32,6 +34,7 @@ class Routes {
   static const String Checkout = '/checkout-page-view';
   static const String MyPurchases = '/my-purchases-view';
   static const all = <String>{
+    Splash,
     LoginView,
     HomepageView,
     ShoeDetails,
@@ -47,6 +50,7 @@ class StackedRouter extends RouterBase {
   @override
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
+    RouteDef(Routes.Splash, page: SplashScreen),
     RouteDef(Routes.LoginView, page: LoginView),
     RouteDef(Routes.HomepageView, page: HomepageView),
     RouteDef(Routes.ShoeDetails, page: ShoeDetailsView),
@@ -59,6 +63,12 @@ class StackedRouter extends RouterBase {
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
+    SplashScreen: (data) {
+      return buildAdaptivePageRoute<dynamic>(
+        builder: (context) => const SplashScreen(),
+        settings: data,
+      );
+    },
     LoginView: (data) {
       return buildAdaptivePageRoute<dynamic>(
         builder: (context) => const LoginView(),
