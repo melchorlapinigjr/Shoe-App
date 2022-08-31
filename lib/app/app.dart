@@ -12,6 +12,7 @@ import 'package:flutter_shoe_app/views/login/log_in_register.dart';
 import 'package:flutter_shoe_app/views/login/log_in_view.dart';
 import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
+import 'package:flutter_shoe_app/views/widgets/network_connectivity.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 @StackedApp(
@@ -23,6 +24,7 @@ import 'package:stacked/stacked_annotations.dart';
     AdaptiveRoute(page: AddShoeView, name: "AddShoeView"),
     AdaptiveRoute(page: LoginRegister, name: "Register"),
     AdaptiveRoute(page: CheckoutPageView, name: "Checkout"),
+    AdaptiveRoute(page: NetworkConnectivity, name: "Network"),
   ],
   dependencies: [
     LazySingleton(classType: SharedPreferenceImpl, asType: SharedPreference),

@@ -8,7 +8,8 @@ class CircularProgress extends StatelessWidget {
       body: Center(
           child: CircularProgressIndicator(
         color: Color(0xff1F2732),
-      )),
+      )
+      ),
     );
   }
 }

@@ -92,7 +92,7 @@ class ProfilePageView extends StatelessWidget {
                               color: Colors.black26,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () { },
                               child: Stack(
                                 alignment: Alignment.centerLeft,
                                 children: [
@@ -118,7 +118,7 @@ class ProfilePageView extends StatelessWidget {
                               color: Colors.black26,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () { },
                               child: Stack(
                                 alignment: Alignment.centerLeft,
                                 children: [

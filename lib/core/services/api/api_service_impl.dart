@@ -7,7 +7,6 @@ import 'package:flutter_shoe_app/core/services/shared_preferrence/shared_prefere
 import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/category_object.dart';
 import 'package:flutter_shoe_app/models/checkout_object.dart';
-
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/utils/constants.dart';
@@ -46,6 +45,7 @@ class ApiServiceImpl extends ApiService {
       return [];
     } catch (e) {
       rethrow;
+      //throw const NetworkConnectivity();
     }
   }
 
@@ -61,6 +61,7 @@ class ApiServiceImpl extends ApiService {
       return [];
     } catch (e) {
       rethrow;
+      //throw const NetworkConnectivity();
     }
   }
 
@@ -76,6 +77,7 @@ class ApiServiceImpl extends ApiService {
       return [];
     } catch (e) {
       rethrow;
+      //throw const NetworkConnectivity();
     }
   }
 
@@ -107,6 +109,7 @@ class ApiServiceImpl extends ApiService {
       }
     } catch (e) {
       rethrow;
+      //throw const NetworkConnectivity();
     }
   }
 
@@ -196,6 +199,7 @@ class ApiServiceImpl extends ApiService {
       return [];
     } catch (e) {
       rethrow;
+      //throw const NetworkConnectivity();
     }
   }
 
@@ -206,6 +210,7 @@ class ApiServiceImpl extends ApiService {
       await dio.post('/removeWishlist', data: body);
     } catch (e) {
       rethrow;
+      //throw const NetworkConnectivity();
     }
   }
 
@@ -217,6 +222,7 @@ class ApiServiceImpl extends ApiService {
       await dio.post('/addwishlist', data: body);
     } catch (e) {
       rethrow;
+      //throw const NetworkConnectivity();
     }
   }
 
@@ -235,6 +241,7 @@ class ApiServiceImpl extends ApiService {
       return [];
     } catch (e) {
       rethrow;
+      //throw const NetworkConnectivity();
     }
   }
 
@@ -244,6 +251,7 @@ class ApiServiceImpl extends ApiService {
       await dio.post('/addtocart', data: cartObject.toJson());
     } catch (e) {
       rethrow;
+      //throw const NetworkConnectivity();
     }
   }
 
@@ -253,6 +261,7 @@ class ApiServiceImpl extends ApiService {
       await dio.post('/subtractquantity', data: cartObject.toJson());
     } catch (e) {
       rethrow;
+      //throw const NetworkConnectivity();
     }
   }
 
@@ -263,6 +272,7 @@ class ApiServiceImpl extends ApiService {
       await dio.post('/checkout', data: checkoutObject.toJson());
     } catch (e){
       rethrow;
+      //throw const NetworkConnectivity();
     }
   }
 }
