@@ -41,16 +41,12 @@ class HomeViewModel extends ChangeNotifier {
       categories.clear();
       categories.add('All');
     }
-    isBusy = true;
-    notifyListeners();
     final shoes = await apiService.getShoes();
     final shoeCategories = await apiService.getShoesCategory();
     items.addAll(shoes);
     for (var s in shoeCategories) {
       categories.add(s.toString().substring(15, s.toString().length - 1));
     }
-    isBusy = false;
-    notifyListeners();
   }
 
   //start shoe horizontal widget//
@@ -59,12 +55,9 @@ class HomeViewModel extends ChangeNotifier {
   Future<void> getShoesByCategory(String category) async {
     itemsLoaded = true;
     itemsByCategory.clear();
-    notifyListeners();
     final shoes = await apiService.getShoesByCategory(category);
     itemsByCategory.addAll(shoes);
-    for (Shoe s in itemsByCategory) {
-      s.paletteColor = await PaletteUtils.getColorFromImage(s.images![0]);
-    }
+    await getColors(itemsByCategory);
     itemsLoaded = false;
     notifyListeners();
   }
@@ -79,12 +72,16 @@ class HomeViewModel extends ChangeNotifier {
   bool isBusy = false;
 
   Future<void> initialize() async {
+    isBusy = true;
+    notifyListeners();
     await getShoes();
     getShoesByCategory(selectedCategory);
     stackIndex = 0;
     isHomeTrue();
     applicationViewModel.getMyCart();
     await getColors(items);
+    isBusy = false;
+    notifyListeners();
   }
 
   Future<void> initializeCart() async {
@@ -93,13 +90,9 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<void> getColors(List<Shoe> item) async {
-    isBusy = true;
-    notifyListeners();
     for (Shoe s in item) {
       s.paletteColor = await PaletteUtils.getColorFromImage(s.images![0]);
     }
-    isBusy = false;
-    notifyListeners();
   }
 
   void isHomeTrue() {

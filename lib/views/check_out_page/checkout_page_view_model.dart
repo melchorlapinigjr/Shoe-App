@@ -62,7 +62,7 @@ class CheckoutPageViewModel extends ChangeNotifier {
       quantity += value;
       price += applicationViewModel.getCartTotalPrice(key);
     });
-    return price ?? 0;
+    return price;
   }
 
   void getCardTypeFrmNumber() {
