@@ -14,6 +14,7 @@ import 'package:flutter_shoe_app/views/my_purchases/my_purchases_view.dart';
 import 'package:flutter_shoe_app/views/search_page/search_page_view.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_view.dart';
 import 'package:flutter_shoe_app/views/splash_screen/splash_screen_view.dart';
+import 'package:flutter_shoe_app/views/splash_screen/splash_screen_view_model.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 @StackedApp(
@@ -32,7 +33,8 @@ import 'package:stacked/stacked_annotations.dart';
     LazySingleton(classType: SharedPreferenceImpl, asType: SharedPreference),
     LazySingleton(classType: ApiServiceImpl, asType: ApiService),
     LazySingleton(classType: NavigationServiceImpl, asType: NavigationService),
-    LazySingleton(classType: ApplicationViewModel, asType: ApplicationViewModel)
+    LazySingleton(classType: ApplicationViewModel, asType: ApplicationViewModel),
+     LazySingleton(classType: SplashScreenViewModel, asType: SplashScreenViewModel)
   ],
 )
 class App {}
