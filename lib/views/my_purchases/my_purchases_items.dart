@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/views/my_purchases/my_purchases_view_model.dart';
@@ -20,8 +21,11 @@ class MyPurchasesItems extends ViewModelWidget<MyPurchasesViewModel> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           ClipRect(
-            child: Image.network(
-              shoe.images![0],
+            child: CachedNetworkImage(
+              imageUrl: shoe.images![0],
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
               width: 127.93,
               fit: BoxFit.fitWidth,
             ),

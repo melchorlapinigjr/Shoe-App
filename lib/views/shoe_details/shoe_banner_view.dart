@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 
@@ -27,11 +28,13 @@ class ShoeBannerView extends StatelessWidget {
         child: Stack(children: [
           Align(
             alignment: Alignment.center,
-            child: Image.network(
-              shoe.images![0], 
-              width: 256.21, 
-              height: 141.67
-              ),
+            child: CachedNetworkImage(
+                imageUrl: shoe.images![0],
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                width: 256.21,
+                height: 141.67),
           ),
         ]),
       ),
