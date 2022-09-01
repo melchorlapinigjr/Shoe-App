@@ -8,20 +8,22 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SplashScreenViewModel>.reactive(
-      viewModelBuilder: () => SplashScreenViewModel(),
-      onModelReady: (model) => model.init(),
-      builder: (context, viewModel, child) {
-        return Scaffold(
-          body: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset('lib/resources/assets/images/app_logo.png'),
-              ],
+        disposeViewModel: false,
+        viewModelBuilder: () => SplashScreenViewModel(),
+        onModelReady: (model) => model.init(),
+        //fireOnModelReadyOnce: true,
+        builder: (context, viewModel, child) {
+          viewModel.checkConnectivityState();
+          return Scaffold(
+            body: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset('lib/resources/assets/images/app_logo.png'),
+                ],
+              ),
             ),
-          ),
-        );
-      }
-    );
+          );
+        });
   }
 }
