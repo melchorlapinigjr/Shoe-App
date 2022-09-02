@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
 import 'package:flutter_shoe_app/extensions/double_extension.dart';
@@ -23,8 +24,11 @@ class SearchResultsList extends ViewModelWidget<SearchPageViewModel> {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Row(
           children: <Widget>[
-            Image.network(
-              shoe.images![0],
+            CachedNetworkImage(
+              imageUrl: shoe.images![0],
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
               width: 127.93,
               height: 127.93,
             ),

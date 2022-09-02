@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
@@ -91,10 +92,13 @@ class ShoeHorizontalItem extends StatelessWidget {
             },
             child: Transform.rotate(
               angle: math.pi / 180 * (-30),
-              child: Image.network(
-                  shoe.images![0],
-                  width: 252,
-                ),
+              child: CachedNetworkImage(
+                imageUrl: shoe.images![0],
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                width: 252,
+              ),
             ),
           ),
         ),

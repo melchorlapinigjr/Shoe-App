@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
@@ -43,8 +44,16 @@ class CartItemView extends StatelessWidget {
                   Column(
                     children: [
                       ClipRect(
-                        child: Image.network(
-                          shoe.images![0],
+                        child: CachedNetworkImage(
+                          imageUrl: shoe.images![0],
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  Center(
+                                    child: CircularProgressIndicator(
+                                        value: downloadProgress.progress),
+                                  ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                           width: 127.93,
                           fit: BoxFit.fitWidth,
                         ),
