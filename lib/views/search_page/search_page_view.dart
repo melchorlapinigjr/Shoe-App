@@ -103,7 +103,6 @@ class SearchPageView extends StatelessWidget {
                   : const Center(
                       child: Text(
                       "No shoes found",
-                      style: TextStyle(color: Colors.black),
                     )),
             ),
           );

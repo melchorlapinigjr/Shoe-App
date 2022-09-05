@@ -21,8 +21,7 @@ class MyPurchasesView extends StatelessWidget {
               appBar: AppBar(
                 title: const Text(
                   "My Purchases",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontWeight: FontWeight.w500),
                 ),
                 backgroundColor: Colors.white,
                 elevation: 1,

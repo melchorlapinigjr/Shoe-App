@@ -23,7 +23,7 @@ class AddShoeView extends StatelessWidget with InputValidationMixin {
                 style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.w700,
-                    color: Colors.black),
+                    ),
               ),
               elevation: 0,
               backgroundColor: Colors.white,

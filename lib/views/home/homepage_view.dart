@@ -63,7 +63,6 @@ class HomepageView extends StatelessWidget {
                         fontFamily: 'Avalon',
                         fontSize: 26,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xff1F2732),
                       ),
                     ),
 
@@ -119,7 +118,7 @@ class HomepageView extends StatelessWidget {
                   backgroundColor: Colors.white,
                   bottomNavigationBar: Container(
                     height: 92,
-                    color: Colors.white,
+                    // color: Colors.white,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 8,
@@ -259,7 +258,7 @@ class HomepageView extends StatelessWidget {
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      color: Colors.white,
+                                                          color: Colors.white,
                                                     ),
                                                   )))
                                               : Container();

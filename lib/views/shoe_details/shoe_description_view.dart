@@ -94,7 +94,6 @@ class ShoeDescriptionWidget extends ViewModelWidget<ShoeDetailsModel> {
           viewModel.onState() ? 'Read Less' : 'Read More',
           style: const TextStyle(
               fontFamily: 'Avenir',
-              color: Color(0xFF1F2732),
               height: 2,
               fontWeight: FontWeight.bold),
         ),
@@ -102,9 +101,3 @@ class ShoeDescriptionWidget extends ViewModelWidget<ShoeDetailsModel> {
     ]);
   }
 }
-
-// OutlinedButton.icon(
-// icon: const Icon(Icons.arrow_downward, color: Color(0xFFD50000)),
-// label: const Text('Read More',
-// style: TextStyle(color: Color(0xFF2E7D32))),
-// onPressed: () => viewModel.onTextState())

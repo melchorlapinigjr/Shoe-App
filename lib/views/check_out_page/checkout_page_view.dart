@@ -23,7 +23,7 @@ class CheckoutPageView extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
-                      color: Colors.black)),
+                      )),
               elevation: 0,
               backgroundColor: Colors.white,
               iconTheme: const IconThemeData(

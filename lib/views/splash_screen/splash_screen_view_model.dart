@@ -75,9 +75,6 @@ class SplashScreenViewModel extends BaseViewModel {
                 },
                 child: const Text(
                   'Refresh',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
                 ),
               ),
             ),

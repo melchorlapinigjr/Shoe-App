@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
-import 'package:flutter_shoe_app/views/my_purchases/my_purchases_view.dart';
 import 'package:flutter_shoe_app/views/profile_page/profile_page_view_model.dart';
 import 'package:flutter_shoe_app/views/widgets/circular_%20progress.dart';
 import 'package:stacked/stacked.dart';
@@ -60,7 +59,8 @@ class ProfilePageView extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () async {
-                                await viewModel.navigationService.pushNamed(Routes.MyPurchases);
+                                await viewModel.navigationService
+                                    .pushNamed(Routes.MyPurchases);
                               },
                               child: Stack(
                                 alignment: Alignment.centerLeft,
@@ -108,6 +108,44 @@ class ProfilePageView extends StatelessWidget {
                                   ),
                                 ],
                               ),
+                            ),
+                            const Divider(
+                              color: Colors.black26,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Stack(
+                                  alignment: Alignment.centerLeft,
+                                  children: [
+                                    Row(
+                                      children: const [
+                                        Padding(
+                                          padding: EdgeInsets.all(12),
+                                          child: Icon(
+                                            Icons.nightlight_round,
+                                          ),
+                                        ),
+                                        Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              'Dark Mode',
+                                            )),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Switch(
+                                  activeTrackColor: Colors.white54,
+                                  activeColor: Colors.white,
+                                  inactiveTrackColor: Colors.black38,
+                                  inactiveThumbColor: Colors.black,
+                                  value: viewModel.isDarkMode,
+                                  onChanged: (bool value) {
+                                    viewModel.toggleDarkMode();
+                                  },
+                                ),
+                              ],
                             ),
                             const Divider(
                               color: Colors.black26,

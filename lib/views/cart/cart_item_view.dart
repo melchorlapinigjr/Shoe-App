@@ -81,7 +81,6 @@ class CartItemView extends StatelessWidget {
                                   child: Text(
                                     '-',
                                     style: TextStyle(
-                                      color: Colors.white,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -121,7 +120,6 @@ class CartItemView extends StatelessWidget {
                                   child: Text(
                                     '+',
                                     style: TextStyle(
-                                      color: Colors.white,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
                                     ),

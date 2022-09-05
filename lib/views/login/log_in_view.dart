@@ -147,7 +147,7 @@ class LoginView extends StatelessWidget {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                      ),
                                 )),
                               ),
                             ),
@@ -203,7 +203,6 @@ class LoginView extends StatelessWidget {
                                           'GOOGLE',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
-                                            color: Colors.white,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16,
                                           ),
@@ -241,7 +240,6 @@ class LoginView extends StatelessWidget {
                                     'FACEBOOK',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                     ),
