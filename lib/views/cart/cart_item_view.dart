@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.locator.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/views/application/application_view_model.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
 
 class CartItemView extends StatelessWidget {
@@ -28,7 +28,7 @@ class CartItemView extends StatelessWidget {
     final ApiService apiService = locator<ApiService>();
     return ViewModelBuilder<ApplicationViewModel>.reactive(
         disposeViewModel: false,
-        viewModelBuilder: () => Provider.of<ApplicationViewModel>(context),
+        viewModelBuilder: () => locator<ApplicationViewModel>(),
         builder: (context, viewModel, child) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -37,15 +37,23 @@ class CartItemView extends StatelessWidget {
                 viewModel.navigationService.pushNamed(Routes.ShoeDetails,
                     arguments: ShoeDetailsViewArguments(
                         shoe: shoe,
-                        applicationViewModel: ApplicationViewModel()));
+                        applicationViewModel: locator<ApplicationViewModel>()));
               },
               child: Row(
                 children: <Widget>[
                   Column(
                     children: [
                       ClipRect(
-                        child: Image.network(
-                          shoe.images![0],
+                        child: CachedNetworkImage(
+                          imageUrl: shoe.images![0],
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  Center(
+                                    child: CircularProgressIndicator(
+                                        value: downloadProgress.progress),
+                                  ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                           width: 127.93,
                           fit: BoxFit.fitWidth,
                         ),

@@ -41,6 +41,8 @@ dependencies:
   injectable: ^1.5.3
   google_sign_in: ^5.4.0
   shared_preferences: ^2.0.15
+  connectivity_plus: ^2.3.6+1
+  internet_connection_checker: ^0.0.1+4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,6 +51,9 @@ dependencies:
   image_picker: ^0.8.5+3
   video_player: ^2.4.5
   flutter_login_facebook: ^1.5.0+1
+  country_list_pick: ^1.0.1+6
+  cached_network_image: ^3.2.1
+  flutter_markdown: ^0.6.10+5
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +84,7 @@ flutter:
       - lib/resources/assets/icons/
       - lib/resources/assets/images/
       - lib/resources/assets/icons/
+      - lib/resources/assets/docs/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

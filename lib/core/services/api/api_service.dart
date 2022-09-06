@@ -1,5 +1,6 @@
 import 'package:flutter_shoe_app/models/cart_object.dart';
 import 'package:flutter_shoe_app/models/category_object.dart';
+import 'package:flutter_shoe_app/models/checkout_object.dart';
 import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 
@@ -18,4 +19,5 @@ abstract class ApiService {
   Future<List<CartObject>> myCart(User user);
   Future<void> addToMyCart(CartObject cartObject);
   Future<void> removeFromMyCart(CartObject cartObject);
+  Future<void> checkOut(CheckoutObject checkoutObject);
 }

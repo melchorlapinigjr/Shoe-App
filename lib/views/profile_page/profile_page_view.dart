@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/app/app.router.dart';
+import 'package:flutter_shoe_app/views/profile_page/dialogs/policy.dart';
 import 'package:flutter_shoe_app/views/profile_page/profile_page_view_model.dart';
 import 'package:flutter_shoe_app/views/widgets/circular_%20progress.dart';
 import 'package:stacked/stacked.dart';
@@ -58,6 +59,34 @@ class ProfilePageView extends StatelessWidget {
                               ),
                             ),
                             InkWell(
+                              onTap: () async {
+                                await viewModel.navigationService.pushNamed(Routes.MyPurchases);
+                              },
+                              child: Stack(
+                                alignment: Alignment.centerLeft,
+                                children: [
+                                  Row(
+                                    children: const [
+                                      Padding(
+                                        padding: EdgeInsets.all(12),
+                                        child: Icon(
+                                          Icons.shopping_bag_outlined,
+                                        ),
+                                      ),
+                                      Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            'My Purchases',
+                                          )),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Divider(
+                              color: Colors.black26,
+                            ),
+                            InkWell(
                               onTap: () {},
                               child: Stack(
                                 alignment: Alignment.centerLeft,
@@ -84,7 +113,14 @@ class ProfilePageView extends StatelessWidget {
                               color: Colors.black26,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (builder) {
+                                      return const PrivacyPolicyDialog(
+                                          mdFileName: 'contact_us.md');
+                                    });
+                              },
                               child: Stack(
                                 alignment: Alignment.centerLeft,
                                 children: [
@@ -110,7 +146,14 @@ class ProfilePageView extends StatelessWidget {
                               color: Colors.black26,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (builder) {
+                                      return const PrivacyPolicyDialog(
+                                          mdFileName: 'privacy_policy.md');
+                                    });
+                              },
                               child: Stack(
                                 alignment: Alignment.centerLeft,
                                 children: [
@@ -136,7 +179,15 @@ class ProfilePageView extends StatelessWidget {
                               color: Colors.black26,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (builder) {
+                                      return const PrivacyPolicyDialog(
+                                          mdFileName:
+                                          'terms_and_conditions.md');
+                                    });
+                              },
                               child: Stack(
                                 alignment: Alignment.centerLeft,
                                 children: [
@@ -220,7 +271,8 @@ class ProfilePageView extends StatelessWidget {
                                                   onPressed: () {
                                                     viewModel.sharedPreference
                                                         .logOut();
-                                                        
+                                                    viewModel.navigationService
+                                                        .pop();
                                                     viewModel.navigationService
                                                         .pushReplacementNamed(
                                                             Routes.LoginView);

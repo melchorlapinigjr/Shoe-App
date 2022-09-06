@@ -26,10 +26,14 @@ class HomeViewModel extends ChangeNotifier {
 
   //values for each shoe card
   List<Shoe> items = [];
-
   List<Shoe> itemsByCategory = [];
-
   String selectedCategory = "All";
+
+  //bottom navbar switching
+  bool isHome = false;
+  bool isWishlist = false;
+  bool isCart = false;
+  bool isProfile = false;
 
   Future<void> getShoes() async {
     if (items != null) {
@@ -37,16 +41,12 @@ class HomeViewModel extends ChangeNotifier {
       categories.clear();
       categories.add('All');
     }
-    isBusy = true;
-    notifyListeners();
     final shoes = await apiService.getShoes();
     final shoeCategories = await apiService.getShoesCategory();
     items.addAll(shoes);
     for (var s in shoeCategories) {
       categories.add(s.toString().substring(15, s.toString().length - 1));
     }
-    isBusy = false;
-    notifyListeners();
   }
 
   //start shoe horizontal widget//
@@ -55,12 +55,9 @@ class HomeViewModel extends ChangeNotifier {
   Future<void> getShoesByCategory(String category) async {
     itemsLoaded = true;
     itemsByCategory.clear();
-    notifyListeners();
     final shoes = await apiService.getShoesByCategory(category);
     itemsByCategory.addAll(shoes);
-    for (Shoe s in itemsByCategory) {
-      s.paletteColor = await PaletteUtils.getColorFromImage(s.images![0]);
-    }
+    await getColors(itemsByCategory);
     itemsLoaded = false;
     notifyListeners();
   }
@@ -75,45 +72,28 @@ class HomeViewModel extends ChangeNotifier {
   bool isBusy = false;
 
   Future<void> initialize() async {
+    isBusy = true;
+    notifyListeners();
     await getShoes();
     getShoesByCategory(selectedCategory);
     stackIndex = 0;
     isHomeTrue();
-    applicationViewModel.getMyLikes();
     applicationViewModel.getMyCart();
     await getColors(items);
-  }
-
-  Future<void> initializeWishlist() async {
-    await getShoes();
-    getShoesByCategory(selectedCategory);
-    stackIndex = 2;
-    isWishlistTrue();
-    await getColors(items);
-  }
-
-  Future<void> initializeCart() async {
-    await getShoes();
-    getShoesByCategory(selectedCategory);
-    stackIndex = 1;
-    isCartTrue();
-  }
-
-  Future<void> getColors(List<Shoe> item) async {
-    isBusy = true;
-    notifyListeners();
-    for (Shoe s in item) {
-      s.paletteColor = await PaletteUtils.getColorFromImage(s.images![0]);
-    }
     isBusy = false;
     notifyListeners();
   }
 
-  //bottom navbar switching
-  bool isHome = false;
-  bool isWishlist = false;
-  bool isCart = false;
-  bool isProfile = false;
+  Future<void> initializeCart() async {
+    applicationViewModel.getMyCart();
+    notifyListeners();
+  }
+
+  Future<void> getColors(List<Shoe> item) async {
+    for (Shoe s in item) {
+      s.paletteColor = await PaletteUtils.getColorFromImage(s.images![0]);
+    }
+  }
 
   void isHomeTrue() {
     isHome = true;

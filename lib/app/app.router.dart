@@ -14,26 +14,35 @@ import '../models/cart_object.dart';
 import '../models/shoe_object.dart';
 import '../views/add_shoe/add_shoe_view.dart';
 import '../views/application/application_view_model.dart';
+import '../views/check_out_page/checkout_page_view.dart';
 import '../views/home/homepage_view.dart';
 import '../views/login/log_in_register.dart';
 import '../views/login/log_in_view.dart';
+import '../views/my_purchases/my_purchases_view.dart';
 import '../views/search_page/search_page_view.dart';
 import '../views/shoe_details/shoe_details_view.dart';
+import '../views/splash_screen/splash_screen_view.dart';
 
 class Routes {
-  static const String LoginView = '/';
+  static const String Splash = '/';
+  static const String LoginView = '/login-view';
   static const String HomepageView = '/homepage-view';
   static const String ShoeDetails = '/shoe-details-view';
   static const String SearchPageView = '/search-page-view';
   static const String AddShoeView = '/add-shoe-view';
   static const String Register = '/login-register';
+  static const String Checkout = '/checkout-page-view';
+  static const String MyPurchases = '/my-purchases-view';
   static const all = <String>{
+    Splash,
     LoginView,
     HomepageView,
     ShoeDetails,
     SearchPageView,
     AddShoeView,
     Register,
+    Checkout,
+    MyPurchases,
   };
 }
 
@@ -41,16 +50,25 @@ class StackedRouter extends RouterBase {
   @override
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
+    RouteDef(Routes.Splash, page: SplashScreen),
     RouteDef(Routes.LoginView, page: LoginView),
     RouteDef(Routes.HomepageView, page: HomepageView),
     RouteDef(Routes.ShoeDetails, page: ShoeDetailsView),
     RouteDef(Routes.SearchPageView, page: SearchPageView),
     RouteDef(Routes.AddShoeView, page: AddShoeView),
     RouteDef(Routes.Register, page: LoginRegister),
+    RouteDef(Routes.Checkout, page: CheckoutPageView),
+    RouteDef(Routes.MyPurchases, page: MyPurchasesView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, StackedRouteFactory>{
+    SplashScreen: (data) {
+      return buildAdaptivePageRoute<dynamic>(
+        builder: (context) => const SplashScreen(),
+        settings: data,
+      );
+    },
     LoginView: (data) {
       return buildAdaptivePageRoute<dynamic>(
         builder: (context) => const LoginView(),
@@ -103,6 +121,21 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    CheckoutPageView: (data) {
+      var args = data.getArgs<CheckoutPageViewArguments>(
+        orElse: () => CheckoutPageViewArguments(),
+      );
+      return buildAdaptivePageRoute<dynamic>(
+        builder: (context) => CheckoutPageView(key: args.key),
+        settings: data,
+      );
+    },
+    MyPurchasesView: (data) {
+      return buildAdaptivePageRoute<dynamic>(
+        builder: (context) => const MyPurchasesView(),
+        settings: data,
+      );
+    },
   };
 }
 
@@ -140,4 +173,10 @@ class AddShoeViewArguments {
 class LoginRegisterArguments {
   final Key? key;
   LoginRegisterArguments({this.key});
+}
+
+/// CheckoutPageView arguments holder class
+class CheckoutPageViewArguments {
+  final Key? key;
+  CheckoutPageViewArguments({this.key});
 }

@@ -25,6 +25,7 @@ class ShoeDetailsView extends StatelessWidget {
     return ViewModelBuilder<ShoeDetailsModel>.reactive(
         viewModelBuilder: () => ShoeDetailsModel(shoe, shoe.isLiked),
         onModelReady: (model) => model.initialize(),
+        disposeViewModel: false,
         builder: (context, viewModel, child) {
           return viewModel.isBusy
               ? const Center(
@@ -103,8 +104,6 @@ class ShoeDetailsView extends StatelessWidget {
                             ))),
                         onPressed: () async {
                           await viewModel.addToMyCart(shoe);
-                          await viewModel.applicationViewModel.getMyCart();
-                          applicationViewModel.addToCart(shoe);
                         },
                         child: const Text('Add to Bag',
                             style: TextStyle(

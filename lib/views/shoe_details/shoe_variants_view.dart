@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shoe_app/views/shoe_details/shoe_details_model.dart';
 import 'package:stacked/stacked.dart';
@@ -9,7 +10,8 @@ class ShoeVariantView extends ViewModelWidget<ShoeDetailsModel> {
 
   @override
   Widget build(BuildContext context, ShoeDetailsModel viewModel) {
-    bool isClicked = viewModel.selected == viewModel.shoeVariants.indexOf(variant);
+    bool isClicked =
+        viewModel.selected == viewModel.shoeVariants.indexOf(variant);
     return InkWell(
       onTap: () {
         viewModel.onVariantSelected(viewModel.shoeVariants.indexOf(variant));
@@ -25,8 +27,12 @@ class ShoeVariantView extends ViewModelWidget<ShoeDetailsModel> {
             width: 2,
           ),
         ),
-        child: Image.network(
-          variant,
+        child: CachedNetworkImage(
+          imageUrl: variant,
+          progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+              child:
+                  Center(child: CircularProgressIndicator(value: downloadProgress.progress))),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
           width: 72,
           height: 90,
         ),
