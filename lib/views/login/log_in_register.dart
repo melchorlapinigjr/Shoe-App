@@ -16,7 +16,8 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
         builder: (context, viewModel, child) {
           return SafeArea(
             child: Scaffold(
-                resizeToAvoidBottomInset: false,
+
+                resizeToAvoidBottomInset: true,
                 body: Form(
                   key: formGlobalKey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
