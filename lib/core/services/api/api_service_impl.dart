@@ -12,6 +12,7 @@ import 'package:flutter_shoe_app/models/shoe_object.dart';
 import 'package:flutter_shoe_app/models/user_object.dart';
 import 'package:flutter_shoe_app/utils/constants.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_shoe_app/views/login/log_in_register.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: ApiService)
@@ -107,6 +108,26 @@ class ApiServiceImpl extends ApiService {
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+  @override
+  Future<void> getLoginRegister(String name, String email, String password) async {
+    final body ={
+      'name': name,
+      'email': email,
+      'password': password
+    };
+    try {
+      final response = await dio.post('/auth/register', data: body );
+      if(response == 200 && response != null){
+        print('success');
+      }
+      else{
+        print('failed');
+      }
+    }catch(e){
+      print(e);
     }
   }
 

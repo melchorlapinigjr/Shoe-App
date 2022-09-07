@@ -16,7 +16,8 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
         builder: (context, viewModel, child) {
           return SafeArea(
             child: Scaffold(
-                resizeToAvoidBottomInset: false,
+
+                resizeToAvoidBottomInset: true,
                 body: Form(
                   key: formGlobalKey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -129,14 +130,8 @@ class LoginRegister extends StatelessWidget with InputValidationMixin {
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
+
                                   ),
-                                  validator: (password) {
-                                    if (isPasswordValid(password!)) {
-                                      return null;
-                                    } else {
-                                      return 'Password must be more than 8 alphanumeric characters';
-                                    }
-                                  },
                                 ),
                                 Container(
                                   padding:
