@@ -21,9 +21,10 @@ void main() {
         canvasColor: Colors.white,
         backgroundColor: Colors.white,
       ),
+      debugShowCheckedModeBanner: false,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
-      title: "Shoe App",
+      title: "Shoee",
       onDispose:() => splashScreenViewModel.disposeStreams(),
     ));
   });
